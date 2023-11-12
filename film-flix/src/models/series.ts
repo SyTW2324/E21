@@ -1,74 +1,66 @@
 import mongoose from "mongoose";
+import Season from "./season";
 
 const Schema = mongoose.Schema;
+
+const allowedPlatforms = ['DisneyPlus', 'Netflix', 'AmazonPrime', 'HBO'];
 
 const seriesSchema = new Schema({
     title: {
         type: String,
         required: true,
-        trim: true,
+        unique: true,
         minlength: 1
     },
     description: {
         type: String,
         required: true,
-        trim: true,
         minlength: 3
     },
     director: {
         type: String,
         required: true,
-        trim: true,
         minlength: 3
     },
     yearStart: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     yearEnd: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     numEpisodes: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     seasons: {
-        type: Array,
-        required: true,
-        trim: true,
-        minlength: 1
+        type: [Season],
+        required: true
     },
     cast: {
-        type: Array,
-        required: true,
-        trim: true,
-        minlength: 1
+        type: [String],
+        required: true
     },
     genre: {
-        type: Array,
+        type: [String],
         required: true,
-        trim: true,
         minlength: 1
     },
     durationAVG: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     rating: {
         type: Number,
         required: true,
-        trim: true
+        min: 0,
+        max: 10
     },
     platform: {
         type: Array,
         required: true,
-        trim: true,
-        minlength: 1
+        enum: allowedPlatforms
     },
 });
 

@@ -6,20 +6,16 @@ const episodeSchema = new Schema({
     title: {
         type: String,
         required: true,
-        trim: true,
         minlength: 1
     },
     description: {
         type: String,
         required: true,
-        trim: true,
-        minlength: 1
+        minlength: 3
     },
     duration: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 1
+        type: Number,
+        required: true
     },
 });
 

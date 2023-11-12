@@ -1,18 +1,16 @@
 import mongoose from "mongoose";
+import Episode from "./episode";
 
 const Schema = mongoose.Schema;
 
 const seasonSchema = new Schema({
     num: {
         type: Number,
-        required: true,
-        trim: true
+        required: true
     },
     episodes: {
-        type: Array,
-        required: true,
-        trim: true,
-        minlength: 1
+        type: [Episode],
+        required: true
     },
 });
 
