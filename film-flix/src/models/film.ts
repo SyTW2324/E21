@@ -1,16 +1,4 @@
-import {Document, Schema, model} from 'mongoose';
-
-export interface IFilm extends Document {
-    title: string;
-    description: string;
-    director: string;
-    year: number;
-    duration: number;
-    cast: string[];
-    genre: string[];
-    rating: number;
-    platform: string[];
-}
+import {Schema, model} from 'mongoose';
 
 const allowedPlatforms = ['DisneyPlus', 'Netflix', 'AmazonPrime', 'HBO'];
 
@@ -60,4 +48,4 @@ const filmSchema = new Schema({
     }
 });
 
-export const Film = model<IFilm>('Film', filmSchema);
+export const Film = model('Film', filmSchema);
