@@ -3,12 +3,6 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const seriesSchema = new Schema({
-    _id: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3
-    },
     title: {
         type: String,
         required: true,

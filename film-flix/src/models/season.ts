@@ -3,12 +3,6 @@ import mongoose from "mongoose";
 const Schema = mongoose.Schema;
 
 const seasonSchema = new Schema({
-    _id: {
-        type: String,
-        required: true,
-        trim: true,
-        minlength: 3
-    },
     num: {
         type: Number,
         required: true,
