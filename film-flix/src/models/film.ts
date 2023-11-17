@@ -48,6 +48,4 @@ const filmSchema = new Schema({
     }
 });
 
-const Film = model('Film', filmSchema);
-
-export default Film;
+export const Film = model('Film', filmSchema);
