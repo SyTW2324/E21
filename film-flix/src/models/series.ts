@@ -1,38 +1,54 @@
-import {Schema, model} from 'mongoose';
+import mongoose from "mongoose";
+import Season from "./season";
+
+const Schema = mongoose.Schema;
 
 const allowedPlatforms = ['DisneyPlus', 'Netflix', 'AmazonPrime', 'HBO'];
 
-const filmSchema = new Schema({
+const seriesSchema = new Schema({
     title: {
         type: String,
         required: true,
         unique: true,
-        minlength: 3
+        minlength: 1
     },
     description: {
         type: String,
         required: true,
-        minlength: 10
+        minlength: 3
     },
     director: {
         type: String,
         required: true,
         minlength: 3
     },
-    year: {
+    yearStart: {
         type: Number,
-        required: true,
+        required: true
     },
-    duration: {
+    yearEnd: {
         type: Number,
+        required: true
+    },
+    numEpisodes: {
+        type: Number,
+        required: true
+    },
+    seasons: {
+        type: [Season],
         required: true
     },
     cast: {
         type: [String],
-        required: true,
+        required: true
     },
     genre: {
         type: [String],
+        required: true,
+        minlength: 1
+    },
+    durationAVG: {
+        type: Number,
         required: true
     },
     rating: {
@@ -42,12 +58,12 @@ const filmSchema = new Schema({
         max: 10
     },
     platform: {
-        type: [String],
+        type: Array,
         required: true,
         enum: allowedPlatforms
-    }
+    },
 });
 
-const Film = model('Film', filmSchema);
+const Series = mongoose.model("Series", seriesSchema);
 
-export default Film;
+export default Series;
