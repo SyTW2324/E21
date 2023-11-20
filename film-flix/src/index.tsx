@@ -7,7 +7,9 @@ const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
 root.render(
-  <React.StrictMode>
+  // StrictMode is a tool for highlighting potential problems in an application. At this case
+  // we are using Tailwind CSS and it has some warnings that we can't fix, so we are disabling
+  // <React.StrictMode>
     <App />
-  </React.StrictMode>
+  // </React.StrictMode>
 );
