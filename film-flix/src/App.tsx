@@ -7,7 +7,6 @@ import SingUP from './pages/SignUp';
 function App() {
   return (
     <div className="App h-full bg-white">
-      <h1>FilmFlix</h1>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
