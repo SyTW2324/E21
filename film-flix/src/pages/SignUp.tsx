@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../index.css";
+import { AtSymbolIcon, LockClosedIcon, UserIcon } from "@heroicons/react/24/outline"
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -20,7 +21,7 @@ export default function SignUp() {
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
-            className="mx-auto h-10 w-auto"
+            className="mx-auto h-24 w-auto"
             src={logo}
             alt="FilmFlix Company"
           />
@@ -39,10 +40,11 @@ export default function SignUp() {
               >
                 Username
               </label>
-              <div className="mt-2">
+              <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
+                <UserIcon color="grey" width={22}/>
                 <input
                   id="username"
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                   type="text"
                   value={username}
                   placeholder="Type your username"
@@ -58,7 +60,8 @@ export default function SignUp() {
               >
                 Email address
               </label>
-              <div className="mt-2">
+              <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
+                <AtSymbolIcon color="grey" width={22}/>
                 <input
                   id="email"
                   name="email"
@@ -66,7 +69,7 @@ export default function SignUp() {
                   autoComplete="email"
                   placeholder="Type your email"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -81,7 +84,8 @@ export default function SignUp() {
                 </label>
                 <div className="text-sm"></div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
+                <LockClosedIcon color="grey" width={22}/>
                 <input
                   id="password"
                   name="password"
@@ -89,7 +93,7 @@ export default function SignUp() {
                   autoComplete="current-password"
                   placeholder="Type your password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -104,7 +108,8 @@ export default function SignUp() {
                 </label>
                 <div className="text-sm"></div>
               </div>
-              <div className="mt-2">
+              <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
+                <LockClosedIcon color="grey" width={22}/>
                 <input
                   id="password repeat"
                   name="password repeat"
@@ -112,7 +117,7 @@ export default function SignUp() {
                   autoComplete="repeat-password"
                   placeholder="Repeat your password"
                   required
-                  className="block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -120,7 +125,7 @@ export default function SignUp() {
             <div>
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="lex w-full justify-center rounded-md bg-sky-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
               </button>

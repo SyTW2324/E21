@@ -8,15 +8,9 @@ dependencies:
   '@apollo/client':
     specifier: ^3.8.7
     version: 3.8.7(graphql@16.8.1)(react-dom@18.2.0)(react@18.2.0)
-<<<<<<< HEAD
-  '@fortawesome/fontawesome-free':
-    specifier: ^6.4.2
-    version: 6.4.2
-=======
   '@heroicons/react':
     specifier: ^2.0.18
     version: 2.0.18(react@18.2.0)
->>>>>>> FilmFlix/dev
   '@tailwindcss/forms':
     specifier: ^0.5.7
     version: 0.5.7(tailwindcss@3.3.5)
@@ -1869,12 +1863,6 @@ packages:
   /@eslint/js@8.53.0:
     resolution: {integrity: sha512-Kn7K8dx/5U6+cT1yEhpX1w4PCSg0M+XyRILPgvwcEBjerFWCwQj5sbr3/VmxqV0JGHCBCzyd6LxypEuehypY1w==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
-    dev: false
-
-  /@fortawesome/fontawesome-free@6.4.2:
-    resolution: {integrity: sha512-m5cPn3e2+FDCOgi1mz0RexTUvvQibBebOUlUlW0+YrMjDTPkiJ6VTKukA1GRsvRw+12KyJndNjj0O4AgTxm2Pg==}
-    engines: {node: '>=6'}
-    requiresBuild: true
     dev: false
 
   /@graphql-typed-document-node/core@3.2.0(graphql@16.8.1):
