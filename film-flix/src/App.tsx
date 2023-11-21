@@ -2,7 +2,8 @@ import React from 'react';
 import './index.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NotFound  from './pages/NotFound';
-import SingUP from './pages/SignUp';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
 
 function App() {
   return (
@@ -11,8 +12,8 @@ function App() {
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="/movies" element={<h1>Movie Details</h1>} />
-          <Route path="/login" element={<h1>Login</h1>} />
-          <Route path="/register" element={<SingUP />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<SignUp />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
