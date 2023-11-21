@@ -1,0 +1,54 @@
+    type Film {
+        title: String!
+        description: String!
+        director: String!
+        year: Int!
+        duration: Int!
+        cast: [String]!
+        genre: [String]!
+        rating: Float!
+        platform: String!
+    }
+
+    type Series {
+        title: String!
+        description: String!
+        director: String!
+        yearStart: Int!
+        yearEnd: Int!
+        numEpisodes: Int!
+        seasons: [Season]!
+        cast: [String]!
+        genre: [String]!
+        durationAVG: Int!
+        rating: Float!
+        platform: [String]!
+    }
+
+    type Season {
+        num: Int!
+        episodes: [Episode]!
+    }
+
+    type Episode {
+        title: String!
+        description: String!
+        duration: Int!
+    }
+
+    type User {
+        username: String!
+        passwordHash: String!
+        email: String!
+        gender: String!
+        favoriteMovies: [Film]!
+        favoriteSeries: [Series]!
+    }
+
+    type Query {
+        allFilms: [Film]!
+        allSeries: [Series]!
+        allUsers: [User]!
+        allEpisodes: [Episode]!
+        allSeasons: [Season]!
+    }
