@@ -10,7 +10,7 @@ export default function Login() {
         <img
           className="mx-auto h-24 w-auto"
           src="/images/Logo.webp"
-          alt="Your Company"
+          alt="FilmFlix Company"
         />
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
           Login
