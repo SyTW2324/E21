@@ -2,6 +2,7 @@
   "name": "film-flix",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "dependencies": {
     "@apollo/client": "^3.8.7",
     "@heroicons/react": "^2.0.18",

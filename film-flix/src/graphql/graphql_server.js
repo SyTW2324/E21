@@ -1,15 +1,15 @@
 // index.js
 import { ApolloServer, gql } from 'apollo-server';
 import { importSchema } from 'graphql-import'; 
-import resolvers from './resolvers';
+import resolvers from './resolvers.js';
 
-const typeDefs = gql(importSchema('./schema.graphql'));
+const typeDefs = gql(importSchema('./src/graphql/schema.graphql'));
 
 const server = new ApolloServer({
   typeDefs,
   resolvers,
 });
 
-server.listen().then(({ url } : any) => {
+server.listen().then(({ url }) => {
   console.log(`Server ready at ${url}`);
 });

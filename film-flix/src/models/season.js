@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Episode from "./episode";
+import episodeSchema from "./episode.js";
 
 const Schema = mongoose.Schema;
 
@@ -9,9 +9,9 @@ const seasonSchema = new Schema({
         required: true
     },
     episodes: {
-        type: [Episode],
+        type: [episodeSchema.schema],
         required: true
-    },
+    }
 });
 
 const Season = mongoose.model("Season", seasonSchema);

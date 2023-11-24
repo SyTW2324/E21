@@ -1,9 +1,9 @@
 // resolvers.js
-import FilmModel from '../models/film';
-import SeriesModel from '../models/series';
-import UserModel from '../models/user';
-import SeasonModel from '../models/season';
-import EpisodeModel from '../models/episode';
+import FilmModel from '../models/film.js';
+import SeriesModel from '../models/series.js';
+import UserModel from '../models/user.js';
+import SeasonModel from '../models/season.js';
+import EpisodeModel from '../models/episode.js';
 
 const resolvers = {
   Query: {

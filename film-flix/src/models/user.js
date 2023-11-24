@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import Film from "./film";
-import Series from "./series";
+import Film from "./film.js";
+import Series from "./series.js";
 
 const Schema = mongoose.Schema;
 
@@ -31,15 +31,15 @@ const userSchema = new Schema({
         minlength: 3
     },
     favoriteMovies: {
-        type: [Film],
+        type: [Film.schema],
         required: true,
         minlength: 3
     },
     favoriteSeries: {
-        type: [Series],
+        type: [Series.schema],
         required: true,
         minlength: 3
-    },
+    }
 });
 
 const User = mongoose.model("User", userSchema);
