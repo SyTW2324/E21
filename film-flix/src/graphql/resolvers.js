@@ -7,11 +7,26 @@ import EpisodeModel from '../models/episode.js';
 
 const resolvers = {
   Query: {
-    allFilms: () => FilmModel.find({}),
-    allSeries: () => SeriesModel.find({}),
-    allUsers: () => UserModel.find({}),
-    allEpisodes: () => EpisodeModel.find({}),
-    allSeasons: () => SeasonModel.find({})
+    allFilms: async () => {
+      const films = await FilmModel.find({});
+      return films;
+    },
+    allSeries: async () => {
+      const series = await SeriesModel.find({});
+      return series;
+    },
+    allUsers: async () => {
+      const users = await UserModel.find({});
+      return users;
+    },
+    allSeasons: async () => {
+      const seasons = await SeasonModel.find({});
+      return seasons;
+    },
+    allEpisodes: async () => {
+      const episodes = await EpisodeModel.find({});
+      return episodes;
+    },
   }
 };
 
