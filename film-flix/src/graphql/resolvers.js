@@ -4,6 +4,7 @@ import SeriesModel from '../models/series.js';
 import UserModel from '../models/user.js';
 import SeasonModel from '../models/season.js';
 import EpisodeModel from '../models/episode.js';
+import { UserInputError } from 'apollo-server';
 
 const resolvers = {
   Query: {
@@ -31,18 +32,36 @@ const resolvers = {
   Mutation: {
     addUser: async (root, args) => {
       const user = new UserModel({...args});
-      await user.save();
-      return user;
+      await user.save().then((user) => {
+        console.log("User saved!");
+        return user;
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
     },
     addFilm: async (root, args) => {
       const film = new FilmModel({...args});
-      await film.save();
-      return film;
+      await film.save().then((film) => {
+        console.log("Film saved!");
+        return film;
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
     },
     addSeries: async (root, args) => {
       const series = new SeriesModel({...args});
-      await series.save();
-      return series;
+      await series.save().then((film) => {
+        console.log("Series saved!")
+        return series;
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      })
     },
     addSeason: async (root, args) => {
       const season = new SeasonModel({...args});
@@ -51,8 +70,14 @@ const resolvers = {
     },
     addEpisode: async (root, args) => {
       const episode = new EpisodeModel({...args});
-      await episode.save();
-      return episode;
+      await episode.save().then((film) => {
+        console.log("Series saved!")
+        return episode;
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      })
     },
     deleteFilm: async (root, args) => {
       const film = await FilmModel.findOneAndDelete({title: args.title});
