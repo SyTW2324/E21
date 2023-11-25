@@ -32,12 +32,10 @@ const userSchema = new Schema({
     },
     favoriteMovies: {
         type: [Film.schema],
-        required: true,
         minlength: 3
     },
     favoriteSeries: {
         type: [Series.schema],
-        required: true,
         minlength: 3
     }
 });

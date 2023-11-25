@@ -89,8 +89,8 @@ input UserInput {
     passwordHash: String!
     email: String!
     gender: String!
-    favoriteMovies: [FilmInput]!
-    favoriteSeries: [SeriesInput]!
+    favoriteMovies: [FilmInput]
+    favoriteSeries: [SeriesInput]
 }
 
 type Query {
