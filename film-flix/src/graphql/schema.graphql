@@ -39,6 +39,7 @@ type Episode {
 type User {
     username: String!
     passwordHash: String!
+    name: String!
     email: String!
     gender: String!
     favoriteMovies: [Film]!
@@ -83,16 +84,6 @@ input EpisodeInput {
     duration: Int!
 }
 
-input UserInput {
-    username: String!
-    name: String!
-    passwordHash: String!
-    email: String!
-    gender: String!
-    favoriteMovies: [FilmInput]
-    favoriteSeries: [SeriesInput]
-}
-
 type Query {
     allFilms: [Film]!
     allSeries: [Series]!
@@ -102,5 +93,13 @@ type Query {
 }
 
 type Mutation {
-    addUser(UserInput: UserInput!): User!
+    addUser(
+        username: String!,
+        name: String!,
+        passwordHash: String!,
+        email: String!,
+        gender: String!,
+        favoriteMovies: [FilmInput],
+        favoriteSeries: [SeriesInput]
+    ): User
 }
