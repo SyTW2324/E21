@@ -27,6 +27,13 @@ const resolvers = {
       const episodes = await EpisodeModel.find({});
       return episodes;
     },
+  },
+  Mutation: {
+    addUser: async (root, args) => {
+      const user = new UserModel({...args});
+      await user.save();
+      return user;
+    }
   }
 };
 
