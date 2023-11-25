@@ -65,8 +65,14 @@ const resolvers = {
     },
     addSeason: async (root, args) => {
       const season = new SeasonModel({...args});
-      await season.save();
-      return season;
+      await season.save().then((film) => {
+        console.log("Series saved!")
+        return season;
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      })
     },
     addEpisode: async (root, args) => {
       const episode = new EpisodeModel({...args});
@@ -80,44 +86,89 @@ const resolvers = {
       })
     },
     deleteFilm: async (root, args) => {
-      const film = await FilmModel.findOneAndDelete({title: args.title});
+      const film = await FilmModel.findOneAndDelete(
+        {title: args.title}
+      );
       return film;
     },
     deleteSeries: async (root, args) => {
-      const series = await SeriesModel.findOneAndDelete({title: args.title});
+      const series = await SeriesModel.findOneAndDelete(
+        {title: args.title}
+      );
       return series;
     },
     deleteSeason: async (root, args) => {
-      const season = await SeasonModel.findOneAndDelete({title: args.num});
+      const season = await SeasonModel.findOneAndDelete(
+        {title: args.num}
+      );
       return season;
     },
     deleteEpisode: async (root, args) => {
-      const episode = await EpisodeModel.findOneAndDelete({title: args.title});
+      const episode = await EpisodeModel.findOneAndDelete(
+        {title: args.title}
+      );
       return episode;
     },
     deleteUser: async (root, args) => {
-      const user = await UserModel.findOneAndDelete({username: args.username});
+      const user = await UserModel.findOneAndDelete(
+        {username: args.username}
+      );
       return user;
     },
     updateFilm: async (root, args) => {
-      const film = await FilmModel.findOneAndUpdate({title: args.title}, {...args});
+      const film = await FilmModel.findOneAndUpdate(
+        {title: args.title}, 
+        {...args}, 
+        {new: true}
+      );
       return film;
     },
     updateUser: async (root, args) => {
-      const user = await UserModel.findOneAndUpdate({username: args.username}, {...args});
+      const user = await UserModel.findOneAndUpdate(
+        {username: args.username}, 
+        {...args}, 
+        {new: true}
+      );
       return user;
     },
     updateSeries: async (root, args) => {
-      const series = await SeriesModel.findOneAndUpdate({title: args.title}, {...args});
+      const series = await SeriesModel.findOneAndUpdate(
+        {title: args.title}, 
+        {...args}, 
+        {new: true}
+      );
       return series;
     },
     updateSeason: async (root, args) => {
-      const season = await SeasonModel.findOneAndUpdate({num: args.num}, {...args});
+      const season = await SeasonModel.findOneAndUpdate(
+        {num: args.num}, 
+        {...args}, 
+        {new: true}
+      );
       return season;
     },
     updateEpisode: async (root, args) => {
-      const episode = await EpisodeModel.findOneAndUpdate({title: args.title}, {...args});
+      const episode = await EpisodeModel.findOneAndUpdate(
+        {title: args.title}, 
+        {...args}, 
+        {new: true}
+      );
       return episode;
+    },
+    addFavoriteMovie: async (root, args) => {
+      const user = await UserModel.findOneAndUpdate(
+        {username: args.username}, 
+        {$push: {favoriteMovies: args.film}}, 
+        {new: true}
+      );
+      return user;
+    },
+    addFavoriteSeries: async (root, args) => {
+      const user = await UserModel.findOneAndUpdate(
+        {username: args.username}, 
+        {$push: {favoriteSeries: args.series}}, 
+        {new: true});
+      return user;
     }
   }
 };
