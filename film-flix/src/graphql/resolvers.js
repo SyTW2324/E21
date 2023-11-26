@@ -31,6 +31,12 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (root, args) => {
+      const existingUser = await UserModel.findOne({ username: args.username });
+      if (existingUser) {
+        throw new UserInputError("Username already exists", {
+          invalidArgs: args.username
+        });
+      }
       const user = new UserModel({...args});
       await user.save().then((user) => {
         console.log("User saved!");
@@ -42,6 +48,12 @@ const resolvers = {
       return user;
     },
     addFilm: async (root, args) => {
+      const existingFilm = await FilmModel.findOne({ title: args.title });
+      if (existingFilm) {
+        throw new UserInputError("Film already exists", {
+          invalidArgs: args.title
+        });
+      }
       const film = new FilmModel({...args});
       await film.save().then((film) => {
         console.log("Film saved!");
@@ -53,6 +65,12 @@ const resolvers = {
       return film;
     },
     addSeries: async (root, args) => {
+      const existingSeries = await SeriesModel.findOne({ title: args.title });
+      if (existingSeries) {
+        throw new UserInputError("Series already exists", {
+          invalidArgs: args.title
+        });
+      }
       const series = new SeriesModel({...args});
       await series.save().then((film) => {
         console.log("Series saved!")
@@ -64,6 +82,12 @@ const resolvers = {
       return series;
     },
     addSeason: async (root, args) => {
+      const existingSeason = await SeasonModel.findOne({ num: args.num });
+      if (existingSeason) {
+        throw new UserInputError("Season already exists", {
+          invalidArgs: args.num
+        });
+      }
       const season = new SeasonModel({...args});
       await season.save().then((film) => {
         console.log("Season saved!")
@@ -75,6 +99,12 @@ const resolvers = {
       return season;
     },
     addEpisode: async (root, args) => {
+      const existingEpisode = await EpisodeModel.findOne({ title: args.title });
+      if (existingEpisode) {
+        throw new UserInputError("Episode already exists", {
+          invalidArgs: args.title
+        });
+      }
       const episode = new EpisodeModel({...args});
       await episode.save().then((film) => {
         console.log("Episode saved!")
@@ -86,88 +116,296 @@ const resolvers = {
       return episode;
     },
     deleteFilm: async (root, args) => {
+      const find = await FilmModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Film not found", {
+          invalidArgs: args.title
+        });
+      }
+
       const film = await FilmModel.findOneAndDelete(
         {title: args.title}
-      );
+      ).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return film;
     },
     deleteSeries: async (root, args) => {
+      const find = await SeriesModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Series not found", {
+          invalidArgs: args.title
+        });
+      }
+
       const series = await SeriesModel.findOneAndDelete(
         {title: args.title}
-      );
+      ).then(() => {
+        console.log("Series deleted!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return series;
     },
     deleteSeason: async (root, args) => {
+      const find = await SeasonModel.findOne({num: args.num});
+
+      if (!find) {
+        throw new UserInputError("Season not found", {
+          invalidArgs: args.num
+        });
+      }
+
       const season = await SeasonModel.findOneAndDelete(
         {title: args.num}
-      );
+      ).then(() => {
+        console.log("Season deleted!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return season;
     },
     deleteEpisode: async (root, args) => {
+      const find = await EpisodeModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Episode not found", {
+          invalidArgs: args.title
+        });
+      }
+
       const episode = await EpisodeModel.findOneAndDelete(
         {title: args.title}
-      );
+      ).then(() => {
+        console.log("Episode deleted!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return episode;
     },
     deleteUser: async (root, args) => {
+      const find = await UserModel.findOne({username: args.username});
+
+      if (!find) {
+        throw new UserInputError("User not found", {
+          invalidArgs: args.username
+        });
+      }
+
       const user = await UserModel.findOneAndDelete(
         {username: args.username}
-      );
+      ).then(() => {
+        console.log("User deleted!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return user;
     },
     updateFilm: async (root, args) => {
+      const find = await FilmModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Film not found", {
+          invalidArgs: args.title
+        });
+      }
+
       const film = await FilmModel.findOneAndUpdate(
         {title: args.title}, 
         {...args}, 
         {new: true}
-      );
+      ).then(() => {
+        console.log("Film updated!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return film;
     },
     updateUser: async (root, args) => {
+      const find = await UserModel.findOne({username: args.username});
+
+      if (!find) {
+        throw new UserInputError("User not found", {
+          invalidArgs: args.username
+        });
+      }
+
       const user = await UserModel.findOneAndUpdate(
         {username: args.username}, 
         {...args}, 
         {new: true}
-      );
+      ).then(() => {
+        console.log("User updated!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return user;
     },
     updateSeries: async (root, args) => {
+      const find = await SeriesModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Series not found", {
+          invalidArgs: args.title
+        });
+      }
+
       const series = await SeriesModel.findOneAndUpdate(
         {title: args.title}, 
         {...args}, 
         {new: true}
-      );
+      ).then(() => {
+        console.log("Series updated!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return series;
     },
     updateSeason: async (root, args) => {
+      const find = await SeasonModel.findOne({num: args.num});
+
+      if (!find) {
+        throw new UserInputError("Season not found", {
+          invalidArgs: args.num
+        });
+      }
+
       const season = await SeasonModel.findOneAndUpdate(
         {num: args.num}, 
         {...args}, 
         {new: true}
-      );
+      ).then(() => {
+        console.log("Season updated!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
       return season;
     },
     updateEpisode: async (root, args) => {
+      const find = await EpisodeModel.findOne({title: args.title});
+
+      if (!find) {
+        throw new UserInputError("Episode not found", {
+          invalidArgs: args.title
+        });
+      }
+      
       const episode = await EpisodeModel.findOneAndUpdate(
         {title: args.title}, 
         {...args}, 
         {new: true}
-      );
+      ).then(() => {
+        console.log("Episode updated!")
+      }).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
       return episode;
     },
     addFavoriteMovie: async (root, args) => {
-      const user = await UserModel.findOneAndUpdate(
-        {username: args.username}, 
-        {$push: {favoriteMovies: args.film}}, 
-        {new: true}
-      );
+      const user = await UserModel.findOne(
+        { username: args.username }
+      ).then(() => {
+        console.log("User found!")
+      } ).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
+      // Verificar si 'favoriteMovies' está definido y si la película ya está en el array
+      const movieExists = user.favoriteMovies && user.favoriteMovies.some(movie => movie.title === args.film.title);
+
+      if (movieExists) {
+        throw new UserInputError("Film already exists in favorites", {
+          invalidArgs: args.film.title
+        });
+      } else {
+        user.favoriteMovies = [];
+
+        // Agregar la película al array si no existe
+        user.favoriteMovies.push(args.film);
+
+        // Guardar los cambios en la base de datos
+        await user.save()
+          .then(() => {
+            console.log("Film added!");
+          })
+          .catch((error) => {
+            throw new UserInputError(error.message, {
+              invalidArgs: args
+            });
+          });
+      }
+
       return user;
     },
     addFavoriteSeries: async (root, args) => {
-      const user = await UserModel.findOneAndUpdate(
-        {username: args.username}, 
-        {$push: {favoriteSeries: args.series}}, 
-        {new: true});
+      const user = await UserModel.findOne(
+        { username: args.username }
+      ).then(() => {
+        console.log("User found!")
+      } ).catch((error) => {
+        throw new UserInputError(error.message, {
+          invalidArgs: args
+        });
+      });
+
+      // Verificar si 'favoriteMovies' está definido y si la película ya está en el array
+      const seriesExists = user.favoriteSeries && user.favoriteSeries.some(series => series.title === args.series.title);
+
+      if (seriesExists) {
+        throw new UserInputError("Series already exists in favorites", {
+          invalidArgs: args.series.title
+        });
+      } else {
+        user.favoriteSeries = [];
+
+        // Agregar la película al array si no existe
+        user.favoriteSeries.push(args.series);
+
+        // Guardar los cambios en la base de datos
+        await user.save()
+          .then(() => {
+            console.log("Series added!");
+          })
+          .catch((error) => {
+            throw new UserInputError(error.message, {
+              invalidArgs: args
+            });
+          });
+      }
+
       return user;
     }
   }

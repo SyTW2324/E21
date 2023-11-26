@@ -22,7 +22,7 @@ type Series {
     seasons: [Season]!
     cast: [String]!
     genre: [String]!
-    durationAvg: Int!
+    durationAVG: Int!
     rating: Float!
     platform: [String]!
 }
