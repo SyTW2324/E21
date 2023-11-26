@@ -27,6 +27,26 @@ const resolvers = {
     allEpisodes: async () => {
       const episodes = await EpisodeModel.find({});
       return episodes;
+    },
+    findFilm: async (root, args) => {
+      const film = await FilmModel.findOne({title: args.title});
+      return film;
+    },
+    findSeries: async (root, args) => {
+      const series = await SeriesModel.findOne({title: args.title});
+      return series;
+    },
+    findSeason: async (root, args) => {
+      const season = await SeasonModel.findOne({num: args.num});
+      return season;
+    },
+    findEpisode: async (root, args) => {
+      const episode = await EpisodeModel.findOne({title: args.title});
+      return episode;
+    },
+    findUser: async (root, args) => {
+      const user = await UserModel.findOne({username: args.username});
+      return user; 
     }
   },
   Mutation: {

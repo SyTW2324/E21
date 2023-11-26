@@ -99,6 +99,11 @@ type Query {
     allUsers: [User]!
     allEpisodes: [Episode]!
     allSeasons: [Season]!
+    findFilm(title: String!): Film
+    findSeries(title: String!): Series
+    findUser(username: String!): User
+    findEpisode(title: String!): Episode
+    findSeason(num: Int!): Season
 }
 
 type Mutation {
