@@ -317,7 +317,7 @@ const resolvers = {
           invalidArgs: args.title
         });
       }
-      
+
       const episode = await EpisodeModel.findOneAndUpdate(
         {title: args.title}, 
         {...args}, 
@@ -333,15 +333,13 @@ const resolvers = {
       return episode;
     },
     addFavoriteMovie: async (root, args) => {
-      const user = await UserModel.findOne(
-        { username: args.username }
-      ).then(() => {
-        console.log("User found!")
-      } ).catch((error) => {
-        throw new UserInputError(error.message, {
-          invalidArgs: args
+      const user = await UserModel.findOne({ username: args.username })
+
+      if (!user) {
+        throw new UserInputError("User not found", {
+          invalidArgs: args.username
         });
-      });
+      }
 
       // Verificar si 'favoriteMovies' está definido y si la película ya está en el array
       const movieExists = user.favoriteMovies && user.favoriteMovies.some(movie => movie.title === args.film.title);
@@ -371,15 +369,13 @@ const resolvers = {
       return user;
     },
     addFavoriteSeries: async (root, args) => {
-      const user = await UserModel.findOne(
-        { username: args.username }
-      ).then(() => {
-        console.log("User found!")
-      } ).catch((error) => {
-        throw new UserInputError(error.message, {
-          invalidArgs: args
+      const user = await UserModel.findOne({ username: args.username })
+
+      if (!user) {
+        throw new UserInputError("User not found", {
+          invalidArgs: args.username
         });
-      });
+      }
 
       // Verificar si 'favoriteMovies' está definido y si la película ya está en el array
       const seriesExists = user.favoriteSeries && user.favoriteSeries.some(series => series.title === args.series.title);
