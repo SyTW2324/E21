@@ -34,56 +34,56 @@ const resolvers = {
       const user = new UserModel({...args});
       await user.save().then((user) => {
         console.log("User saved!");
-        return user;
       }).catch((error) => {
         throw new UserInputError(error.message, {
           invalidArgs: args
         });
       });
+      return user;
     },
     addFilm: async (root, args) => {
       const film = new FilmModel({...args});
       await film.save().then((film) => {
         console.log("Film saved!");
-        return film;
       }).catch((error) => {
         throw new UserInputError(error.message, {
           invalidArgs: args
         });
       });
+      return film;
     },
     addSeries: async (root, args) => {
       const series = new SeriesModel({...args});
       await series.save().then((film) => {
         console.log("Series saved!")
-        return series;
       }).catch((error) => {
         throw new UserInputError(error.message, {
           invalidArgs: args
         });
       })
+      return series;
     },
     addSeason: async (root, args) => {
       const season = new SeasonModel({...args});
       await season.save().then((film) => {
-        console.log("Series saved!")
-        return season;
+        console.log("Season saved!")
       }).catch((error) => {
         throw new UserInputError(error.message, {
           invalidArgs: args
         });
       })
+      return season;
     },
     addEpisode: async (root, args) => {
       const episode = new EpisodeModel({...args});
       await episode.save().then((film) => {
-        console.log("Series saved!")
-        return episode;
+        console.log("Episode saved!")
       }).catch((error) => {
         throw new UserInputError(error.message, {
           invalidArgs: args
         });
       })
+      return episode;
     },
     deleteFilm: async (root, args) => {
       const film = await FilmModel.findOneAndDelete(

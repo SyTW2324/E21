@@ -22,7 +22,7 @@ type Series {
     seasons: [Season]!
     cast: [String]!
     genre: [String]!
-    durationAVG: Int!
+    durationAvg: Int!
     rating: Float!
     platform: [String]!
 }
@@ -108,8 +108,8 @@ type Mutation {
         passwordHash: String!,
         email: String!,
         gender: String!,
-        favoriteMovies: [FilmInput],
-        favoriteSeries: [SeriesInput]
+        favoriteMovies: [FilmInput]!,
+        favoriteSeries: [SeriesInput]!
     ): User,
     addFilm(
         title: String!
@@ -211,8 +211,8 @@ type Mutation {
         passwordHash: String!,
         email: String!,
         gender: String!,
-        favoriteMovies: [FilmInput],
-        favoriteSeries: [SeriesInput]
+        favoriteMovies: [FilmInput]!,
+        favoriteSeries: [SeriesInput]!
     ) : User,
     addFavoriteMovie(
         username: String!,
