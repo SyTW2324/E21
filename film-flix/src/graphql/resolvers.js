@@ -89,7 +89,7 @@ const resolvers = {
       };
 
       const token = jwt.sign(userForToken, JWT_SECRET, {
-        expiresIn: '30s'
+        expiresIn: '2h'
       });
 
       return { value: token };
