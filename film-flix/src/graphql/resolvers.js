@@ -5,6 +5,9 @@ import UserModel from '../models/user.js';
 import SeasonModel from '../models/season.js';
 import EpisodeModel from '../models/episode.js';
 import { UserInputError } from 'apollo-server';
+import jwt from 'jsonwebtoken';
+export const JWT_SECRET = 'mysecretkey';
+
 
 const resolvers = {
   Query: {
@@ -47,6 +50,9 @@ const resolvers = {
     findUser: async (root, args) => {
       const user = await UserModel.findOne({username: args.username});
       return user; 
+    },
+    current: (root, args, context) => {
+      return context.currentUser;
     }
   },
   Mutation: {
@@ -65,8 +71,28 @@ const resolvers = {
           invalidArgs: args
         });
       });
+
       return user;
     },
+
+    login: async (root, args) => {
+      const user = await UserModel.findOne({ username: args.username });
+
+      if (!user || args.password !== user.passwordHash) {
+        throw new UserInputError("Wrong credentials");
+      }
+
+      const userForToken = {
+        username: user.username,
+        email: user.email,
+        id: user._id
+      };
+
+      const token = jwt.sign(userForToken, JWT_SECRET);
+
+      return { value: token };
+    },
+
     addFilm: async (root, args) => {
       const existingFilm = await FilmModel.findOne({ title: args.title });
       if (existingFilm) {
