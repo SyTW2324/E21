@@ -16,9 +16,20 @@ const server = new ApolloServer({
     const auth = req ? req.headers.authorization : null;
     if (auth && auth.toLowerCase().startsWith('bearer ')) {
       const token = auth.substring(7);
-      const decodedToken = jwt.verify(token, JWT_SECRET);
-      const currentUser = await User.findById(decodedToken.id);
-      return { currentUser };
+      try {
+        const decoded = jwt.verify(token, JWT_SECRET);
+        const currentUser = await User.findById(decoded.id);
+        return { currentUser };
+        // Token verificado con éxito
+      } catch (error) {
+        if (error.name === 'TokenExpiredError') {
+          throw new Error('El token ha expirado');
+        } else if (error.name === 'JsonWebTokenError') {
+          throw new Error('Error en el token');
+        } else {
+          throw new Error('Error desconocido');
+        }
+      }
     }
   }
 });
