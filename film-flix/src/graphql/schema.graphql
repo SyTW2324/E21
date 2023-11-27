@@ -108,6 +108,7 @@ type Query {
     findUser(username: String!): User
     findEpisode(title: String!): Episode
     findSeason(num: Int!): Season
+    findMyData: User
     current: User
 }
 

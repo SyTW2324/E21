@@ -4,10 +4,9 @@ import SeriesModel from '../models/series.js';
 import UserModel from '../models/user.js';
 import SeasonModel from '../models/season.js';
 import EpisodeModel from '../models/episode.js';
-import { UserInputError } from 'apollo-server';
+import { UserInputError, AuthenticationError } from 'apollo-server';
 import jwt from 'jsonwebtoken';
 export const JWT_SECRET = 'mysecretkey';
-
 
 const resolvers = {
   Query: {
@@ -50,6 +49,15 @@ const resolvers = {
     findUser: async (root, args) => {
       const user = await UserModel.findOne({username: args.username});
       return user; 
+    },
+    findMyData: async (root, args, context) => {
+      const {currentUser} = context;
+      if (!currentUser) {
+        throw new AuthenticationError("Not authenticated");
+      }
+
+      const user = await UserModel.findOne({username: currentUser.username});
+      return user;
     },
     current: (root, args, context) => {
       return context.currentUser;
@@ -380,8 +388,14 @@ const resolvers = {
 
       return episode;
     },
-    addFavoriteMovie: async (root, args) => {
-      const user = await UserModel.findOne({ username: args.username })
+    addFavoriteMovie: async (root, args, context) => {
+      const {currentUser} = context;
+
+      if (!currentUser) {
+        throw new AuthenticationError("Not authenticated");
+      }
+
+      const user = await UserModel.findOne({ username: currentUser.username })
 
       if (!user) {
         throw new UserInputError("User not found", {
@@ -416,7 +430,13 @@ const resolvers = {
 
       return user;
     },
-    addFavoriteSeries: async (root, args) => {
+    addFavoriteSeries: async (root, args, context) => {
+      const {currentUser} = context;
+
+      if (!currentUser) {
+        throw new AuthenticationError("Not authenticated");
+      }
+
       const user = await UserModel.findOne({ username: args.username })
 
       if (!user) {
