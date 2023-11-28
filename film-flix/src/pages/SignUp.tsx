@@ -1,7 +1,8 @@
 import {useState} from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
-import {gql, useMutation} from "@apollo/client";
+import { gql } from "@apollo/client";
+import { useMutation } from "relay-hooks";
 
 const CREATE_USER = gql`
     mutation createUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
