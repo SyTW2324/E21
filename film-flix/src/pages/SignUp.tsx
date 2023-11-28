@@ -1,70 +1,57 @@
 import {useState} from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
-import axios from "axios";
+import { gql, useMutation } from "@apollo/client";
+
+const CREATE_USER = gql`
+    mutation addUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
+        addUser(
+            username: $username,
+            name: $name,
+            passwordHash: $passwordHash,
+            email: $email,
+            gender: $gender,
+            favoriteMovies: $favoriteMovies,
+            favoriteSeries: $favoriteSeries) 
+        {
+            email
+        }
+    }
+`
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [passwordHash, setPasswordHash] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    // Una vez se tienen los datos del formulario necesarios para la base de datos
-    // se hace la petición POST a la API implementada mediante GraphQL
-    // Para ello se utiliza la librería axios
-    // Se hace uso de una función asíncrona que permite hacer la petición POST
-    // a la API y esperar a que esta responda
-    const Register = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-        axios.post("http://localhost:4000", {
-            query: `
-            mutation AddUser(
-                $username: String!,
-                $name: String!,
-                $passwordHash: String!,
-                $email: String!,
-                $gender: String!,
-                $favoriteMovies: [FilmInput]!,
-                $favoriteSeries: [SeriesInput]!
-              ) {
-                addUser(
-                  username: $username,
-                  name: $name,
-                  passwordHash: $passwordHash,
-                  email: $email,
-                  gender: $gender,
-                  favoriteMovies: $favoriteMovies,
-                  favoriteSeries: $favoriteSeries
-                ) {
-                  id
-                  username
-                  email
-                }
-              }
-            `, 
-            variables: {
-                username: username,
-                name: 'NombreCompleto', // Reemplaza con el valor real
-                passwordHash: password, // Reemplaza con el valor real
-                email: email,
-                gender: 'Masculino', // Reemplaza con el valor real
-                favoriteMovies: [], // Reemplaza con el valor real
-                favoriteSeries: [] // Reemplaza con el valor real
-            }
-        })
-        .then((response : any)  => {
-            console.log(response);
-        })
-        .catch((error : any) => {
-            console.log(error);
-        })
-    }
+    const [ addUser ] = useMutation(CREATE_USER);
 
-    // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        const name: string = "name";
+        const gender: string = "gender";
+        const favoriteMovies: any = [];
+        const favoriteSeries: any = [];
+        
+        addUser({ variables: {username, name, passwordHash, email, gender, favoriteMovies, favoriteSeries} });
+        
+        setUsername("");
+        setPasswordHash("");
+        setRepeatPassword("");
+        setEmail("");
+        console.log("Sign Up");
+        console.log(username);
+        console.log(passwordHash);
+        console.log(repeatPassword);
+        console.log(email);
+    };
+
+// De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
     const logo = require("../img/FilmflixLogo.png") as string;
     return (
-        <>
-            <form onSubmit={Register}>
+
+        <form onSubmit={handleSubmit}>
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <img
@@ -77,9 +64,7 @@ export default function SignUp() {
                             Sign Up
                         </h2>
                     </div>
-
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" action="#" method="POST">
                             <div>
                                 <label
                                     htmlFor="username"
@@ -146,8 +131,8 @@ export default function SignUp() {
                                         autoComplete="current-password"
                                         placeholder="Type your password"
                                         required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={passwordHash}
+                                        onChange={(e) => setPasswordHash(e.target.value)}
                                         className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                                     />
                                 </div>
@@ -188,7 +173,7 @@ export default function SignUp() {
                                     Sign up
                                 </button>
                             </div>
-                        </form>
+
 
                         <p className="mt-10 text-center text-sm text-gray-500">
                             You have an account?{" "}
@@ -201,7 +186,7 @@ export default function SignUp() {
                         </p>
                     </div>
                 </div>
-            </form>
-        </>
+        </form>
+
     );
 }

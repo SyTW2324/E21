@@ -2,14 +2,21 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
+import { ApolloClient, HttpLink, InMemoryCache, ApolloProvider } from '@apollo/client';
+
+export const client = new ApolloClient ({
+    link: new HttpLink({
+        uri: 'http://localhost:4000'
+    }),
+    cache: new InMemoryCache()
+})
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 );
+
 root.render(
-  // StrictMode is a tool for highlighting potential problems in an application. At this case
-  // we are using Tailwind CSS and it has some warnings that we can't fix, so we are disabling
-  // <React.StrictMode>
+  <ApolloProvider client={client}>
     <App />
-  // </React.StrictMode>
+  </ApolloProvider>,
 );
