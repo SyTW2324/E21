@@ -1,7 +1,23 @@
 import {useState} from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
-import axios from "axios";
+import {gql, useMutation} from "@apollo/client";
+
+const CREATE_USER = gql`
+    mutation createUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
+        addUser(
+            username: $username,
+            name: $name,
+            passwordHash: $passwordHash,
+            email: $email,
+            gender: $gender,
+            favoriteMovies: $favoriteMovies,
+            favoriteSeries: $favoriteSeries) {
+            username
+            email
+        }
+    }
+`
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
@@ -9,37 +25,32 @@ export default function SignUp() {
     const [repeatPassword, setRepeatPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    // Una vez se tienen los datos del formulario necesarios para la base de datos
-    // se hace la petición POST a la API implementada mediante GraphQL
-    // Para ello se utiliza la librería axios
-    // Se hace uso de una función asíncrona que permite hacer la petición POST
-    // a la API y esperar a que esta responda
-    function Register(e: React.FormEvent<HTMLFormElement>) {
-        e.preventDefault();
-        axios.post("http://localhost:4000/graphql", {
-            query: `
-            mutation {
-                createUser(username: "${username}", email: "${email}", password: "${password}") {
-                username
-                email
-                password
-                }
-            }
-            `
-        })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
-    }
+    const [ createUser ] = useMutation(CREATE_USER);
 
-    // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
+    const handleSubmit = (e: any) => {
+        e.preventDefault();
+        // const name: string = "name";
+        // const gender: string = "gender";
+        // const favoriteMovies: any = [];
+        // const favoriteSeries: any = [];
+        // createUser({ variables: {username, name, password, email, gender, favoriteMovies, favoriteSeries} });
+        //
+        // setUsername("");
+        // setPassword("");
+        // setRepeatPassword("");
+        // setEmail("");
+        console.log("Sign Up");
+        console.log(username);
+        console.log(password);
+        console.log(repeatPassword);
+        console.log(email);
+    };
+
+// De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
     const logo = require("../img/FilmflixLogo.png") as string;
     return (
-        <>
-            <form onSubmit={Register}>
+
+        <form onSubmit={handleSubmit}>
                 <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                     <div className="sm:mx-auto sm:w-full sm:max-w-sm">
                         <img
@@ -52,9 +63,7 @@ export default function SignUp() {
                             Sign Up
                         </h2>
                     </div>
-
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" action="#" method="POST">
                             <div>
                                 <label
                                     htmlFor="username"
@@ -163,7 +172,7 @@ export default function SignUp() {
                                     Sign up
                                 </button>
                             </div>
-                        </form>
+
 
                         <p className="mt-10 text-center text-sm text-gray-500">
                             You have an account?{" "}
@@ -176,7 +185,7 @@ export default function SignUp() {
                         </p>
                     </div>
                 </div>
-            </form>
-        </>
+        </form>
+
     );
 }
