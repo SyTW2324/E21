@@ -1,11 +1,10 @@
 import {useState} from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
-import { gql } from "@apollo/client";
-import { useMutation } from "relay-hooks";
+import { gql, useMutation } from "@apollo/client";
 
 const CREATE_USER = gql`
-    mutation createUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
+    mutation addUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
         addUser(
             username: $username,
             name: $name,
@@ -13,8 +12,8 @@ const CREATE_USER = gql`
             email: $email,
             gender: $gender,
             favoriteMovies: $favoriteMovies,
-            favoriteSeries: $favoriteSeries) {
-            username
+            favoriteSeries: $favoriteSeries) 
+        {
             email
         }
     }
@@ -22,27 +21,28 @@ const CREATE_USER = gql`
 
 export default function SignUp() {
     const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
+    const [passwordHash, setPasswordHash] = useState("");
     const [repeatPassword, setRepeatPassword] = useState("");
     const [email, setEmail] = useState("");
 
-    const [ createUser ] = useMutation(CREATE_USER);
+    const [ addUser ] = useMutation(CREATE_USER);
 
     const handleSubmit = (e: any) => {
         e.preventDefault();
-        // const name: string = "name";
-        // const gender: string = "gender";
-        // const favoriteMovies: any = [];
-        // const favoriteSeries: any = [];
-        // createUser({ variables: {username, name, password, email, gender, favoriteMovies, favoriteSeries} });
-        //
-        // setUsername("");
-        // setPassword("");
-        // setRepeatPassword("");
-        // setEmail("");
+        const name: string = "name";
+        const gender: string = "gender";
+        const favoriteMovies: any = [];
+        const favoriteSeries: any = [];
+        
+        addUser({ variables: {username, name, passwordHash, email, gender, favoriteMovies, favoriteSeries} });
+        
+        setUsername("");
+        setPasswordHash("");
+        setRepeatPassword("");
+        setEmail("");
         console.log("Sign Up");
         console.log(username);
-        console.log(password);
+        console.log(passwordHash);
         console.log(repeatPassword);
         console.log(email);
     };
@@ -131,8 +131,8 @@ export default function SignUp() {
                                         autoComplete="current-password"
                                         placeholder="Type your password"
                                         required
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        value={passwordHash}
+                                        onChange={(e) => setPasswordHash(e.target.value)}
                                         className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                                     />
                                 </div>
