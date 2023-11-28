@@ -16,9 +16,9 @@ const episodeSchema = new Schema({
     duration: {
         type: Number,
         required: true
-    },
+    }
 });
 
-const Episode = mongoose.model("Season", episodeSchema);
+const Episode = mongoose.model("Episode", episodeSchema);
 
 export default Episode;
