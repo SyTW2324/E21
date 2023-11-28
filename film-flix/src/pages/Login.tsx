@@ -1,8 +1,40 @@
 import "../index.css";
 import { Link } from "react-router-dom";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline"
+import { useEffect, useState } from "react";
+import { gql, useMutation } from "@apollo/client";
 
-export default function Login() {
+const LOGIN = gql`
+    mutation login($email: String!, $passwordHash: String!) {
+        login(
+          email: $email, 
+          passwordHash: $passwordHash) 
+        {
+          value
+        }
+    }
+`
+
+export default function Login({setToken} : any) {
+  const [email, setEmail] = useState("");
+  const [passwordHash, setPasswordHash] = useState("");
+
+  const [ login, result ] = useMutation(LOGIN);
+
+  useEffect(() => {
+    if (result.data) {
+      const token = result.data.login.value;
+      setToken(token);
+      localStorage.setItem('token', token);
+    }
+  }, [result.data]);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+
+    login({ variables: {email, passwordHash} });
+  }
+
   return (
     <>
     <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -18,7 +50,7 @@ export default function Login() {
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-6" action="#" method="POST">
+        <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label htmlFor="email" className="block text-sm font-medium leading-6 text-gray-900">
               Email address
@@ -31,6 +63,8 @@ export default function Login() {
                 type="email"
                 autoComplete="email"
                 required
+                value = {email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="email@example.com"
                 className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
@@ -56,6 +90,8 @@ export default function Login() {
                 type="password"
                 autoComplete="current-password"
                 required
+                value = {passwordHash}
+                onChange={(e) => setPasswordHash(e.target.value)}
                 placeholder="• • • • • • • •"
                 className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />

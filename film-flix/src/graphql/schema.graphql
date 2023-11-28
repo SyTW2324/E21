@@ -123,8 +123,8 @@ type Mutation {
         favoriteSeries: [SeriesInput]!
     ): User,
     login(
-        username: String!,
-        password: String!
+        email: String!,
+        passwordHash: String!
     ): Token,
     addFilm(
         title: String!
