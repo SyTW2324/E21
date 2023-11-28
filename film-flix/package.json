@@ -13,6 +13,7 @@
     "@types/react": "^18.2.37",
     "@types/react-dom": "^18.2.15",
     "apollo-server": "^3.13.0",
+    "axios": "^1.6.2",
     "crypto-js": "^4.2.0",
     "graphql": "^16.8.1",
     "graphql-import": "^1.0.2",
@@ -30,7 +31,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "react-scripts start && npm run start:server",
+    "start:server": "node server.js",
     "build": "react-scripts build",
     "test": "jest --config=jest.config.js",
     "test:watch": "jest --config=jest.config.js --watchAll",
