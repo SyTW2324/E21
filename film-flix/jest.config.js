@@ -1,5 +1,5 @@
 // jest.config.js
-module.exports = {
+export default {
     setupFilesAfterEnv: ['./src/setupTests.ts'],
     testEnvironment: 'node',
     roots: ['./src'],
