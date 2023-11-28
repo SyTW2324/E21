@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import Season from "./season";
+import Season from "./season.js";
 
 const Schema = mongoose.Schema;
 
@@ -35,7 +35,7 @@ const seriesSchema = new Schema({
         required: true
     },
     seasons: {
-        type: [Season],
+        type: [Season.schema],
         required: true
     },
     cast: {
@@ -58,10 +58,10 @@ const seriesSchema = new Schema({
         max: 10
     },
     platform: {
-        type: Array,
+        type: [String],
         required: true,
         enum: allowedPlatforms
-    },
+    }
 });
 
 const Series = mongoose.model("Series", seriesSchema);
