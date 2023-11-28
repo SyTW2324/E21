@@ -14,25 +14,50 @@ export default function SignUp() {
     // Para ello se utiliza la librería axios
     // Se hace uso de una función asíncrona que permite hacer la petición POST
     // a la API y esperar a que esta responda
-    function Register(e: React.FormEvent<HTMLFormElement>) {
+    const Register = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        axios.post("http://localhost:4000/graphql", {
+        axios.post("http://localhost:4000", {
             query: `
-            mutation {
-                createUser(username: "${username}", email: "${email}", password: "${password}") {
-                username
-                email
-                password
+            mutation AddUser(
+                $username: String!,
+                $name: String!,
+                $passwordHash: String!,
+                $email: String!,
+                $gender: String!,
+                $favoriteMovies: [FilmInput]!,
+                $favoriteSeries: [SeriesInput]!
+              ) {
+                addUser(
+                  username: $username,
+                  name: $name,
+                  passwordHash: $passwordHash,
+                  email: $email,
+                  gender: $gender,
+                  favoriteMovies: $favoriteMovies,
+                  favoriteSeries: $favoriteSeries
+                ) {
+                  id
+                  username
+                  email
                 }
+              }
+            `, 
+            variables: {
+                username: username,
+                name: 'NombreCompleto', // Reemplaza con el valor real
+                passwordHash: password, // Reemplaza con el valor real
+                email: email,
+                gender: 'Masculino', // Reemplaza con el valor real
+                favoriteMovies: [], // Reemplaza con el valor real
+                favoriteSeries: [] // Reemplaza con el valor real
             }
-            `
         })
-            .then((response) => {
-                console.log(response);
-            })
-            .catch((error) => {
-                console.log(error);
-            })
+        .then((response : any)  => {
+            console.log(response);
+        })
+        .catch((error : any) => {
+            console.log(error);
+        })
     }
 
     // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
