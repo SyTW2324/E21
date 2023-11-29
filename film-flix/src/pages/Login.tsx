@@ -1,5 +1,5 @@
 import "../index.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline"
 import { useEffect, useState } from "react";
 import { gql, useMutation } from "@apollo/client";
@@ -18,9 +18,13 @@ const LOGIN = gql`
 export default function Login({setToken} : any) {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const [ login, result ] = useMutation(LOGIN);
 
+  // De la siguiente manera se puede acceder al token que se ha generado en el servidor
+  // y que se ha almacenado en el localStorage del navegador, para manterner autenticado al usuario
   useEffect(() => {
     if (result.data) {
       const token = result.data.login.value;
@@ -29,10 +33,22 @@ export default function Login({setToken} : any) {
     }
   }, [result.data]);
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    login({ variables: {email, passwordHash} });
+    try {
+      await login({
+        variables: {email, passwordHash}
+      });
+      setRedirect(true);
+    } catch (error) {
+      alert(error);
+      setRedirect(false);
+    }
+
+    if (redirect) {
+      navigate("/");
+    }
   }
 
   return (
@@ -77,7 +93,7 @@ export default function Login({setToken} : any) {
                 Password
               </label>
               <div className="text-sm">
-                <a href="#" className="font-semibold text-sky-800 hover:text-sky-600">
+                <a href="/register" className="font-semibold text-sky-800 hover:text-sky-600">
                   Forgot password?
                 </a>
               </div>
