@@ -2,6 +2,7 @@ import {useState} from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
 import {gql, useMutation} from "@apollo/client";
+import { useNavigate } from "react-router-dom";
 
 const CREATE_USER = gql`
     mutation addUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
@@ -24,58 +25,65 @@ export default function SignUp() {
   const [passwordHash, setPasswordHash] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const [addUser] = useMutation(CREATE_USER);
 
   const handleSubmit = async (e: any) => {
-      e.preventDefault();
-      // Declaración de parámetros que son necesarios para el funcionamiento de GraphQL
-      const name: string = "name";
-      const gender: string = "gender";
-      const favoriteMovies: any = [];
-      const favoriteSeries: any = [];
+    e.preventDefault();
+    // Declaración de parámetros que son necesarios para el funcionamiento de GraphQL
+    const name: string = "name";
+    const gender: string = "gender";
+    const favoriteMovies: any = [];
+    const favoriteSeries: any = [];
 
-      // Comprobación de que las contraseñas coinciden
-      if (passwordHash !== repeatPassword) {
-          alert("Las contraseñas no coinciden, por favor, inténtelo de nuevo");
-          return;
-      }
+    // Comprobación de que las contraseñas coinciden
+    if (passwordHash !== repeatPassword) {
+      alert("Las contraseñas no coinciden, por favor, inténtelo de nuevo");
+      return;
+    }
 
-      // Implementación de una función que permita el control de errores para las situaciones
-      // en las que el usuarios ya existe
-      try {
-          await addUser({
-              variables: {username, name, passwordHash, email, gender, favoriteMovies, favoriteSeries}
-          });
-      } catch (error) {
-          alert(error);
-      }
+    // Implementación de una función que permita el control de errores para las situaciones
+    // en las que el usuarios ya existe
+    try {
+      await addUser({
+        variables: {username, name, passwordHash, email, gender, favoriteMovies, favoriteSeries}
+      });
+      setRedirect(true);
+    } catch (error) {
+      alert(error);
+      setRedirect(false);
+    }
 
-      setUsername("");
-      setPasswordHash("");
-      setRepeatPassword("");
-      setEmail("");
+    if (redirect) {
+      navigate("/");
+    }
 
-
+    setUsername("");
+    setPasswordHash("");
+    setRepeatPassword("");
+    setEmail("");
   };
 
 // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
   const logo = require("../img/FilmflixLogo.png") as string;
   return (
-      <form onSubmit={handleSubmit} className="flex space-y-12">
-        <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-          <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-            <img
-                className="mx-auto h-24 w-auto"
-                src={logo}
-                alt="FilmFlix Company"
-            />
 
-            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-              Sign Up
-            </h2>
-          </div>
-          <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <img
+              className="mx-auto h-24 w-auto"
+              src={logo}
+              alt="FilmFlix Company"
+          />
+
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+            Sign Up
+          </h2>
+        </div>
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                   htmlFor="username"
@@ -184,20 +192,19 @@ export default function SignUp() {
                 Sign up
               </button>
             </div>
+          </form>
 
-
-            <p className="mt-10 text-center text-sm text-gray-500">
-              You have an account?{" "}
-              <a
-                  href="/login"
-                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
-              >
-                Login
-              </a>
-            </p>
-          </div>
+          <p className="mt-10 text-center text-sm text-gray-500">
+            You have an account?{" "}
+            <a
+                href="/login"
+                className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            >
+              Login
+            </a>
+          </p>
         </div>
-      </form>
+      </div>
 
   );
 }
