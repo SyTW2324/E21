@@ -47,7 +47,7 @@ export default function Login({setToken} : any) {
     }
 
     if (redirect) {
-      navigate("/");
+      navigate("/profile");
     }
   }
 

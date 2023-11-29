@@ -18,7 +18,6 @@ const CREATE_USER = gql`
             email
         }
     }
-  }
 `;
 
 export default function SignUp() {
