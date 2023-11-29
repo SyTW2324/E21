@@ -1,24 +1,33 @@
 import {useState} from "react";
 import "../index.css";
-import {AtSymbolIcon, LockClosedIcon, UserIcon} from "@heroicons/react/24/outline";
+import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
 import {gql, useMutation} from "@apollo/client";
-import { useNavigate } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
+import Alert  from "../components/Alert";
 
 const CREATE_USER = gql`
-    mutation addUser($username: String!, $name: String!, $passwordHash: String!, $email: String!, $gender: String!, $favoriteMovies: [FilmInput]!, $favoriteSeries: [SeriesInput]!) {
+    mutation addUser(
+        $username: String!
+        $name: String!
+        $passwordHash: String!
+        $email: String!
+        $gender: String!
+        $favoriteMovies: [FilmInput]!
+        $favoriteSeries: [SeriesInput]!
+    ) {
         addUser(
-            username: $username,
-            name: $name,
-            passwordHash: $passwordHash,
-            email: $email,
-            gender: $gender,
-            favoriteMovies: $favoriteMovies,
-            favoriteSeries: $favoriteSeries)
-        {
+            username: $username
+            name: $name
+            passwordHash: $passwordHash
+            email: $email
+            gender: $gender
+            favoriteMovies: $favoriteMovies
+            favoriteSeries: $favoriteSeries
+        ) {
             email
         }
     }
-`
+`;
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -41,14 +50,21 @@ export default function SignUp() {
     // Comprobación de que las contraseñas coinciden
     if (passwordHash !== repeatPassword) {
       alert("Las contraseñas no coinciden, por favor, inténtelo de nuevo");
-      return;
     }
 
     // Implementación de una función que permita el control de errores para las situaciones
     // en las que el usuarios ya existe
     try {
       await addUser({
-        variables: {username, name, passwordHash, email, gender, favoriteMovies, favoriteSeries}
+        variables: {
+          username,
+          name,
+          passwordHash,
+          email,
+          gender,
+          favoriteMovies,
+          favoriteSeries,
+        },
       });
       setRedirect(true);
     } catch (error) {
@@ -66,10 +82,9 @@ export default function SignUp() {
     setEmail("");
   };
 
-// De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
+  // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
   const logo = require("../img/FilmflixLogo.png") as string;
   return (
-
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -205,6 +220,5 @@ export default function SignUp() {
           </p>
         </div>
       </div>
-
   );
 }
