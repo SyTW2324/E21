@@ -1,26 +1,22 @@
-import { gql } from "apollo-server";
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
-
-// const USER = gql`
-//   query findUser($username: String!) {
-//     findUser(username: $username) {
-//       id
-//       username
-//       email
-//       favoritesMovies
-//       favoritesSeries
-//     }
-//   }
-// `;
+import { useNavigate } from "react-router-dom";
+import { FIND_MY_DATA} from "../utils/queries";
+import { useQuery } from "@apollo/client";
 
 function Profile() {
   const navigate = useNavigate();
+
+  const { loading, error, data } = useQuery(FIND_MY_DATA);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  console.log(data);
+
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-sky-700 dark:text-white">
-          Nombre Usuario
+          {data.findMyData.username}
         </h2>
         <p className="mb-8 lg:mb-16 font-light text-center text-sky-900 dark:text-gray-400 sm:text-xl">
           ¡Bienvenido/a a tu perfil personal! Aquí podrás echar un vistazo a tus
@@ -34,7 +30,7 @@ function Profile() {
               Your ID
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-              123456789
+              {data.findMyData._id}
             </div>
           </div>
           <div>
@@ -44,7 +40,7 @@ function Profile() {
               Your email
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-              example@gmail.com
+            {data.findMyData.email}
             </div>
           </div>
           <div>
@@ -54,7 +50,9 @@ function Profile() {
               Favorites Movies
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-              Your favorites movies
+            {data.findMyData.favoriteMovies.map((movie: any, index: any) => (
+              <div key={index}>{movie.title}</div>
+            ))}
             </div>
           </div>
           <div>
@@ -64,7 +62,9 @@ function Profile() {
               Favorites Series
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-              Your favorites series
+            {data.findMyData.favoriteSeries.map((movie: any, index: any) => (
+              <div key={index}>{movie.title}</div>
+            ))}
             </div>
           </div>
           <button
