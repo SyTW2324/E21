@@ -84,9 +84,9 @@ const resolvers = {
     },
 
     login: async (root, args) => {
-      const user = await UserModel.findOne({ username: args.username });
+      const user = await UserModel.findOne({ email: args.email });
 
-      if (!user || args.password !== user.passwordHash) {
+      if (!user || args.passwordHash !== user.passwordHash) {
         throw new UserInputError("Wrong credentials");
       }
 
