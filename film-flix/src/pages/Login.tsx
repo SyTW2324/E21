@@ -29,6 +29,7 @@ export default function Login({setToken}: any) {
       const token = result.data.login.value;
       setToken(token);
       localStorage.setItem('token', token);
+      console.log(token);
 
       navigate("/profile");
     }
