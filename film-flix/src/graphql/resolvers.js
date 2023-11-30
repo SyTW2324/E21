@@ -65,12 +65,21 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (root, args) => {
-      const existingUser = await UserModel.findOne({ username: args.username });
-      if (existingUser) {
+      const existingUsername = await UserModel.findOne({ username: args.username });
+      const existingEmail = await UserModel.findOne({ email: args.email });
+
+      if (existingUsername) {
         throw new UserInputError("Username already exists", {
           invalidArgs: args.username
         });
       }
+
+      if (existingEmail) {
+        throw new UserInputError("Email already exists", {
+          invalidArgs: args.email
+        });
+      }
+
       const user = new UserModel({...args});
       await user.save().then((user) => {
         console.log("User saved!");
