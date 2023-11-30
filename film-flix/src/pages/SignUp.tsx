@@ -72,14 +72,13 @@ export default function SignUp() {
       setRedirect(false);
     }
 
-    if (redirect) {
-      navigate("/");
-    }
-
     setUsername("");
     setPasswordHash("");
     setRepeatPassword("");
     setEmail("");
+    if (redirect) {
+      navigate("/");
+    }
   };
 
   // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img

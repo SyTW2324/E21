@@ -5,6 +5,7 @@ import NotFound  from './pages/NotFound';
 import SignUp from './pages/SignUp';
 import Login from './pages/Login';
 import { useState } from 'react';
+import Profile from "./pages/Profile";
 
 function App() {
   const [token, setToken] = useState(null);
@@ -19,6 +20,7 @@ function App() {
           <Route path="/register" element={<SignUp />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
+          <Route path={"/profile"} element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>

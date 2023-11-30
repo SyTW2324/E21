@@ -18,7 +18,6 @@ const LOGIN = gql`
 export default function Login({setToken}: any) {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
-  const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
   const [login, result] = useMutation(LOGIN);
@@ -30,6 +29,8 @@ export default function Login({setToken}: any) {
       const token = result.data.login.value;
       setToken(token);
       localStorage.setItem('token', token);
+
+      navigate("/profile");
     }
   });
   // Si se lanza algún error en el JWT,
@@ -42,14 +43,8 @@ export default function Login({setToken}: any) {
       await login({
         variables: {email, passwordHash}
       });
-      setRedirect(true);
     } catch (error) {
       alert(error);
-      setRedirect(false);
-    }
-
-    if (redirect) {
-      navigate("/");
     }
   }
 
