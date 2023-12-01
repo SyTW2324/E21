@@ -1,40 +1,18 @@
 import { useState } from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
 import {useNavigate} from "react-router-dom";
 import Alert  from "../components/Alert";
+import {CREATE_USER} from "../utils/create_user";
 
-const CREATE_USER = gql`
-    mutation addUser(
-        $username: String!
-        $name: String!
-        $passwordHash: String!
-        $email: String!
-        $gender: String!
-        $favoriteMovies: [FilmInput]!
-        $favoriteSeries: [SeriesInput]!
-    ) {
-        addUser(
-            username: $username
-            name: $name
-            passwordHash: $passwordHash
-            email: $email
-            gender: $gender
-            favoriteMovies: $favoriteMovies
-            favoriteSeries: $favoriteSeries
-        ) {
-            email
-        }
-    }
-`;
-
+let error_message: string = "";
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [redirect, setRedirect] = useState(false);
+  const [alertShow, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
   const [addUser] = useMutation(CREATE_USER);
@@ -49,7 +27,7 @@ export default function SignUp() {
 
     // Comprobación de que las contraseñas coinciden
     if (passwordHash !== repeatPassword) {
-      alert("Las contraseñas no coinciden, por favor, inténtelo de nuevo");
+      setShowAlert(true);
     }
 
     // Implementación de una función que permita el control de errores para las situaciones
@@ -66,25 +44,22 @@ export default function SignUp() {
           favoriteSeries,
         },
       });
-      setRedirect(true);
-    } catch (error) {
-      alert(error);
-      setRedirect(false);
+      navigate("/");
+    } catch (error: any) {
+      error_message = error.message;
+      setShowAlert(true);
     }
 
     setUsername("");
     setPasswordHash("");
     setRepeatPassword("");
     setEmail("");
-    if (redirect) {
-      navigate("/");
-    }
   };
 
-  // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img
   const logo = require("../img/FilmflixLogo.png") as string;
   return (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+        {alertShow && <Alert message={error_message}/>}
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
               className="mx-auto h-24 w-auto"
