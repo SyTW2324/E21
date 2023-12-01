@@ -2,40 +2,30 @@ import "../index.css";
 import {Link, useNavigate} from "react-router-dom";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/24/outline"
 import {useEffect, useState} from "react";
-import {gql, useMutation} from "@apollo/client";
+import {useMutation} from "@apollo/client";
+import {LOGIN} from "../utils/login";
+import Alert from "../components/Alert";
 
-const LOGIN = gql`
-    mutation login($email: String!, $passwordHash: String!) {
-        login(
-            email: $email,
-            passwordHash: $passwordHash)
-        {
-            value
-        }
-    }
-`;
-
+var error_message: string = "";
 export default function Login({setToken}: any) {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
+  const [alertShow, setShowAlert] = useState(false);
+
   const navigate = useNavigate();
 
   const [login, result] = useMutation(LOGIN);
 
-  // De la siguiente manera se puede acceder al token que se ha generado en el servidor
-  // y que se ha almacenado en el localStorage del navegador, para manterner autenticado al usuario
   useEffect(() => {
     if (result.data) {
       const token = result.data.login.value;
       setToken(token);
       localStorage.setItem('token', token);
-      
+
       navigate("/profile");
     }
   });
-  // Si se lanza algún error en el JWT,
-  // podría ser un error de la dependencia que acabo de quitar
-  // , [result.data]);
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -43,14 +33,16 @@ export default function Login({setToken}: any) {
       await login({
         variables: {email, passwordHash}
       });
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      error_message = error.message;
+      setShowAlert(true);
     }
   }
 
   return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+          {alertShow && <Alert message={error_message}/>}
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
                 className="mx-auto h-24 w-auto"

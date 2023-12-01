@@ -21,6 +21,7 @@ function App() {
           <Route path="/register" element={<SignUp />} />
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<NotFound />} />
+          <Route path={"/profile"} element={<Profile />} />
         </Routes>
       </BrowserRouter>
     </div>
