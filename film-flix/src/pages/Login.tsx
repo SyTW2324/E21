@@ -1,48 +1,43 @@
 import "../index.css";
 import {Link, useNavigate} from "react-router-dom";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/24/outline"
-import {useEffect, useState} from "react";
-import {gql, useMutation} from "@apollo/client";
+import {useState} from "react";
 
-const LOGIN = gql`
-    mutation login($email: String!, $passwordHash: String!) {
-        login(
-            email: $email,
-            passwordHash: $passwordHash)
-        {
-            value
-        }
-    }
-`;
-
-export default function Login({setToken}: any) {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
   const navigate = useNavigate();
 
-  const [login, result] = useMutation(LOGIN);
 
-  // De la siguiente manera se puede acceder al token que se ha generado en el servidor
-  // y que se ha almacenado en el localStorage del navegador, para manterner autenticado al usuario
-  useEffect(() => {
-    if (result.data) {
-      const token = result.data.login.value;
-      setToken(token);
-      localStorage.setItem('token', token);
-      
-      navigate("/profile");
-    }
-  });
-  // Si se lanza algún error en el JWT,
-  // podría ser un error de la dependencia que acabo de quitar
-  // , [result.data]);
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      await login({
-        variables: {email, passwordHash}
+      const token = await fetch(`http://localhost:3001/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          passwordHash,
+        }),
       });
+
+      if (!token.ok) {
+        throw new Error(`Error en la solicitud: ${token.statusText}`);
+      }
+
+      const tokenJSON = await token.json();
+
+      if (tokenJSON.error) {
+        throw new Error(tokenJSON.error);
+      }
+
+      localStorage.setItem("token", tokenJSON.token);
+
+      navigate("/profile");
+
     } catch (error) {
       alert(error);
     }

@@ -1,33 +1,7 @@
 import { useState } from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
-import {gql, useMutation} from "@apollo/client";
 import {useNavigate} from "react-router-dom";
-import Alert  from "../components/Alert";
-
-const CREATE_USER = gql`
-    mutation addUser(
-        $username: String!
-        $name: String!
-        $passwordHash: String!
-        $email: String!
-        $gender: String!
-        $favoriteMovies: [FilmInput]!
-        $favoriteSeries: [SeriesInput]!
-    ) {
-        addUser(
-            username: $username
-            name: $name
-            passwordHash: $passwordHash
-            email: $email
-            gender: $gender
-            favoriteMovies: $favoriteMovies
-            favoriteSeries: $favoriteSeries
-        ) {
-            email
-        }
-    }
-`;
 
 export default function SignUp() {
   const [username, setUsername] = useState("");
@@ -36,8 +10,6 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
-
-  const [addUser] = useMutation(CREATE_USER);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -55,8 +27,12 @@ export default function SignUp() {
     // Implementación de una función que permita el control de errores para las situaciones
     // en las que el usuarios ya existe
     try {
-      await addUser({
-        variables: {
+      const response = await fetch("http://localhost:3001/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           username,
           name,
           passwordHash,
@@ -64,8 +40,9 @@ export default function SignUp() {
           gender,
           favoriteMovies,
           favoriteSeries,
-        },
-      });
+        }),
+      })
+      console.log(response);
       setRedirect(true);
     } catch (error) {
       alert(error);
@@ -75,11 +52,6 @@ export default function SignUp() {
     if (redirect) {
       navigate("/");
     }
-
-    setUsername("");
-    setPasswordHash("");
-    setRepeatPassword("");
-    setEmail("");
   };
 
   // De la siguiente manera es como se importa una imagen en React que se encuentra dentro del directorio img

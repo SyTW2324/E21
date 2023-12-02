@@ -1,22 +1,57 @@
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { FIND_MY_DATA} from "../utils/queries";
-import { useQuery } from "@apollo/client";
+
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  favoriteMovies: any;
+  favoriteSeries: any;
+};
+
+async function getUser(navigate: any) {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+
+    const response = await fetch("http://localhost:3001/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ?? "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error) {
+    alert(error);
+  }
+}
 
 function Profile() {
   const navigate = useNavigate();
+  const [data, setData] = useState<User>({
+    _id: "",
+    username: "",
+    email: "",
+    favoriteMovies: [],
+    favoriteSeries: [],
+  });
 
-  const { loading, error, data } = useQuery(FIND_MY_DATA);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  console.log(data);
+  useEffect(() => {
+    getUser(navigate).then((data) => setData(data));
+  }, [navigate]);
 
   return (
     <section className="bg-white dark:bg-gray-900">
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-sky-700 dark:text-white">
-          {data.findMyData.username}
+          {data.username}
         </h2>
         <p className="mb-8 lg:mb-16 font-light text-center text-sky-900 dark:text-gray-400 sm:text-xl">
           ¡Bienvenido/a a tu perfil personal! Aquí podrás echar un vistazo a tus
@@ -26,45 +61,49 @@ function Profile() {
           <div>
             <label
               htmlFor="id"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
               Your ID
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-              {data.findMyData._id}
+              {data._id}
             </div>
           </div>
           <div>
             <label
               htmlFor="email"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
               Your email
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-            {data.findMyData.email}
+              {data.email}
             </div>
           </div>
           <div>
             <label
               htmlFor="subject"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
               Favorites Movies
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-            {data.findMyData.favoriteMovies.map((movie: any, index: any) => (
-              <div key={index}>{movie.title}</div>
-            ))}
+              {data.favoriteMovies.map((movie: any, index: any) => (
+                <div key={index}>{movie.title}</div>
+              ))}
             </div>
           </div>
           <div>
             <label
               htmlFor="subject"
-              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+              className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+            >
               Favorites Series
             </label>
             <div className="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg w-full p-2.5">
-            {data.findMyData.favoriteSeries.map((movie: any, index: any) => (
-              <div key={index}>{movie.title}</div>
-            ))}
+              {data.favoriteSeries.map((movie: any, index: any) => (
+                <div key={index}>{movie.title}</div>
+              ))}
             </div>
           </div>
           <button
@@ -73,7 +112,8 @@ function Profile() {
               localStorage.removeItem("token");
               navigate("/login");
             }}
-            className="py-1.5 px-10 text-sm font-medium text-center text-white rounded-lg bg-red-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300">
+            className="py-1.5 px-10 text-sm font-medium text-center text-white rounded-lg bg-red-700 sm:w-fit hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300"
+          >
             Log Out
           </button>
         </div>
