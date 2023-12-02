@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Alert from "../components/Alert";
 
 type User = {
   _id: string;
@@ -9,7 +10,7 @@ type User = {
   favoriteSeries: any;
 };
 
-async function getUser(navigate: any) {
+async function getUser(navigate: any, onErr: (err: string) => void) {
   try {
     const token = localStorage.getItem("token");
     if (!token) {
@@ -28,13 +29,16 @@ async function getUser(navigate: any) {
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
     return await response.json();
-  } catch (error) {
-    alert(error);
+  } catch (error: any) {
+    onErr(error.message);
   }
 }
 
-function Profile() {
+let error_message: string = "";
+
+export default function Profile() {
   const navigate = useNavigate();
+  const [alertShow, setShowAlert] = useState(false);
   const [data, setData] = useState<User>({
     _id: "",
     username: "",
@@ -44,11 +48,15 @@ function Profile() {
   });
 
   useEffect(() => {
-    getUser(navigate).then((data) => setData(data));
+    getUser(navigate, (error) => {
+      error_message = error;
+      setShowAlert(true);
+    }).then((data) => setData(data));
   }, [navigate]);
 
   return (
     <section className="bg-white dark:bg-gray-900">
+      {alertShow && <Alert message={error_message}/>}
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-sky-700 dark:text-white">
           {data.username}
@@ -121,5 +129,3 @@ function Profile() {
     </section>
   );
 }
-
-export default Profile;

@@ -2,10 +2,15 @@ import "../index.css";
 import {Link, useNavigate} from "react-router-dom";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/24/outline"
 import {useState} from "react";
+import Alert from "../components/Alert";
+
+let error_message: string = "";
 
 export default function Login() {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
+  const [alertShow, setShowAlert] = useState(false);
+
   const navigate = useNavigate();
 
 
@@ -38,14 +43,16 @@ export default function Login() {
 
       navigate("/profile");
 
-    } catch (error) {
-      alert(error);
+    } catch (error: any) {
+      error_message = error.message;
+      setShowAlert(true);
     }
   }
 
   return (
       <>
         <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+          {alertShow && <Alert message={error_message}/>}
           <div className="sm:mx-auto sm:w-full sm:max-w-sm">
             <img
                 className="mx-auto h-24 w-auto"
