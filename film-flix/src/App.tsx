@@ -1,7 +1,7 @@
 import './index.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import NotFound  from './pages/not-found/NotFound';
-import SignUp from './pages/sign-up/SignUp';
+import NotFound  from './pages/notFound/NotFound';
+import SignUp from './pages/signUp/SignUp';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
 import Movies from './pages/movies/movies';

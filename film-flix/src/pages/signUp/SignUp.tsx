@@ -2,7 +2,7 @@ import { useState } from "react";
 import "../../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
 import {useNavigate} from "react-router-dom";
-import Alert  from "../../components/Alert";
+import Alert  from "../../components/alert";
 
 let error_message: string = "";
 
