@@ -22,14 +22,16 @@ export default function SignUp() {
     const favoriteMovies: any = [];
     const favoriteSeries: any = [];
 
-    // Comprobación de que las contraseñas coinciden
-    if (passwordHash !== repeatPassword) {
-      setShowAlert(true);
-    }
-
     // Implementación de una función que permita el control de errores para las situaciones
     // en las que el usuarios ya existe
     try {
+    
+      // Comprobación de que las contraseñas coinciden
+      if (passwordHash !== repeatPassword) {
+        setShowAlert(true);
+        throw new Error("Passwords do not match");
+      }
+      
       const response = await fetch("http://localhost:3001/user", {
         method: "PUT",
         headers: {
@@ -45,8 +47,9 @@ export default function SignUp() {
           favoriteSeries,
         }),
       })
+      
       console.log(response);
-      navigate("/");
+      navigate("/login");
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);
@@ -149,7 +152,7 @@ export default function SignUp() {
                     htmlFor="password"
                     className="block text-sm font-medium leading-6 text-gray-900"
                 >
-                  Password
+                  Confirm Password
                 </label>
                 <div className="text-sm"></div>
               </div>
@@ -175,7 +178,7 @@ export default function SignUp() {
                   type="submit"
                   className="lex w-full justify-center rounded-md bg-sky-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
-                Sign up
+                SIGN UP
               </button>
             </div>
           </form>

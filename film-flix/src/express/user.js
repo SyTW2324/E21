@@ -6,32 +6,40 @@ export const JWT_SECRET = 'mysecretkey';
 
 const router = express.Router();
 
+// Ruta para crear un nuevo usuario (REGISTER)
 router.put("/", async (req, res) => {
-  const existingUsername = await UserModel.findOne({
-    username: req.body.username,
-  });
-  const existingEmail = await UserModel.findOne({ email: req.body.email });
+  try {
+    const existingUsername = await UserModel.findOne({ username: req.body.username });
+    const existingEmail = await UserModel.findOne({ email: req.body.email });
 
-  if (existingUsername) {
-    throw new Error("Username already exists");
+    console.log(req.body)
+
+    // Revisar si ya existe un nombre de usuario
+    if (existingUsername) {
+      throw new Error("Username already exists");
+    }
+
+    // Revisar si ya existe un correo electrónico
+    if (existingEmail) {
+      throw new Error("Email already exists");
+    }
+
+    // Crear un nuevo usuario
+    const user = new UserModel({ ...req.body });
+    
+    // Guardar el usuario en la base de datos
+    await user.save();
+    
+    console.log("User saved!");
+    
+    return res.status(200).json({ message: "User saved successfully", user });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).json({ error: error.message });
   }
-
-  if (existingEmail) {
-    throw new Error("Email already exists");
-  }
-
-  const user = new UserModel({ ...req.body });
-  await user
-    .save()
-    .then((user) => {
-      console.log("User saved!");
-    })
-    .catch((error) => {
-      throw new Error(error);
-    });
-  return user;
 });
 
+// Ruta para iniciar sesión (LOGIN)
 router.post("/", async (req, res) => {
   const { email, passwordHash } = req.body;
 
@@ -48,7 +56,7 @@ router.post("/", async (req, res) => {
       username: user.username,
       email: user.email,
       id: user._id,
-    };
+    }; 
   
     const token = jwt.sign(userForToken, JWT_SECRET, {
       expiresIn: "2h",
@@ -66,6 +74,7 @@ router.post("/", async (req, res) => {
   }
 });
 
+// Middleware para verificar el token
 const verificarToken = (req, res, next) => {
   const token = req.headers.authorization;
 
@@ -83,6 +92,7 @@ const verificarToken = (req, res, next) => {
   });
 };
 
+// Ruta para obtener el perfil de un usuario
 router.get('/', verificarToken, (req, res) => {
   const { usuario } = req;
   UserModel.findOne({ _id: usuario.id })
