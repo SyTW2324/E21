@@ -47,5 +47,5 @@ jobs:
             ${{ runner.os }}-pnpm-store-
 
       - name: Install dependencies
-        run: pnpm install
+        run: cd ./film-flix && pnpm install
       - run: pnpm test
