@@ -1,4 +1,4 @@
-import "../index.css";
+import "../../index.css";
 import {Link, useNavigate} from "react-router-dom";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/24/outline"
 import {useState} from "react";
