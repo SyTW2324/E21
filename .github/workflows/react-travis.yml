@@ -1,20 +1,56 @@
-language: node_js
-node_js:
-  - "stable"
-cache:
-  directories:
-    - node_modules
-script:
-  - cd ./film-flix
-  - npm install -g pnpm
-  - pnpm install
-  - pnpm test
-  - pnpm run build
-deploy:
-  provider: surge
-  skip_cleanup: true
-  domain: <smartin>.surge.sh
-  project: ./build/
-on:
-  branch: dev
+name: react-travis
 
+on:
+  push:
+    branches:
+      - dev
+
+orbs:
+  node: circleci/node@5.0.2
+  heroku: circleci/heroku@1.2.6
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        strategy:
+        matrix:
+            node-version:
+            - 14.x
+            - 16.x
+            - 18.x
+            - 21.x
+        steps:
+        - name: Checkout
+            uses: actions/checkout@v3
+        - name: Install Node.js
+            uses: actions/setup-node@v3
+            with:
+            node-version: 16
+        - uses: pnpm/action-setup@v2
+            name: Install pnpm
+            with:
+            version: 8
+            run_install: false
+        - name: Get pnpm store directory
+            shell: bash
+            run: |
+            echo "STORE_PATH=$(pnpm store path --silent)" >> $GITHUB_ENV
+        - uses: actions/cache@v3
+            name: Setup pnpm cache
+            with:
+            path: ${{ env.STORE_PATH }}
+            key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+            restore-keys: |
+                ${{ runner.os }}-pnpm-store-
+        - name: Install dependencies
+            run: cd ./film-flix && pnpm install
+        - run: cd ./film-flix && pnpm test
+
+    deploy: # this can be any name you choose
+      executor: heroku/default
+      steps:
+        - attach_workspace:
+            at: ~/film-flix
+        - heroku/deploy-via-git:
+            force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
+            app-name: film-flix # set the name of the heroku app to deploy to
