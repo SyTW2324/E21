@@ -1,38 +1,48 @@
 import "../index.css";
 import {Link, useNavigate} from "react-router-dom";
 import {LockClosedIcon, UserIcon} from "@heroicons/react/24/outline"
-import {useEffect, useState} from "react";
-import {useMutation} from "@apollo/client";
-import {LOGIN} from "../utils/login";
+import {useState} from "react";
 import Alert from "../components/Alert";
 
-var error_message: string = "";
-export default function Login({setToken}: any) {
+let error_message: string = "";
+
+export default function Login() {
   const [email, setEmail] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
   const [alertShow, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
 
-  const [login, result] = useMutation(LOGIN);
-
-  useEffect(() => {
-    if (result.data) {
-      const token = result.data.login.value;
-      setToken(token);
-      localStorage.setItem('token', token);
-
-      navigate("/profile");
-    }
-  });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      await login({
-        variables: {email, passwordHash}
+      const token = await fetch(`http://localhost:3001/user`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          passwordHash,
+        }),
       });
+
+      if (!token.ok) {
+        throw new Error(`Error en la solicitud: ${token.statusText}`);
+      }
+
+      const tokenJSON = await token.json();
+
+      if (tokenJSON.error) {
+        throw new Error(tokenJSON.error);
+      }
+
+      localStorage.setItem("token", tokenJSON.token);
+
+      navigate("/profile");
+
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);

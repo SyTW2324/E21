@@ -1,12 +1,11 @@
 import { useState } from "react";
 import "../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
-import {useMutation} from "@apollo/client";
 import {useNavigate} from "react-router-dom";
 import Alert  from "../components/Alert";
-import {CREATE_USER} from "../utils/create_user";
 
 let error_message: string = "";
+
 export default function SignUp() {
   const [username, setUsername] = useState("");
   const [passwordHash, setPasswordHash] = useState("");
@@ -14,8 +13,6 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [alertShow, setShowAlert] = useState(false);
   const navigate = useNavigate();
-
-  const [addUser] = useMutation(CREATE_USER);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -33,8 +30,12 @@ export default function SignUp() {
     // Implementación de una función que permita el control de errores para las situaciones
     // en las que el usuarios ya existe
     try {
-      await addUser({
-        variables: {
+      const response = await fetch("http://localhost:3001/user", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
           username,
           name,
           passwordHash,
@@ -42,18 +43,14 @@ export default function SignUp() {
           gender,
           favoriteMovies,
           favoriteSeries,
-        },
-      });
+        }),
+      })
+      console.log(response);
       navigate("/");
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);
     }
-
-    setUsername("");
-    setPasswordHash("");
-    setRepeatPassword("");
-    setEmail("");
   };
 
   const logo = require("../img/FilmflixLogo.png") as string;
