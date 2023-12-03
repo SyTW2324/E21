@@ -7,7 +7,6 @@ on:
 
 orbs:
   node: circleci/node@5.0.2
-  heroku: circleci/heroku@1.2.6
 
 jobs:
   build:
@@ -45,16 +44,5 @@ jobs:
       - name: Install dependencies
         run: cd ./film-flix && pnpm install
       - run: cd ./film-flix && pnpm test
-
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - attach_workspace:
-          at: ~/film-flix
-      - name: Deploy to Heroku
-        uses: actions/heroku@v7
-        with:
-          api-key: ${{ secrets.HEROKU_API_KEY }}
-          app-name: film-flix
 
 
