@@ -6,6 +6,7 @@ import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
 import Movies from './pages/movies/movies';
 import Series from './pages/series/series';
+import MovieInfo from './pages/movieInfo/movieInfo';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<h1>Home</h1>} />
           <Route path="/movies" element={<Movies />} />
+          <Route path="/movie-info" element={<MovieInfo />} />
           <Route path="/series" element={<Series />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
