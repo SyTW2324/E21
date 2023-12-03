@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Alert from "../../components/alert";
+import Alert from "../../components/Alert";
 
 type User = {
   _id: string;
