@@ -1,8 +1,8 @@
 import { useState } from "react";
-import "../index.css";
+import "../../index.css";
 import {AtSymbolIcon, LockClosedIcon, UserIcon,} from "@heroicons/react/24/outline";
 import {useNavigate} from "react-router-dom";
-import Alert  from "../components/Alert";
+import Alert  from "../../components/alert";
 
 let error_message: string = "";
 
@@ -53,7 +53,7 @@ export default function SignUp() {
     }
   };
 
-  const logo = require("../img/FilmflixLogo.png") as string;
+  const logo = require("../../img/FilmflixLogo.png") as string;
   return (
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         {alertShow && <Alert message={error_message}/>}
