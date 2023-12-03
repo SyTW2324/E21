@@ -47,11 +47,14 @@ jobs:
       - run: cd ./film-flix && pnpm test
 
   deploy:
-    executor: heroku/default
+    runs-on: ubuntu-latest
     steps:
       - attach_workspace:
           at: ~/film-flix
-      - heroku/deploy-via-git:
-          force: true
+      - name: Deploy to Heroku
+        uses: actions/heroku@v7
+        with:
+          api-key: ${{ secrets.HEROKU_API_KEY }}
           app-name: film-flix
+
 
