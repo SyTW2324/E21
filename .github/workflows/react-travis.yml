@@ -1,42 +1,20 @@
-version: 2.1
-orbs:
-  node: circleci/node@5.0.2
-  heroku: circleci/heroku@1.2.6
-
-jobs:
-  build_and_test:
-    executor: node/default
-    steps:
-      - checkout
-      - node/install-packages:
-          pkg-manager: yarn
-      - run:
-          command: yarn test
-          name: Run tests
-      - run:
-          command: yarn build
-          name: Build app
-      - persist_to_workspace:
-          root: ~/film-flix
-          paths:
-            - .
-
-  deploy: # this can be any name you choose
-    executor: heroku/default
-    steps:
-      - attach_workspace:
-          at: ~/project
-      - heroku/deploy-via-git:
-          force: true # force push when pushing to the heroku remote, see: https://devcenter.heroku.com/articles/git
-
-workflows:
-  test_my_app:
-    jobs:
-      - build_and_test
-      - deploy:
-          requires:
-            - build_and_test # only deploy if the build_and_test job has completed
-          filters:
-            branches:
-              only: dev # only deploy when on main
+language: node_js
+node_js:
+  - "stable"
+cache:
+  directories:
+    - node_modules
+script:
+  - cd ./film-flix
+  - npm install -g pnpm
+  - pnpm install
+  - pnpm test
+  - pnpm run build
+deploy:
+  provider: surge
+  skip_cleanup: true
+  domain: <smartin>.surge.sh
+  project: ./build/
+on:
+  branch: dev
 
