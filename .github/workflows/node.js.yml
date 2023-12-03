@@ -23,12 +23,9 @@ jobs:
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
+          path: film-flix
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
-          
-        # Cambia al directorio del proyecto
-      - run: cd film-flix
-      
+          cache: 'pnpm'    
       - run: npm install -g pnpm
       - run: pnpm install
       - run: pnpm test
