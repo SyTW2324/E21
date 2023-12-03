@@ -48,4 +48,4 @@ jobs:
 
       - name: Install dependencies
         run: cd ./film-flix && pnpm install
-      - run: pnpm test
+      - run: cd ./film-flix && pnpm test
