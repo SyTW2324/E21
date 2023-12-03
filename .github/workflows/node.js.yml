@@ -24,8 +24,9 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'  # Cambia 'npm' a 'pnpm'
-      - run: npm install -g pnpm  # Instala pnpm globalmente
-      - run: npm ci  # Instala las dependencias del proyecto, incluyendo pnpm
-      - run: npx pnpm install  # Usa npx para ejecutar pnpm install
-      - run: npx pnpm test  # Usa npx para ejecutar las pruebas
+          cache: 'pnpm'
+      - run: npm install -g pnpm
+      - run: chmod +x $(which pnpm)
+      - run: pnpm install
+      - run: pnpm run build --if-present
+      - run: pnpm test
