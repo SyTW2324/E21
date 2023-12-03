@@ -10,4 +10,5 @@ Roxana Mihaela Baba (alu0101339887@ull.edu.es)\
 Pablo Pais Ficret (alu0101311135@ull.edu.es)
 
 [![Node.js CI](https://github.com/SyTW2324/E21/actions/workflows/node.js.yml/badge.svg?branch=dev)](https://github.com/SyTW2324/E21/actions/workflows/node.js.yml)
+
 [![react-travis](https://github.com/SyTW2324/E21/actions/workflows/react-travis.yml/badge.svg?branch=dev)](https://github.com/SyTW2324/E21/actions/workflows/react-travis.yml)
