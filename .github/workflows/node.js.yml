@@ -25,8 +25,10 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
           cache: 'pnpm'
+          
+        # Cambia al directorio del proyecto
+      - run: cd film-flix
+      
       - run: npm install -g pnpm
-      - run: chmod +x $(which pnpm)
       - run: pnpm install
-      - run: pnpm run build --if-present
       - run: pnpm test
