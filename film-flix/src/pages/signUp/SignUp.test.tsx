@@ -15,11 +15,6 @@ const mockResult = {
     loading: false,
 };
 
-jest.mock('@apollo/client', () => ({
-    ...jest.requireActual('@apollo/client'),
-    useMutation: jest.fn().mockReturnValue([jest.fn(), mockResult]),
-}));
-
 describe('SignUp Component', () => {
     let wrapper: ShallowWrapper;
 

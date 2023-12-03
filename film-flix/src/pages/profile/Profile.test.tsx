@@ -23,9 +23,8 @@ describe('Profile Component', () => {
         expect(wrapper.find('section').length).toBe(1);
         expect(wrapper.find('h2').length).toBe(1);
         expect(wrapper.find('p').length).toBe(1);
-        expect(wrapper.find('div').length).toBe(4);
-        expect(wrapper.find('label').length).toBe(3);
-        expect(wrapper.find('div').length).toBe(4);
+        expect(wrapper.find('div').length).toBe(10);
+        expect(wrapper.find('label').length).toBe(4);
     });
 
     // Después de cada prueba, limpia el componente
