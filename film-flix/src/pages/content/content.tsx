@@ -2,6 +2,7 @@ import Footer from "src/components/footer"
 import Navbar from "src/components/navbar"
 import { Link } from "react-router-dom";
 import mv from "./mv.json" 
+import sr from "./sr.json"
 import React from "react";
 
 type Movie = {
@@ -17,32 +18,38 @@ type Movie = {
     platform: string;
 };
 
-async function getMovies() {
-    return mv; // Cambiar por fetch
+type Series = {
+    _id: string;
+    title: string;
+    description: string;
+    director: string;
+    yearStart: number;
+    yearEnd: number;
+    numEpisodes: number;
+    seasons: number;
+    cast: string[];
+    genre: string[];
+    durationAVG: number;
+    rating: number;
+    platform: string;
+};
+
+async function getContent(type: "movies" | "series") {
+    if (type === "movies") {
+        return mv;
+    }
+    return sr; // Cambiar por fetch
 }
 
-export default function Movies() {
+export default function Content( {type}: {type: "movies" | "series"}) {
 
-    const [movies, setMovies] = React.useState<Movie[]>([
-        {
-            _id: "",
-            title: "",
-            description: "",
-            director: "",
-            year: 0,
-            duration: 0,
-            cast: [],
-            genre: [],
-            rating: 0,
-            platform: "",
-        }
-    ]);
+    const [content, setContent] = React.useState<Movie[] | Series[]>([]);
 
     React.useEffect(() => {
-        getMovies().then((data: any) => {
-            setMovies(data);
+        getContent(type).then((data: any) => {
+            setContent(data);
         });
-    }, []);
+    }, [type]);
 
 
 return (
@@ -89,10 +96,12 @@ return (
                 </div>
             </Link>
             {
-                movies.map((movie) => (
-                    <Link to={`/movie-info/${movie.title}`}>
+                content.map((cont) => (
+                    <Link 
+                        to={`/movie-info/${cont.title}`}
+                        key={cont._id}>
                         <div className="text-white">
-                            <h1>{movie.title}</h1>
+                            <h1>{cont.title}</h1>
                         </div>
                     </Link>
             ))}

@@ -1,0 +1,50 @@
+[
+  {
+    "_id": { "$oid": "65638f87778407a0a1d7c046" },
+    "title": "Stranger Things",
+    "description": "A group of kids in a small town encounter strange phenomena",
+    "director": "The Duffer Brothers",
+    "yearStart": { "$numberInt": "2016" },
+    "yearEnd": { "$numberInt": "-1" },
+    "numEpisodes": { "$numberInt": "25" },
+    "seasons": [],
+    "cast": ["Millie Bobby Brown", "Finn Wolfhard"],
+    "genre": ["Sci-Fi", "Horror"],
+    "durationAVG": { "$numberInt": "0" },
+    "rating": { "$numberDouble": "4.7" },
+    "platform": ["Netflix"],
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "65638f87778407a0a1d7c047" },
+    "title": "The Office",
+    "description": "A group of people work in an office",
+    "director": "Greg Daniels",
+    "yearStart": { "$numberInt": "2005" },
+    "yearEnd": { "$numberInt": "2013" },
+    "numEpisodes": { "$numberInt": "201" },
+    "seasons": [],
+    "cast": ["Steve Carell", "John Krasinski"],
+    "genre": ["Comedy"],
+    "durationAVG": { "$numberInt": "0" },
+    "rating": { "$numberDouble": "4.8" },
+    "platform": ["Netflix"],
+    "__v": { "$numberInt": "0" }
+  },
+  {
+    "_id": { "$oid": "65638f87778407a0a1d7c048" },
+    "title": "The Mandalorian",
+    "description": "A bounty hunter travels the galaxy",
+    "director": "Jon Favreau",
+    "yearStart": { "$numberInt": "2019" },
+    "yearEnd": { "$numberInt": "-1" },
+    "numEpisodes": { "$numberInt": "16" },
+    "seasons": [],
+    "cast": ["Pedro Pascal", "Gina Carano"],
+    "genre": ["Sci-Fi", "Action"],
+    "durationAVG": { "$numberInt": "0" },
+    "rating": { "$numberDouble": "4.9" },
+    "platform": ["Disney+"],
+    "__v": { "$numberInt": "0" }
+  }
+]
