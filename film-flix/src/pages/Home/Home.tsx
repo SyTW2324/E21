@@ -3,8 +3,8 @@ import Navbar from 'src/components/navbar';
 import Footer from 'src/components/footer';
 
 export default function Home() {
-    const Daredevil = require("../../img/Daredevil_(TV_series).png") as string;
-    const Morbius = require("../../img/Morbius.jpg") as string;
+    const Daredevil = require("../../img/daredevil.jpg") as string;
+    const Morbius = require("../../img/morbius.jpeg") as string;
     const girlWithLaptop = require("../../img/GirlUsingLaptop.jpg") as string;
 
     return (
@@ -43,7 +43,7 @@ export default function Home() {
                             <div className="rounded-lg h-80 overflow-hidden">
                                 <img 
                                     alt="content" 
-                                    className="object-cover object-center h-full w-full" 
+                                    className="object-cover object-top h-full w-full" 
                                     src={Daredevil}
                                 />
                             </div>
@@ -63,7 +63,7 @@ export default function Home() {
                             <div className="rounded-lg h-80 overflow-hidden">
                                 <img 
                                     alt="content" 
-                                    className="object-cover object-center h-full w-full" 
+                                    className="object-cover object-top h-full w-full" 
                                     src={Morbius}
                                 />
                             </div>
