@@ -1,9 +1,50 @@
 import Footer from "src/components/footer"
 import Navbar from "src/components/navbar"
 import { Link } from "react-router-dom";
+import mv from "./mv.json" 
+import React from "react";
+
+type Movie = {
+    _id: string;
+    title: string;
+    description: string;
+    director: string;
+    year: number;
+    duration: number;
+    cast: string[];
+    genre: string[];
+    rating: number;
+    platform: string;
+};
+
+async function getMovies() {
+    return mv; // Cambiar por fetch
+}
 
 export default function Movies() {
-    
+
+    const [movies, setMovies] = React.useState<Movie[]>([
+        {
+            _id: "",
+            title: "",
+            description: "",
+            director: "",
+            year: 0,
+            duration: 0,
+            cast: [],
+            genre: [],
+            rating: 0,
+            platform: "",
+        }
+    ]);
+
+    React.useEffect(() => {
+        getMovies().then((data: any) => {
+            setMovies(data);
+        });
+    }, []);
+
+
 return (
     <>
     <div className="bg-gray-900">
@@ -47,6 +88,14 @@ return (
                     <img className="h-auto rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt=""/>
                 </div>
             </Link>
+            {
+                movies.map((movie) => (
+                    <Link to={`/movie-info/${movie.title}`}>
+                        <div className="text-white">
+                            <h1>{movie.title}</h1>
+                        </div>
+                    </Link>
+            ))}
             <div>
                 <img className="h-auto rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
             </div>
