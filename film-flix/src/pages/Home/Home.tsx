@@ -5,12 +5,13 @@ import Footer from 'src/components/footer';
 export default function Home() {
     const Daredevil = require("../../img/Daredevil_(TV_series).png") as string;
     const Morbius = require("../../img/Morbius.jpg") as string;
+    const girlWithLaptop = require("../../img/GirlUsingLaptop.jpg") as string;
 
     return (
         <div>
             <Navbar />
-            <section className="bg-gray-900 pt-4 pb-72">
-                <div className="gap-16 items-center mx-auto max-w-screen-xl lg:grid lg:grid-cols-2 lg:py-16 lg:px-6">
+            <section className="bg-gray-900 pt-4 pb-28">
+                <div className="gap-16 items-center mx-6 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
                     <div className="font-light sm:text-lg text-gray-400">
                         <h2 className="mb-4 text-3xl tracking-tight font-extrabold text-white">
                             Find your next favorite movie or TV show.
@@ -26,16 +27,11 @@ export default function Home() {
                             We have movies and TV shows from all genres and from all over the world.
                         </p>
                     </div>
-                    <div className="grid grid-cols-2 gap-4 mt-8">
+                    <div className="mt-8">
                         <img 
                             className="w-full rounded-lg" 
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-2.png" 
+                            src={girlWithLaptop}
                             alt="office content 1"
-                        />
-                        <img 
-                            className="mt-4 w-full lg:mt-10 rounded-lg" 
-                            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/content/office-long-1.png" 
-                            alt="office content 2"
                         />
                     </div>
                 </div>
@@ -87,7 +83,7 @@ export default function Home() {
             </section>
             <section className="bg-gray-900 text-gray-600 body-font">
                 <div className="container px-5 py-24 mx-auto">
-                    <div className="flex flex-wrap -m-4 text-center">
+                    <div className="flex -m-4 text-center">
                     <div className="p-4 sm:w-1/3 w-1/2">
                         <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">2.7K</h2>
                         <p className="leading-relaxed text-white">Users</p>
