@@ -11,7 +11,7 @@ export default function Home() {
         <div>
             <Navbar />
             <section className="bg-gray-900 pt-4 pb-28">
-                <div className="max-w-screen-xl gap-16 items-center mx-auto lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
+                <div className="max-w-screen-xl gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
                     <div className="font-light sm:text-lg text-gray-400">
                         <h2 className="mb-4 text-3xl tracking-tight font-extrabold text-white">
                             Find your next favorite movie or TV show.

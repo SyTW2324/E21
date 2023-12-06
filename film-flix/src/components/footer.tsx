@@ -1,7 +1,8 @@
 export default function Footer() {
     const logo = require("../img/FilmflixLogo.png") as string;
     return (
-        <footer className="text-gray-600 body-font bg-gray-900">
+        <div className="bg-gray-900">
+        <footer className="text-gray-600 body-font bg-gray-900 mx-4">
             <div className="container py-8 mx-auto flex items-center sm:flex-row flex-col">
                 <a href="/" className="flex items-center space-x-3 rtl:space-x-reverse">
                     <img src={logo} className="h-8" alt="Flowbite Logo" />
@@ -66,5 +67,6 @@ export default function Footer() {
                 </span>
             </div>
         </footer>
+        </div>
     );
 }
