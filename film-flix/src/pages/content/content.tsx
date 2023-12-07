@@ -1,5 +1,5 @@
-import Footer from "src/components/footer";
-import Navbar from "src/components/navbar";
+import Footer from "../../components/footer"
+import Navbar from "../../components/navbar"
 import { Link } from "react-router-dom";
 import mv from "./mv.json";
 import sr from "./sr.json";
