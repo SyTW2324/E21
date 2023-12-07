@@ -1,5 +1,5 @@
 import { shallow, ShallowWrapper } from 'enzyme';
-import MovieInfo from "./contentInfo";
+import ContentInfo from "./contentInfo";
 
 jest.mock('../../components/footer', () => ({
   __esModule: true,
@@ -13,12 +13,12 @@ jest.mock('../../components/navbar', () => ({
   footer: jest.fn()
 }));
 
-describe('MovieInfo Component', () => {
+describe('ContentInfo Component', () => {
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
     // Configurar el componente antes de cada prueba
-    wrapper = shallow(<MovieInfo />);
+    wrapper = shallow(<ContentInfo />);
   });
 
   it('renders without crashing', () => {
