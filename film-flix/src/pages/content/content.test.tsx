@@ -26,11 +26,11 @@ describe('Content Movies Component', () => {
   });
 
   it('renders content', () => {
-    expect(wrapper.find('div').length).toBe(3);
+    expect(wrapper.find('div').length).toBe(5);
   });
 
   it ('renders content elements', () => {
-    expect(wrapper.find('div').length).toBe(3);
+    expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h2').length).toBe(0);
     expect(wrapper.find('p').length).toBe(0);
   });
@@ -63,11 +63,11 @@ describe('Content Series Component', () => {
   });
 
   it('renders content', () => {
-    expect(wrapper.find('div').length).toBe(3);
+    expect(wrapper.find('div').length).toBe(5);
   });
 
   it ('renders content elements', () => {
-    expect(wrapper.find('div').length).toBe(3);
+    expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h2').length).toBe(0);
     expect(wrapper.find('p').length).toBe(0);
   });
