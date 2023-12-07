@@ -1,6 +1,6 @@
 import React from 'react';
-import Navbar from 'src/components/navbar';
-import Footer from 'src/components/footer';
+import Navbar from '../../components/navbar';
+import Footer from '../../components/footer';
 
 export default function Home() {
     const Daredevil = require("../../img/daredevil.jpg") as string;
