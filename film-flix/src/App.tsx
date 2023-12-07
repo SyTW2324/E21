@@ -4,9 +4,8 @@ import NotFound  from './pages/notFound/NotFound';
 import SignUp from './pages/signUp/SignUp';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
-import Movies from './pages/movies/movies';
-import Series from './pages/series/series';
-import MovieInfo from './pages/movieInfo/movieInfo';
+import Content from './pages/content/content';
+import MovieInfo from './pages/contentInfo/contentInfo';
 import Home from './pages/Home/Home';
 
 function App() {
@@ -15,9 +14,9 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/movies" element={<Movies />} />
-          <Route path="/movie-info" element={<MovieInfo />} />
-          <Route path="/series" element={<Series />} />
+          <Route path="/movies" element={<Content type={'movies'} />} />
+          <Route path="/movie-info/:movieId" element={<MovieInfo />} />
+          <Route path="/series" element={<Content type={'series'} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />

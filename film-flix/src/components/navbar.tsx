@@ -1,10 +1,11 @@
 import { Link } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export default function Navbar() {
     
     const logo = require("../img/FilmflixLogo.png") as string;
     const navigate = useNavigate();
+    const location = useLocation();
     
     return (
     <nav className="border-gray-200 bg-gray-900">
@@ -41,9 +42,9 @@ export default function Navbar() {
                     >
                         <path 
                             stroke="currentColor" 
-                            stroke-linecap="round" 
-                            stroke-linejoin="round" 
-                            stroke-width="2" 
+                            strokeLinecap="round" 
+                            strokeLinejoin="round" 
+                            strokeWidth="2" 
                             d="M1 1h15M1 7h15M1 13h15"
                         />
                     </svg>
@@ -58,28 +59,26 @@ export default function Navbar() {
                 <li>
                     <Link 
                         to="/" 
-                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 
-                                md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
-                                dark:border-gray-700" 
-                        aria-current="page">  
+                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 text-white"
+                        style={{ color: location.pathname === "/" ? "rgb(96 165 250 / var(--tw-text-opacity))" : "" }}
+                    >  
                         Home
                     </Link>
                 </li>
                 <li>
                     <Link 
                         to="/movies" 
-                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 
-                                    md:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
-                                    dark:border-gray-700">
+                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 text-white"
+                        style={{ color: location.pathname === "/movies" ? "rgb(96 165 250 / var(--tw-text-opacity))" : "" }}
+                    >
                         Movies
                     </Link>
                 </li>
                 <li>
                     <Link 
                         to="/series" 
-                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-700 
-                                    d:dark:hover:text-blue-500 text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent 
-                                    dark:border-gray-700"
+                        className="block py-2 px-3 md:p-0 rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-blue-500 text-white"
+                        style={{ color: location.pathname === "/series" ? "rgb(96 165 250 / var(--tw-text-opacity))" : "" }}
                     >
                         Series
                     </Link>

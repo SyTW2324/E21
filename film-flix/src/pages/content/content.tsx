@@ -1,9 +1,57 @@
 import Footer from "src/components/footer"
 import Navbar from "src/components/navbar"
 import { Link } from "react-router-dom";
+import mv from "./mv.json" 
+import sr from "./sr.json"
+import React from "react";
 
-export default function Movies() {
-    
+type Movie = {
+    _id: string;
+    title: string;
+    description: string;
+    director: string;
+    year: number;
+    duration: number;
+    cast: string[];
+    genre: string[];
+    rating: number;
+    platform: string;
+};
+
+type Series = {
+    _id: string;
+    title: string;
+    description: string;
+    director: string;
+    yearStart: number;
+    yearEnd: number;
+    numEpisodes: number;
+    seasons: number;
+    cast: string[];
+    genre: string[];
+    durationAVG: number;
+    rating: number;
+    platform: string;
+};
+
+async function getContent(type: "movies" | "series") {
+    if (type === "movies") {
+        return mv;
+    }
+    return sr; // Cambiar por fetch
+}
+
+export default function Content( {type}: {type: "movies" | "series"}) {
+
+    const [content, setContent] = React.useState<Movie[] | Series[]>([]);
+
+    React.useEffect(() => {
+        getContent(type).then((data: any) => {
+            setContent(data);
+        });
+    }, [type]);
+
+
 return (
     <>
     <div className="bg-gray-900">
@@ -47,6 +95,16 @@ return (
                     <img className="h-auto rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg" alt=""/>
                 </div>
             </Link>
+            {
+                content.map((cont) => (
+                    <Link 
+                        to={`/movie-info/${cont.title}`}
+                        key={cont._id}>
+                        <div className="text-white">
+                            <h1>{cont.title}</h1>
+                        </div>
+                    </Link>
+            ))}
             <div>
                 <img className="h-auto rounded-lg" src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg" alt=""/>
             </div>
