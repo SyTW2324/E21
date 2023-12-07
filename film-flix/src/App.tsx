@@ -10,7 +10,7 @@ import Home from './pages/Home/Home';
 
 function App() {
   return (
-    <div className="App h-full bg-white">
+    <div className="App bg-gray-900">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
