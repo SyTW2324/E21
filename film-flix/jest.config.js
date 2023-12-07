@@ -7,6 +7,7 @@ export default {
         '^.+\\.(ts|tsx)$': 'ts-jest',
     },
     testRegex: '(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$',
+    moduleDirectories: ["node_modules", "src"],
     moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json', 'node'],
     "moduleNameMapper": {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",
