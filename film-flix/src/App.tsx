@@ -5,17 +5,17 @@ import SignUp from './pages/signUp/SignUp';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
 import Content from './pages/content/content';
-import MovieInfo from './pages/contentInfo/contentInfo';
+import ContentInfo from './pages/contentInfo/contentInfo';
 import Home from './pages/Home/Home';
 
 function App() {
   return (
-    <div className="App h-full bg-white">
+    <div className="App bg-gray-900">
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Content type={'movies'} />} />
-          <Route path="/movie-info/:movieId" element={<MovieInfo />} />
+          <Route path="/content-info/:contentId" element={<ContentInfo />} />
           <Route path="/series" element={<Content type={'series'} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />

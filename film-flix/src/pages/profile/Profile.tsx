@@ -56,7 +56,7 @@ export default function Profile() {
 
   return (
     <section className="bg-white dark:bg-gray-900">
-      {alertShow && <Alert message={error_message}/>}
+      {alertShow && <Alert message={error_message} />}
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-sky-700 dark:text-white">
           {data.username}

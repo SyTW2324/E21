@@ -26,11 +26,11 @@ describe ('Home Component', () => {
   });
 
   it('renders content', () => {
-    expect(wrapper.find('div').length).toBe(15);
+    expect(wrapper.find('div').length).toBe(16);
   });
 
   it ('renders content elements', () => {
-    expect(wrapper.find('div').length).toBe(15);
+    expect(wrapper.find('div').length).toBe(16);
     expect(wrapper.find('h2').length).toBe(6);
     expect(wrapper.find('p').length).toBe(7);
     expect(wrapper.find('img').length).toBe(3);
