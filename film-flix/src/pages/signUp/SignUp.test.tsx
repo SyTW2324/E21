@@ -1,5 +1,4 @@
 // src/pages/SignUp.test.tsx
-import React from "react";
 import { shallow, ShallowWrapper } from "enzyme";
 import SignUp from "./SignUp";
 
@@ -8,14 +7,6 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"), // Mantén las implementaciones no mockeadas
   useNavigate: jest.fn(),
 }));
-
-const mockResult = {
-  data: {
-    /* ... */
-  },
-  error: null,
-  loading: false,
-};
 
 describe("SignUp Component", () => {
   let wrapper: ShallowWrapper;

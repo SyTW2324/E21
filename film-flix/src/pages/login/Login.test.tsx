@@ -1,6 +1,5 @@
 // src/pages/Login.test.tsx
-import React from "react";
-import { shallow, ShallowWrapper } from "enzyme";
+import { shallow } from "enzyme";
 import Login from "./Login";
 
 // Mockear useNavigate
@@ -8,12 +7,6 @@ jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"), // Mantén las implementaciones no mockeadas
   useNavigate: jest.fn(),
 }));
-
-const mockResult = {
-  data: { token: "mocked-token" },
-  error: null,
-  loading: false,
-};
 
 describe("Login Component", () => {
   it("renders form elements", () => {
