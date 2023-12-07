@@ -5,7 +5,7 @@ import SignUp from './pages/signUp/SignUp';
 import Login from './pages/login/Login';
 import Profile from './pages/profile/Profile';
 import Content from './pages/content/content';
-import MovieInfo from './pages/movieInfo/movieInfo';
+import MovieInfo from './pages/contentInfo/contentInfo';
 import Home from './pages/Home/Home';
 
 function App() {
