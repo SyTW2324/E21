@@ -1,5 +1,5 @@
-import Footer from "../../components/footer"
-import Navbar from "../../components/navbar"
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
 import { Link } from "react-router-dom";
 import mv from "./mv.json";
 import sr from "./sr.json";
@@ -93,78 +93,18 @@ export default function Content({ type }: { type: "movies" | "series" }) {
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mx-4">
-          <Link to="/movie-info">
-            <div>
-              <img
-                className="h-auto rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
-                alt=""
-              />
-            </div>
-          </Link>
           {content.map((cont) => (
-            <Link to={`/movie-info/${cont.title}`} key={cont._id}>
+            <Link to={`/content-info/${cont.title}`} key={cont._id}>
               <div className="text-white">
-                <h1>{cont.title}</h1>
+                <img
+                  className="h-auto rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                  alt={cont.title}
+                />
+                <p className="font-medium flex justify-center">{cont.title}</p>
               </div>
             </Link>
           ))}
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-1.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-2.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-3.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-4.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-5.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-6.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-7.jpg"
-              alt=""
-            />
-          </div>
-          <div>
-            <img
-              className="h-auto rounded-lg"
-              src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image-8.jpg"
-              alt=""
-            />
-          </div>
         </div>
         <Footer />
       </div>
