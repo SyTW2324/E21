@@ -4,6 +4,7 @@ import '../services/db.js';
 
 import userRouter from './user.js';
 import moviesRouter from './movies.js';
+import seriesRouter from './series.js';
 
 const app = express()
 const port = 3001
@@ -18,6 +19,7 @@ app.use(express.json());
 
 app.use('/user', userRouter); 
 app.use('/movies', moviesRouter);
+app.use('/series', seriesRouter);
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)

@@ -1,12 +1,12 @@
 import express from 'express';
-import MoviesModel from '../models/film.js';
+import SeriesModel from '../models/series.js';
 
 const router = express.Router();
 
 router.get("/", async (req, res) => {
     try {
-        const movies  = await MoviesModel.find({});
-        return res.status(200).json({ movies });
+        const series  = await SeriesModel.find({});
+        return res.status(200).json({ series });
     } catch (error) {
         return res.status(400).json({ error: error.message });
     }
