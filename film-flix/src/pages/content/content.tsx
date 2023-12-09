@@ -36,7 +36,12 @@ type Series = {
 
 async function getContent(type: "movies" | "series") {
   if (type === "movies") {
-    return mv;
+    const response = fetch("http://localhost:3001/movies"
+    , {
+      method: "GET"
+    });
+    const data = (await response).json();
+    return data;
   }
   return sr; // Cambiar por fetch
 }
