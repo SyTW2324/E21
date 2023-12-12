@@ -28,7 +28,10 @@ jobs:
 
       - run:
           name: Install dependencies
-          command: pnpm install
+          command: |
+            cd film-flix
+            ls -la
+            pnpm install
 
       - run:
           name: Run tests
