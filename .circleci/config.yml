@@ -11,6 +11,10 @@ jobs:
       - checkout
 
       - run:
+          name: Comprobación de la versión de Node
+          command: nvm --version
+
+      - run:
           name: Install pnpm globaly
           command: sudo npm install -g pnpm
 
