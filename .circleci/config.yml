@@ -15,6 +15,10 @@ jobs:
           command: npm install pnpm
 
       - run:
+          name: Chaging to the working directory
+          command: cd ~/film-flix
+
+      - run:
           name: Install dependencies
           command: pnpm install
 
