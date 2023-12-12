@@ -19,6 +19,10 @@ jobs:
           command: cd ~/film-flix
 
       - run:
+          name: working directory content
+          command: ls -la
+
+      - run:
           name: Install dependencies
           command: pnpm install
 
