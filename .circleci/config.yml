@@ -11,8 +11,16 @@ jobs:
       - checkout
 
       - run:
-          name: Comprobación de la versión de Node
-          command: nvm --version
+          name: Node Version Manager instalation
+          command: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+
+      - run:
+          name: Source NVM
+          command: source ~/.nvm/nvm.sh
+
+      - run:
+          name: Install Node
+          command: nvm install 21.2.0
 
       - run:
           name: Install pnpm globaly
