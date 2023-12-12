@@ -1,4 +1,4 @@
-version: 1.0
+version: 2.1
 
 jobs:
   build:
@@ -43,8 +43,8 @@ jobs:
 #      # Add deployment steps here, for example, deploying to a hosting service.
 
 workflows:
-  version: 1
-  build:
+  version: 2
+  build_and_deploy:
     jobs:
       - build
       # Uncomment the following line and add your deploy job if needed.
