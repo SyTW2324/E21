@@ -11,8 +11,8 @@ jobs:
       - checkout
 
       - run:
-          name: Install pnpm locally
-          command: npm install -g pnpm
+          name: Install pnpm globaly
+          command: sudo npm install -g pnpm
 
       - run:
           name: Chaging to the working directory
