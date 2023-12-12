@@ -23,7 +23,7 @@ jobs:
 
       - run:
           name: Install Node
-          command: nvm install 21.2.0
+          command: sudo nvm install 21.2.0
 
       - run:
           name: Install pnpm globaly
