@@ -19,8 +19,8 @@ jobs:
           command: cd ~/film-flix
 
       - run:
-          name: working directory content
-          command: ls -la
+          name: working directory changing again
+          command: cd film-flix
 
       - run:
           name: Install dependencies
