@@ -3,29 +3,12 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/node:18
+      - image: circleci/node:20.2.0
 
     working_directory: ~/film-flix
 
     steps:
       - checkout
-
-#      # Install nvm
-#      - run:
-#          name: Install Node Version Manager (nvm)
-#          command: |
-#            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-#            export NVM_DIR="/home/circleci/.nvm"
-#            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
-#            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
-#
-#            # Use nvm to install Node.js 21.2.0
-#            nvm install 21.2.0
-#            nvm use 21.2.0
-#            sudo npm install -g pnpm
-#            cd ~/film-flix
-#            pnpm install
-            
 
       - run:
           name: Install pnpm globaly
