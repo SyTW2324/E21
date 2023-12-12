@@ -22,18 +22,22 @@ jobs:
             # Use nvm to install Node.js 21.2.0
             nvm install 21.2.0
             nvm use 21.2.0
+            sudo npm install -g pnpm
+            cd ~/film-flix
+            pnpm install
+            
 
-      - run:
-          name: Install pnpm globaly
-          command: sudo npm install -g pnpm
-
-      - run:
-          name: Chaging to the working directory
-          command: cd ~/film-flix
-
-      - run:
-          name: Install dependencies
-          command: pnpm install
+#      - run:
+#          name: Install pnpm globaly
+#          command: sudo npm install -g pnpm
+#
+#      - run:
+#          name: Chaging to the working directory
+#          command: cd ~/film-flix
+#
+#      - run:
+#          name: Install dependencies
+#          command: pnpm install
 
       - run:
           name: Run tests
