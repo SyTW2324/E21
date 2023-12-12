@@ -1,4 +1,4 @@
-version: 2.1
+version: 1.0
 
 jobs:
   build:
@@ -15,46 +15,36 @@ jobs:
           command: sudo npm install -g pnpm
 
       - run:
-          name: Chaging to the working directory
-          command: cd ~/film-flix
-
-      - run:
-          name: working directory changing again
-          command: cd film-flix
-
-      - run:
-          name: working directory content
-          command: ls -la
-
-      - run:
           name: Install dependencies
           command: |
             cd film-flix
-            ls -la
             pnpm install
 
       - run:
-          name: Run tests
-          command: pnpm test
+          command: |
+            cd film-flix
+            pnpm test
 
       - run:
           name: Build
-          command: pnpm run build
+          command: |
+            cd film-flix
+            pnpm run build
 
-  deploy:
-    docker:
-      - image: circleci/node:14
-
-    working_directory: ~/film-flix
-
-    steps:
-      - checkout
-
-      # Add deployment steps here, for example, deploying to a hosting service.
+#  deploy:
+#    docker:
+#      - image: circleci/node:14
+#
+#    working_directory: ~/film-flix
+#
+#    steps:
+#      - checkout
+#
+#      # Add deployment steps here, for example, deploying to a hosting service.
 
 workflows:
-  version: 2
-  build_and_deploy:
+  version: 1
+  build:
     jobs:
       - build
       # Uncomment the following line and add your deploy job if needed.
