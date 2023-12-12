@@ -11,6 +11,10 @@ jobs:
       - checkout
 
       - run:
+          name: Install pnpm globally
+          command: npm install -g pnpm
+
+      - run:
           name: Install dependencies
           command: pnpm install
 
