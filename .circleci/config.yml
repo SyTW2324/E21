@@ -10,21 +10,18 @@ jobs:
     steps:
       - checkout
 
+      # Install nvm
       - run:
-          name: Node Version Manager instalation
-          command: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
-
-      - run:
-          name: Configure sudo environment for nvm
+          name: Install Node Version Manager (nvm)
           command: |
-            echo 'export NVM_DIR="/usr/local/nvm"' | sudo tee -a /etc/profile.d/nvm.sh
-            echo '[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"' | sudo tee -a /etc/profile.d/nvm.sh
-            echo '[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"' | sudo tee -a /etc/profile.d/nvm.sh
-            sudo nvm install 21.2.0
-
-      - run:
-          name: Install Node
-          command: sudo nvm install 21.2.0
+            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
+            export NVM_DIR="/home/circleci/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
+            
+            # Use nvm to install Node.js 21.2.0
+            nvm install 21.2.0
+            nvm use 21.2.0
 
       - run:
           name: Install pnpm globaly
