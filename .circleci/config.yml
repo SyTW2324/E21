@@ -12,7 +12,7 @@ jobs:
 
       - run:
           name: Install pnpm locally
-          command: npm install pnpm
+          command: npm install -g pnpm
 
       - run:
           name: Chaging to the working directory
