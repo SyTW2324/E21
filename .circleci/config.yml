@@ -15,8 +15,11 @@ jobs:
           command: curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
       - run:
-          name: Source NVM
-          command: source ~/.nvm/nvm.sh
+          name: Initialize NVM
+          command: |
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # Load nvm
+            [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # Load nvm bash_completion
 
       - run:
           name: Install Node
