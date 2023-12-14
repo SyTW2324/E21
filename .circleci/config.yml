@@ -76,6 +76,9 @@ jobs:
               ]
             }
           event: always
+    environment:
+      SLACK_ACCESS_TOKEN: $SLACK_ACCESS_TOKEN
+
 
 # Uncomment the following section if you have a deploy job.
 # deploy:
