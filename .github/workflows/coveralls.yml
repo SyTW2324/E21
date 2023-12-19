@@ -1,0 +1,35 @@
+
+name: Test Coveralls
+
+on:
+    push:
+      branches: [ "dev" ]
+    pull_request:
+      branches: [ "dev" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+        matrix:
+          node-version: [14.x, 16.x, 18.x, 21.x]
+
+    steps:
+        - name: Checkout
+          uses: actions/checkout@v1
+
+        - name: Use Node.js 16.x
+          uses: actions/setup-node@v3
+          with:
+           node-version: 16.x
+
+        - name: pnpm install, make test-coverage
+          run: |
+            pnpm install
+            make test-coverage
+
+        - name: Coveralls GitHub Action
+          uses: coverallsapp/github-action@v2.2.3
+            
