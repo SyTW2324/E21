@@ -18,7 +18,7 @@ describe('ContentInfo Component', () => {
 
   beforeEach(() => {
     // Configurar el componente antes de cada prueba
-    wrapper = shallow(<ContentInfo />);
+    wrapper = shallow(<ContentInfo type='movies' />);
   });
 
   it('renders without crashing', () => {
