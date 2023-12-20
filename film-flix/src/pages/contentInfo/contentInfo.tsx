@@ -1,7 +1,73 @@
 import Footer from "../../components/footer"
 import Navbar from "../../components/navbar"
+import { useParams } from "react-router-dom"
 
-export default function ContentInfo() {
+import React from "react"
+
+type Movies = {
+  _id: string;
+  title: string;
+  description: string;
+  director: string;
+  year: number;
+  duration: number;
+  cast: string[];
+  genre: string[];
+  rating: number;
+  platform: string[];
+};
+
+type Series = {
+  _id: string;
+  title: string;
+  description: string;
+  director: string;
+  yearStart: number;
+  yearEnd: number;
+  numEpisodes: number;
+  seasons: number;
+  cast: string[];
+  genre: string[];
+  durationAVG: number;
+  rating: number;
+  platform: string[];
+};
+
+async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
+  try {
+      console.log(id);
+      console.log(type);
+      const response = await fetch(`http://localhost:3001/${type}/${id}`, {
+        method: "GET"
+      });
+      console.log(response);
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+      const data = await response.json() as { movie: Movies } | { serie: Series };
+      console.log(data);
+      if ("movie" in data) {
+        return data.movie;
+      } else {
+        return data.serie;
+      }
+  } catch (error: any) {
+    onErr(error.message);
+    return { } as Movies | Series;
+  }
+}
+
+export default function ContentInfo({ type }: { type: "movies" | "series"}) {
+  const [content, setContent] = React.useState<Movies | Series>();
+
+  // Extraer el id de la url
+  const { id } = useParams() as { id: string };
+
+  React.useEffect(() => {
+    getContentInfo(id, type, (error) => {
+    }).then((data) => setContent(data));
+  }, [type, id]);
+
   return (
     <>
       <div className="bg-gray-900 ">
@@ -20,14 +86,16 @@ export default function ContentInfo() {
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Rating
                     </h2>
-                    <p className="text-white pt-1 flex justify-center">4.5</p>
+                    <p className="text-white pt-1 flex justify-center">
+                      { content?.rating }
+                    </p>
                   </div>
                   <div>
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Platforms
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      Netflix
+                      { content?.platform.join(" - ") }
                     </p>
                   </div>
                   <div>
@@ -35,51 +103,71 @@ export default function ContentInfo() {
                       Runtime
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      148 min
+                      { content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min` }
                     </p>
                   </div>
+                  {
+                    content && "numEpisodes" in content &&
+                    <div>
+                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                        Episodes
+                      </h2>
+                      <p className="text-white pt-1 flex justify-center">
+                        { content?.numEpisodes }
+                      </p>
+                    </div>
+                  }
+                  {
+                    content && "seasons" in content &&
+                    <div>
+                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                        Seasons 
+                      </h2>
+                      <p className="text-white pt-1 flex justify-center">
+                        { content?.seasons }
+                      </p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
             <div>
               <div>
                 <h1 className="text-white text-4xl font-bold">Title</h1>
-                <p className="text-white font-extralight pt-2">Inception</p>
+                <p className="text-white font-extralight pt-2">
+                  { content?.title }
+                </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Genre</h2>
                 <p className="text-white font-extralight pt-2">
-                  Sci-Fi, Action
+                  { content?.genre.join(", ") }
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">
                   Release Date
                 </h2>
-                <p className="text-white font-extralight pt-2">2010</p>
+                <p className="text-white font-extralight pt-2">
+                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd}` }
+                </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Cast</h2>
                 <p className="text-white font-extralight pt-2">
-                  Leonardo DiCaprio, Ellen Page, Tom Hardy
+                  { content?.cast.join(", ") }
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Director</h2>
                 <p className="text-white font-extralight pt-2">
-                  Christopher Nolan
+                  { content?.director }
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Plot</h2>
                 <p className="text-white font-extralight pt-2">
-                  Dom Cobb is a thief capable of delving into people's dreams
-                  and extracting their secrets. However, he now has to carry out
-                  a mission different from what he has always done: perform an
-                  inception to implant an idea in someone's subconscious. The
-                  plan becomes complicated due to the intervention of someone
-                  who seems to predict each of Cobb's moves, someone only he can
-                  confront.
+                  { content?.description }
                 </p>
               </div>
             </div>

@@ -15,8 +15,9 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/movies" element={<Content type={'movies'} />} />
-          <Route path="/content-info/:contentId" element={<ContentInfo />} />
+          <Route path="/movies/:id" element={<ContentInfo type={'movies'} />} />
           <Route path="/series" element={<Content type={'series'} />} />
+          <Route path="/series/:id" element={<ContentInfo type={'series'} />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<SignUp />} />
