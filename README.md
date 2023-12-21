@@ -12,3 +12,5 @@ Pablo Pais Ficret (alu0101311135@ull.edu.es)
 [![Node.js CI](https://github.com/SyTW2324/E21/actions/workflows/node.js.yml/badge.svg?branch=dev)](https://github.com/SyTW2324/E21/actions/workflows/node.js.yml)
 
 [![Test Coveralls](https://github.com/SyTW2324/E21/actions/workflows/coveralls.yml/badge.svg)](https://github.com/SyTW2324/E21/actions/workflows/coveralls.yml)
+
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/SyTW2324/E21/tree/dev.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/SyTW2324/E21/tree/dev)
