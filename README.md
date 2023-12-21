@@ -14,3 +14,5 @@ Pablo Pais Ficret (alu0101311135@ull.edu.es)
 [![Test Coveralls](https://github.com/SyTW2324/E21/actions/workflows/coveralls.yml/badge.svg)](https://github.com/SyTW2324/E21/actions/workflows/coveralls.yml)
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/SyTW2324/E21/tree/dev.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/SyTW2324/E21/tree/dev)
+
+[![Coverage Status](https://coveralls.io/repos/github/SyTW2324/E21/badge.svg?branch=)](https://coveralls.io/github/SyTW2324/E21?branch=)
