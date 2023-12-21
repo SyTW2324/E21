@@ -2,6 +2,12 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.9.3
+  codecov/codecov@3:
+    2:
+      4:
+        flags: codecov/project
+        paths: coverage/lcov.info
+        token: $CODECOV_TOKEN
 
 jobs:
   build:
@@ -78,16 +84,6 @@ jobs:
           event: always
     environment:
       SLACK_ACCESS_TOKEN: $SLACK_ACCESS_TOKEN
-
-
-# Uncomment the following section if you have a deploy job.
-# deploy:
-#   docker:
-#     - image: circleci/node:14
-#   working_directory: ~/film-flix
-#   steps:
-#     - checkout
-#     # Add deployment steps here, for example, deploying to a hosting service.
 
 workflows:
   version: 2
