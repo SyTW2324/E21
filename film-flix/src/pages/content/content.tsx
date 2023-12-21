@@ -1,11 +1,10 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import { Link } from "react-router-dom";
-import mv from "./mv.json";
-import sr from "./sr.json";
+
 import React from "react";
 
-type Movie = {
+type Movies = {
   _id: string;
   title: string;
   description: string;
@@ -34,19 +33,37 @@ type Series = {
   platform: string;
 };
 
-async function getContent(type: "movies" | "series") {
-  if (type === "movies") {
-    return mv;
+async function getContent(type: "movies" | "series", onErr: (err: string) => void): Promise<Movies[] | Series[]> {
+  try {
+      const response = await fetch(`http://localhost:3001/${type}`, {
+        method: "GET"
+      });
+      if (!response.ok) {
+        throw new Error(`Error en la solicitud: ${response.statusText}`);
+      }
+      const data = await response.json() as { movies: Movies[] } | { series: Series[] };
+      if ("movies" in data) {
+        return data.movies;
+      } else {
+        return data.series;
+      }
+  } catch (error: any) {
+    onErr(error.message);
+    return [];
   }
-  return sr; // Cambiar por fetch
 }
 
+
+
 export default function Content({ type }: { type: "movies" | "series" }) {
-  const [content, setContent] = React.useState<Movie[] | Series[]>([]);
+  const [content, setContent] = React.useState<Movies[] | Series[]>([]);
+  console.log(content);
 
   React.useEffect(() => {
-    getContent(type).then((data: any) => {
-      setContent(data);
+    getContent(type, (error) => {
+      console.log(error);
+    }).then((data) => {
+      setContent(data)
     });
   }, [type]);
 
@@ -54,7 +71,7 @@ export default function Content({ type }: { type: "movies" | "series" }) {
     <>
       <div className='flex flex-col w-full h-screen'>
         <Navbar />
-        <div className="flex-grow">
+        <div className="flex-grow bg-gray-900">
           <div className="flex items-center justify-center py-4 md:py-8 flex-wrap">
             <button
               type="button"
@@ -95,8 +112,9 @@ export default function Content({ type }: { type: "movies" | "series" }) {
 
           <div className="flex justify-center pb-16">
             <div className="max-w-screen-2xl grid grid-cols-2 md:grid-cols-4 gap-6 mx-4">
-              {content.map((cont) => (
-                <Link to={`/content-info/${cont.title}`} key={cont._id}>
+              {
+              content.map((cont) => (
+                <Link to={`/${type}/${cont._id}`} key={cont._id}>
                   <div className="text-white">
                     <img
                       className="h-auto rounded-lg"
