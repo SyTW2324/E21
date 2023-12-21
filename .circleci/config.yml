@@ -2,12 +2,7 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.9.3
-  codecov/codecov@3:
-    2:
-      4:
-        flags: codecov/project
-        paths: coverage/lcov.info
-        token: $CODECOV_TOKEN
+  codecov: codecov/codecov@1.2.2
 
 jobs:
   build:
@@ -40,6 +35,12 @@ jobs:
           command: |
             cd film-flix
             pnpm run build
+
+      - codecov/upload:
+          file: ~/film-flix/coverage/lcov.info
+          flags: codecov/project
+          name: codecov-coverage-upload
+          token: $CODECOV_TOKEN
 
   notify:
     docker:
