@@ -46,8 +46,8 @@ jobs:
 
       - name: pnpm install, make test-coverage
         run: |
-          cd ./film-flix && pnpm install
-          cd ./film-flix && make test-coverage
+          cd ./film-flix && pnpm run coverage
+#          cd ./film-flix && make test-coverage
 
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.2.3
