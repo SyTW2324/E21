@@ -53,3 +53,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           path-to-lcov: ./film-flix/coverage/lcov.info
+          coveralls-endpoint: https://coveralls.io
+          debug: true
