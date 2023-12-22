@@ -51,4 +51,5 @@ jobs:
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@v2.2.3
         with:
-            github-token: ${{ secrets.GITHUB_TOKEN }}
+            githubToken: ${{ secrets.COVERALLS_TOKEN }}
+            coverallsFile: ./film-flix/coverage/lcov.info
