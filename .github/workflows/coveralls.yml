@@ -48,11 +48,8 @@ jobs:
         run: |
           cd ./film-flix && pnpm run coverage
 
-      - name: Change to project directory
-        run: cd ./film-flix
-        working-directory: ./film-flix
-
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          path-to-lcov: ./film-flix/coverage/lcov.info
