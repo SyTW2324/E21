@@ -7,6 +7,7 @@ import Profile from './pages/profile/Profile';
 import Content from './pages/content/content';
 import ContentInfo from './pages/contentInfo/contentInfo';
 import Home from './pages/Home/Home';
+//Prueba de coveralls
 
 function App() {
   return (
