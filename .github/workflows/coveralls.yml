@@ -52,4 +52,3 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
             githubToken: ${{ secrets.GITHUB_TOKEN  }}
-            path-to-lcov: ./film-flix/coverage/lcov.info
