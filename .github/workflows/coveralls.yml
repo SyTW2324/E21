@@ -52,4 +52,4 @@ jobs:
         uses: coverallsapp/github-action@v2
         with:
             githubToken: ${{ secrets.GITHUB_TOKEN  }}
-            coverallsFile: ./film-flix/coverage/lcov.info
+            path-to-lcov: ./film-flix/coverage/lcov.info
