@@ -48,6 +48,10 @@ jobs:
         run: |
           cd ./film-flix && pnpm run coverage
 
+      - name: Change to project directory
+        run: cd ./film-flix
+        working-directory: ./film-flix
+
       - name: Coveralls GitHub Action
         uses: coverallsapp/github-action@master
         with:
