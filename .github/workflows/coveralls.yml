@@ -49,6 +49,6 @@ jobs:
           cd ./film-flix && pnpm run coverage
 
       - name: Coveralls GitHub Action
-        uses: coverallsapp/github-action@v2
+        uses: coverallsapp/github-action@master
         with:
-            githubToken: ${{ secrets.GITHUB_TOKEN  }}
+          github-token: ${{ secrets.GITHUB_TOKEN }}
