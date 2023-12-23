@@ -36,7 +36,6 @@
     "test:watch": "jest --config=jest.config.js --watchAll",
     "eject": "react-scripts eject",
     "coverage": "pnpm test -- --coverage",
-    "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "eslintConfig": {
     "extends": [
