@@ -14,7 +14,7 @@ export default {
         '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy'
     },
     "collectCoverage": true,
-    "coverageReporters": ["lcov", "text"],
+    "coverageReporters": ["lcov"],
     "collectCoverageFrom": [
         "src/**/*.{js,jsx,ts,tsx}",
         "!src/**/*.test.{js,jsx,ts,tsx}"
