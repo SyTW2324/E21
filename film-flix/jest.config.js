@@ -13,6 +13,12 @@ export default {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",
         '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy'
     },
+    "collectCoverage": true,
+    "coverageReporters": ["lcov", "text"],
+    "collectCoverageFrom": [
+        "src/**/*.{js,jsx,ts,tsx}",
+        "!src/**/*.test.{js,jsx,ts,tsx}"
+    ],
     "coverageThreshold": {
         "global": {
           "branches": 10,
