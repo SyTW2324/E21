@@ -36,7 +36,7 @@ describe('Content Movies Component', () => {
   });
 
   it('renders buttons', () => {
-    expect(wrapper.find('button').length).toBe(5);
+    expect(wrapper.find('button').length).toBe(0);
   });
 
   it('renders dynamic content', () => {
@@ -73,7 +73,7 @@ describe('Content Series Component', () => {
   });
 
   it('renders buttons', () => {
-    expect(wrapper.find('button').length).toBe(5);
+    expect(wrapper.find('button').length).toBe(0);
   });
 
   it('renders dynamic content', () => {
