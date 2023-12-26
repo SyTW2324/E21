@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Alert from "../../components/alert";
+import Navbar from "src/components/navbar";
+import Footer from "src/components/footer";
 
 type User = {
   _id: string;
@@ -55,8 +58,9 @@ export default function Profile() {
   }, [navigate]);
 
   return (
-    <section className="bg-gray-900">
+    <section className="bg-gray-800">
       {alertShow && <Alert message={error_message} />}
+      <Navbar />
       <div className="py-8 lg:py-16 px-4 mx-auto max-w-screen-md flex flex-col w-full h-screen">
         <h2 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-white">
           {data.username}
@@ -73,7 +77,7 @@ export default function Profile() {
             >
               Your ID
             </label>
-            <div className="shadow-sm bg-gray-800 border border-gray-300 text-gray-300 text-sm rounded-lg w-full p-2.5">
+            <div className="shadow-sm bg-gray-700 border border-gray-300 text-gray-200 text-sm rounded-lg w-full p-2.5">
               {data._id}
             </div>
           </div>
@@ -84,7 +88,7 @@ export default function Profile() {
             >
               Your email
             </label>
-            <div className="shadow-sm bg-gray-800 border border-gray-300 text-gray-300 text-sm rounded-lg w-full p-2.5">
+            <div className="shadow-sm bg-gray-700 border border-gray-300 text-gray-200 text-sm rounded-lg w-full p-2.5">
               {data.email}
             </div>
           </div>
@@ -95,7 +99,7 @@ export default function Profile() {
             >
               Favorites Movies
             </label>
-            <div className="shadow-sm bg-gray-800 border border-gray-300 text-gray-300 text-sm rounded-lg w-full p-2.5">
+            <div className="shadow-sm bg-gray-700 border border-gray-300 text-gray-200 text-sm rounded-lg w-full p-2.5">
               {data.favoriteMovies.map((movie: any, index: any) => (
                 <div key={index}>{movie.title}</div>
               ))}
@@ -108,7 +112,7 @@ export default function Profile() {
             >
               Favorites Series
             </label>
-            <div className="shadow-sm bg-gray-800 border border-gray-300 text-gray-300 text-sm rounded-lg w-full p-2.5">
+            <div className="shadow-sm bg-gray-700 border border-gray-300 text-gray-200 text-sm rounded-lg w-full p-2.5">
               {data.favoriteSeries.map((movie: any, index: any) => (
                 <div key={index}>{movie.title}</div>
               ))}
@@ -126,6 +130,7 @@ export default function Profile() {
           </button>
         </div>
       </div>
+      <Footer />
     </section>
   );
 }
