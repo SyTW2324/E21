@@ -6,6 +6,18 @@ jest.mock("react-router-dom", () => ({
   useNavigate: jest.fn(),
 }));
 
+jest.mock('../../components/navbar', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../components/navbar'),
+  footer: jest.fn()
+}));
+
+jest.mock('../../components/footer', () => ({
+  __esModule: true,
+  ...jest.requireActual('../../components/footer'),
+  footer: jest.fn()
+}));
+
 describe("Profile Component", () => {
   let wrapper: ShallowWrapper;
 
