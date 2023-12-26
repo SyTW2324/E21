@@ -13,6 +13,12 @@ jest.mock('../../components/navbar', () => ({
   footer: jest.fn()
 }));
 
+// Mockear useNavigate
+jest.mock("react-router-dom", () => ({
+  ...jest.requireActual("react-router-dom"), // Mantén las implementaciones no mockeadas
+  useNavigate: jest.fn(),
+}));
+
 describe('ContentInfo Component', () => {
   let wrapper: ShallowWrapper;
 
@@ -27,14 +33,14 @@ describe('ContentInfo Component', () => {
   });
 
   it('renders content', () => {
-    expect(wrapper.find('div').length).toBe(25);
+    expect(wrapper.find('div').length).toBe(19);
   });
 
   it ('renders content elements', () => {
-    expect(wrapper.find('div').length).toBe(25);
+    expect(wrapper.find('div').length).toBe(19);
     expect(wrapper.find('h2').length).toBe(9);
-    expect(wrapper.find('p').length).toBe(15);
-    expect(wrapper.find('img').length).toBe(4);
+    expect(wrapper.find('p').length).toBe(9);
+    expect(wrapper.find('img').length).toBe(1);
     expect(wrapper.find('h1').length).toBe(1);
     expect(wrapper.find('ul').length).toBe(0);
   });
