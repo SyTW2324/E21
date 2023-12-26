@@ -1,8 +1,8 @@
-import Footer from "../../components/footer"
-import Navbar from "../../components/navbar"
-import { useParams } from "react-router-dom"
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
+import { useParams } from "react-router-dom";
 
-import React from "react"
+import React from "react";
 
 type Movies = {
   _id: string;
@@ -33,39 +33,44 @@ type Series = {
   platform: string[];
 };
 
-async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
+async function getContentInfo(
+  id: string,
+  type: "movies" | "series",
+  onErr: (err: string) => void
+): Promise<Movies | Series> {
   try {
-      console.log(id);
-      console.log(type);
-      const response = await fetch(`http://localhost:3001/${type}/${id}`, {
-        method: "GET"
-      });
-      console.log(response);
-      if (!response.ok) {
-        throw new Error(`Error en la solicitud: ${response.statusText}`);
-      }
-      const data = await response.json() as { movie: Movies } | { serie: Series };
-      console.log(data);
-      if ("movie" in data) {
-        return data.movie;
-      } else {
-        return data.serie;
-      }
+    console.log(id);
+    console.log(type);
+    const response = await fetch(`http://localhost:3001/${type}/${id}`, {
+      method: "GET",
+    });
+    console.log(response);
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+    const data = (await response.json()) as
+      | { movie: Movies }
+      | { serie: Series };
+    console.log(data);
+    if ("movie" in data) {
+      return data.movie;
+    } else {
+      return data.serie;
+    }
   } catch (error: any) {
     onErr(error.message);
-    return { } as Movies | Series;
+    return {} as Movies | Series;
   }
 }
 
-export default function ContentInfo({ type }: { type: "movies" | "series"}) {
+export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   const [content, setContent] = React.useState<Movies | Series>();
 
   // Extraer el id de la url
   const { id } = useParams() as { id: string };
 
   React.useEffect(() => {
-    getContentInfo(id, type, (error) => {
-    }).then((data) => setContent(data));
+    getContentInfo(id, type, (error) => {}).then((data) => setContent(data));
   }, [type, id]);
 
   return (
@@ -73,13 +78,54 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
       <div className="bg-gray-900 ">
         <Navbar />
         <div className="pt-4 pb-20">
-          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
+          <div className="max-w-screen-lg gap-16 lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
             <div>
-              <img
-                className="h-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
-                alt=""
-              />
+              <div>
+                <img
+                  className="h-full rounded-lg"
+                  src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                  alt=""
+                />
+                <div
+                  title="Like"
+                  className="heart-container"
+                >
+                  <input
+                    id="Give-It-An-Id"
+                    className="checkbox"
+                    type="checkbox"
+                  />
+                  <div className="svg-container">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svg-outline"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Zm-3.585,18.4a2.973,2.973,0,0,1-3.83,0C4.947,16.006,2,11.87,2,8.967a4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,11,8.967a1,1,0,0,0,2,0,4.8,4.8,0,0,1,4.5-5.05A4.8,4.8,0,0,1,22,8.967C22,11.87,19.053,16.006,13.915,20.313Z"></path>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="svg-filled"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M17.5,1.917a6.4,6.4,0,0,0-5.5,3.3,6.4,6.4,0,0,0-5.5-3.3A6.8,6.8,0,0,0,0,8.967c0,4.547,4.786,9.513,8.8,12.88a4.974,4.974,0,0,0,6.4,0C19.214,18.48,24,13.514,24,8.967A6.8,6.8,0,0,0,17.5,1.917Z"></path>
+                    </svg>
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      height="100"
+                      width="100"
+                      className="svg-celebrate"
+                    >
+                      <polygon points="10,10 20,20"></polygon>
+                      <polygon points="10,50 20,50"></polygon>
+                      <polygon points="20,80 30,70"></polygon>
+                      <polygon points="90,10 80,20"></polygon>
+                      <polygon points="90,50 80,50"></polygon>
+                      <polygon points="80,80 70,70"></polygon>
+                    </svg>
+                  </div>
+                </div>
+              </div>
               <div className="flex justify-center items-center">
                 <div>
                   <div>
@@ -87,7 +133,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                       Rating
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content?.rating }
+                      {content?.rating}
                     </p>
                   </div>
                   <div>
@@ -95,7 +141,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                       Platforms
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content?.platform.join(" - ") }
+                      {content?.platform.join(" - ")}
                     </p>
                   </div>
                   <div>
@@ -103,31 +149,31 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                       Runtime
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min` }
+                      {content && "duration" in content
+                        ? `${content.duration} min`
+                        : `${content?.durationAVG} min`}
                     </p>
                   </div>
-                  {
-                    content && "numEpisodes" in content &&
+                  {content && "numEpisodes" in content && (
                     <div>
                       <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                         Episodes
                       </h2>
                       <p className="text-white pt-1 flex justify-center">
-                        { content?.numEpisodes }
+                        {content?.numEpisodes}
                       </p>
                     </div>
-                  }
-                  {
-                    content && "seasons" in content &&
+                  )}
+                  {content && "seasons" in content && (
                     <div>
                       <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Seasons 
+                        Seasons
                       </h2>
                       <p className="text-white pt-1 flex justify-center">
-                        { content?.seasons }
+                        {content?.seasons}
                       </p>
                     </div>
-                  }
+                  )}
                 </div>
               </div>
             </div>
@@ -135,13 +181,13 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
               <div>
                 <h1 className="text-white text-4xl font-bold">Title</h1>
                 <p className="text-white font-extralight pt-2">
-                  { content?.title }
+                  {content?.title}
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Genre</h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.genre.join(", ") }
+                  {content?.genre.join(", ")}
                 </p>
               </div>
               <div>
@@ -149,25 +195,27 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                   Release Date
                 </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd}` }
+                  {content && "year" in content
+                    ? content.year
+                    : `${content?.yearStart} - ${content?.yearEnd}`}
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Cast</h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.cast.join(", ") }
+                  {content?.cast.join(", ")}
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Director</h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.director }
+                  {content?.director}
                 </p>
               </div>
               <div>
                 <h2 className="text-white text-2xl font-bold pt-5">Plot</h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.description }
+                  {content?.description}
                 </p>
               </div>
             </div>
