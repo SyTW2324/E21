@@ -57,18 +57,23 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
   }
 }
 
-async function getComments() : Promise<void> {
+async function getComments(): Promise<any[]> {
   try {
-    const response = await fetch(`http://localhost:3001/comments`, {
-      method: "GET"
+    const response = await fetch("http://localhost:3001/comments", {
+      method: "GET",
     });
+
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
+
     const data = await response.json();
     console.log(data);
+
+    return data.comments || []; // Asegúrate de ajustar la estructura según la respuesta real
   } catch (error: any) {
     console.log(error.message);
+    return [];
   }
 }
 
@@ -129,7 +134,9 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
       });
 
       console.log(response);
-      navigate("/");
+      if (response.ok) {
+        navigate("/");
+      }
     } catch (error: any) {
       console.log(error.message);
     }
@@ -266,24 +273,26 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                 Post comment
               </button>
             </form>
-            <article className="p-6 text-base rounded-lg bg-gray-900">
-              <footer className="flex justify-between items-center mb-2">
-                <div className="flex items-center">
-                  <p className="inline-flex items-center mr-3 text-sm text-white font-semibold">
-                    {/*<img*/}
-                    {/*  className="mr-2 w-6 h-6 rounded-full"*/}
-                    {/*  src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"*/}
-                    {/*  alt="Michael Gough"*/}
-                    {/*/>*/}
-                    {/*{comments[0]?.userName}*/}
-                  </p>
-                </div>
-              </footer>
-              <p className="text-gray-400">
-                {/*{comments[0]?.text}*/}
-              </p>
-              <div className="flex items-center mt-4 space-x-4"></div>
-            </article>
+
+            {comments.map((comment: any, index: any) => (
+                <article key={index} className="p-6 text-base rounded-lg bg-gray-900">
+                  <footer className="flex justify-between items-center mb-2">
+                    <div className="flex items-center">
+                      <p className="inline-flex items-center mr-3 text-sm text-white font-semibold">
+                        {/* <img
+                className="mr-2 w-6 h-6 rounded-full"
+                src="https://flowbite.com/docs/images/people/profile-picture-2.jpg"
+                alt="Michael Gough"
+              /> */}
+                        {comment.userName}
+                      </p>
+                    </div>
+                  </footer>
+                  <p className="text-gray-400">{comment.text}</p>
+                  <div className="flex items-center mt-4 space-x-4"></div>
+                </article>
+            ))}
+
           </div>
         </section>
         <Footer />
