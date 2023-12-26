@@ -1,0 +1,421 @@
+[
+    {
+        "image": "https://i.imgur.com/1zX2Y3n.jpg",
+        "title": "Stranger Things",
+        "description": "A group of kids in a small town encounter strange phenomena",
+        "director": "The Duffer Brothers",
+        "yearStart": 2016,
+        "yearEnd": -1,
+        "numEpisodes": 25,
+        "seasons": [
+            {
+                "season": 1,
+                "episodes": [
+                    {
+                        "title": "The Vanishing of Will Byers",
+                        "description": "On his way home from a friend's house, young Will sees something terrifying. Nearby, a sinister secret lurks in the depths of a government lab.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Weirdo on Maple Street",
+                        "description": "As the town searches for a missing boy, a group of friends discovers a girl with telekinetic powers.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "Holly, Jolly",
+                        "description": "A mother's search for her missing son leads to a series of mysteries and supernatural occurrences in the town.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Body",
+                        "description": "The friends uncover a shocking truth about the missing boy as they confront a terrifying creature from another dimension.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Flea and the Acrobat",
+                        "description": "A girl with telekinetic abilities joins the group as they face new challenges and a dangerous government conspiracy.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "The Monster",
+                        "description": "The group battles a monstrous creature, and secrets about the government lab and the missing boy are revealed.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Bathtub",
+                        "description": "The friends embark on a mission to rescue their friend from the parallel dimension, encountering new dangers and allies.",
+                        "duration": 42
+                    },
+                    {
+                        "title": "The Upside Down",
+                        "description": "The group faces a final showdown with the otherworldly threat as they try to save their friend and unravel the mysteries.",
+                        "duration": 55
+                    }
+                ]
+            },
+            {
+                "season": 2,
+                "episodes": [
+                    {
+                        "title": "MADMAX",
+                        "description": "The town is shaken by the arrival of a new girl with a troubled past as the group faces a new threat.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Trick or Treat, Freak",
+                        "description": "On Halloween night, the group faces a series of challenges and encounters a mysterious figure from Eleven's past.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "The Pollywog",
+                        "description": "A strange creature appears, leading the group on a mission to protect their town and uncover a dark secret.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "Will the Wise",
+                        "description": "Will experiences strange visions, and the group uncovers a connection between the new threat and the parallel dimension.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "Dig Dug",
+                        "description": "The group goes on a perilous journey to rescue their friend and confront the mysteries of the underground tunnels.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "The Spy",
+                        "description": "As tensions rise, secrets are revealed, and the group faces betrayals that threaten to tear them apart.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Lost Sister",
+                        "description": "Eleven goes on a personal journey, encountering a gang of misfits with supernatural abilities.",
+                        "duration": 42
+                    },
+                    {
+                        "title": "The Mind Flayer",
+                        "description": "The group confronts a powerful enemy as the supernatural threat intensifies, putting the town in grave danger.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "The Gate",
+                        "description": "In a final battle, the group faces the source of the supernatural threat and fights to save their town.",
+                        "duration": 55
+                    }
+                ]
+            },
+            {
+                "season": 3,
+                "episodes": [
+                    {
+                        "title": "Suzie, Do You Copy?",
+                        "description": "As the town celebrates the Fourth of July, a new threat emerges, and the group faces challenges on multiple fronts.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Mall Rats",
+                        "description": "The group investigates strange occurrences at the new mall, uncovering a conspiracy that goes beyond their imagination.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "The Case of the Missing Lifeguard",
+                        "description": "The search for a missing lifeguard leads the group to a sinister plot involving mind control and secret experiments.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Sauna Test",
+                        "description": "As tensions rise, the group faces a deadly challenge, and the true nature of the supernatural threat is revealed.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Flayed",
+                        "description": "The group discovers a disturbing connection between the supernatural threat and the townspeople, leading to a race against time.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "E Pluribus Unum",
+                        "description": "As the supernatural threat escalates, the group confronts a mind-bending reality and fights for the survival of their town.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Bite",
+                        "description": "The group faces personal and collective challenges as the supernatural threat reaches a critical point, and sacrifices are made.",
+                        "duration": 42
+                    },
+                    {
+                        "title": "The Battle of Starcourt",
+                        "description": "In a climactic battle, the group confronts the supernatural threat, and the fate of the town hangs in the balance.",
+                        "duration": 55
+                    }
+                ]
+            },
+            {
+                "season": 4,
+                "episodes": [
+                    {
+                        "title": "The Hellfire Club",
+                        "description": "A new mystery unfolds as the group encounters a secret society and delves into the dark history of their town.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Tick Tok Mr. Clock",
+                        "description": "Time is of the essence as the group races against a ticking clock to unravel a conspiracy and save their town.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "You Snooze You Lose",
+                        "description": "The group faces unexpected challenges and must navigate a dangerous game that puts their lives on the line.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Body Snatchers",
+                        "description": "A chilling discovery leads the group to confront a threat that takes on a horrifying new form.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "The Great Escape",
+                        "description": "As the group plans a daring escape, they uncover shocking truths and face betrayals that test their loyalty.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "The Dive",
+                        "description": "The group dives into the unknown, facing perilous challenges and discovering secrets that change everything.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "The Lost Sister",
+                        "description": "Old and new allies emerge as the group faces a formidable foe, and the past comes back to haunt them.",
+                        "duration": 42
+                    },
+                    {
+                        "title": "The Mind Flayer",
+                        "description": "The supernatural threat reaches its peak, and the group must confront the true nature of the enemy to save their town.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "The Gate",
+                        "description": "In a final showdown, the group battles the supernatural forces to close the gate and secure the safety of their town.",
+                        "duration": 55
+                    }
+                ]
+            }
+        ],
+        "cast": [
+            "Millie Bobby Brown",
+            "Finn Wolfhard"
+        ],
+        "genre": [
+            "Sci-Fi",
+            "Horror"
+        ],
+        "durationAVG": 0,
+        "rating": 4.7,
+        "platform": [
+            "Netflix"
+        ]
+    },
+    {
+        "image": "https://i.imgur.com/1zX2Y3n.jpg",
+        "title": "La Casa de Papel",
+        "description": "A group of criminals plans and executes the perfect heist on the Royal Mint of Spain.",
+        "director": "Álex Pina",
+        "yearStart": 2017,
+        "yearEnd": -1,
+        "numEpisodes": 31,
+        "seasons": [
+            {
+                "season": 1,
+                "episodes": [
+                    {
+                        "title": "Do as Planned",
+                        "description": "The Professor recruits eight criminals to carry out the plan to rob the Royal Mint.",
+                        "duration": 47
+                    },
+                    {
+                        "title": "Lethal Negligence",
+                        "description": "The heist is underway, but mistakes and unforeseen events put the plan at risk.",
+                        "duration": 41
+                    },
+                    {
+                        "title": "Mistakes",
+                        "description": "Tensions rise as the criminals face unexpected challenges during the heist.",
+                        "duration": 51
+                    },
+                    {
+                        "title": "Trojan Horse",
+                        "description": "The Professor's intricate plan faces new threats as the heist progresses.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Groundhog Day",
+                        "description": "Repeating challenges test the robbers' resolve as they try to maintain control.",
+                        "duration": 43
+                    },
+                    {
+                        "title": "Warm Cold War",
+                        "description": "Internal conflicts and external pressures complicate the already complex situation.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Cool Instability",
+                        "description": "The heist faces a critical turning point with unexpected consequences.",
+                        "duration": 44
+                    },
+                    {
+                        "title": "You're Insane",
+                        "description": "The situation becomes increasingly dire as the Professor's plan is pushed to the limit.",
+                        "duration": 51
+                    }
+                ]
+            },
+            {
+                "season": 2,
+                "episodes": [
+                    {
+                        "title": "A New Reality",
+                        "description": "The aftermath of the first heist forces the Professor and his team to adapt to a changed reality.",
+                        "duration": 47
+                    },
+                    {
+                        "title": "The Head of the Plan",
+                        "description": "New challenges and unexpected alliances emerge as the Professor faces formidable adversaries.",
+                        "duration": 45
+                    },
+                    {
+                        "title": "Rats",
+                        "description": "Internal and external threats escalate, putting the heist and the Professor's plan at risk.",
+                        "duration": 44
+                    },
+                    {
+                        "title": "Boom, Boom, Ciao",
+                        "description": "The heist reaches a critical moment as the Professor and his team confront their toughest challenges.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "Red Boxes",
+                        "description": "The Professor's strategies are put to the test, leading to unexpected twists and turns.",
+                        "duration": 46
+                    },
+                    {
+                        "title": "Everything Seemed Insignificant",
+                        "description": "As the heist intensifies, personal relationships and loyalties are strained to the breaking point.",
+                        "duration": 53
+                    },
+                    {
+                        "title": "Subdued Astronomy",
+                        "description": "The Professor and his team face internal and external pressures as they navigate a complex web of challenges.",
+                        "duration": 50
+                    },
+                    {
+                        "title": "The Drift",
+                        "description": "The heist reaches its climax, with the Professor and his team facing the consequences of their actions.",
+                        "duration": 51
+                    }
+                ]
+            },
+            {
+                "season": 3,
+                "episodes": [
+                    {
+                        "title": "We're Back",
+                        "description": "The Professor reunites the team for a new heist, but old and new enemies complicate the plan.",
+                        "duration": 49
+                    },
+                    {
+                        "title": "Aikido",
+                        "description": "The heist faces unexpected challenges, testing the team's unity and resolve.",
+                        "duration": 43
+                    },
+                    {
+                        "title": "48 Meters Underground",
+                        "description": "As the heist progresses, the Professor and his team confront unforeseen obstacles and betrayals.",
+                        "duration": 45
+                    },
+                    {
+                        "title": "The Perfect Crime",
+                        "description": "Tensions rise as the Professor's plan encounters unexpected complications and personal conflicts.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Berlin's Wedding",
+                        "description": "Flashbacks reveal key events as the Professor and his team grapple with emotional and strategic challenges.",
+                        "duration": 47
+                    },
+                    {
+                        "title": "Everything Seemed Insignificant",
+                        "description": "The heist reaches a critical juncture with new alliances, betrayals, and high-stakes decisions.",
+                        "duration": 49
+                    },
+                    {
+                        "title": "Little Vacations",
+                        "description": "The Professor and his team face escalating threats and internal conflicts as the heist unfolds.",
+                        "duration": 47
+                    },
+                    {
+                        "title": "The Fly",
+                        "description": "As the heist nears its climax, the Professor and his team confront the consequences of their actions.",
+                        "duration": 47
+                    }
+                ]
+            },
+            {
+                "season": 4,
+                "episodes": [
+                    {
+                        "title": "Game Over",
+                        "description": "The Professor and his team face their toughest challenge yet as old and new enemies close in.",
+                        "duration": 57
+                    },
+                    {
+                        "title": "Tokyo's Wedding",
+                        "description": "Flashbacks and present-day events reveal key moments in the characters' lives as the heist reaches a climax.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "Anatomy Lesson",
+                        "description": "The Professor and his team confront personal and strategic challenges with the heist on the line.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Spain's Breath",
+                        "description": "The heist faces unexpected twists and betrayals, pushing the Professor and his team to their limits.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "5 Minutes Earlier",
+                        "description": "As the heist approaches its conclusion, the Professor and his team confront the fallout of their choices.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "TKO",
+                        "description": "The Professor and his team face their final challenges as the heist reaches its epic conclusion.",
+                        "duration": 53
+                    },
+                    {
+                        "title": "Strike the Tent",
+                        "description": "The aftermath of the heist reveals the fates of the characters as they come to terms with the consequences.",
+                        "duration": 55
+                    },
+                    {
+                        "title": "Paris Plan",
+                        "description": "Flashbacks and present-day events intertwine as the Professor and his team navigate the aftermath of the heist.",
+                        "duration": 54
+                    }
+                ]
+            }
+        ],
+        "cast": [
+            "Úrsula Corberó",
+            "Álvaro Morte"
+        ],
+        "genre": [
+            "Crime",
+            "Drama",
+            "Thriller"
+        ],
+        "durationAVG": 0,
+        "rating": 4.8,
+        "platform": [
+            "Netflix"
+        ]
+    }    
+]
