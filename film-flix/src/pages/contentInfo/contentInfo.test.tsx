@@ -27,11 +27,11 @@ describe('ContentInfo Component', () => {
   });
 
   it('renders content', () => {
-    expect(wrapper.find('div').length).toBe(25);
+    expect(wrapper.find('div').length).toBe(28);
   });
 
   it ('renders content elements', () => {
-    expect(wrapper.find('div').length).toBe(25);
+    expect(wrapper.find('div').length).toBe(28);
     expect(wrapper.find('h2').length).toBe(9);
     expect(wrapper.find('p').length).toBe(15);
     expect(wrapper.find('img').length).toBe(4);
