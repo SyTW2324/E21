@@ -61,7 +61,7 @@ export default function SignUp() {
 
   const logo = require("../../img/FilmflixLogo.png") as string;
   return (
-    <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+    <div className="flex flex-col w-full h-screen px-6 py-20">
       {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <img
@@ -70,7 +70,7 @@ export default function SignUp() {
           alt="FilmFlix Company"
         />
 
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
           Sign Up
         </h2>
       </div>
@@ -79,7 +79,7 @@ export default function SignUp() {
           <div>
             <label
               htmlFor="username"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6 text-white"
             >
               Username
             </label>
@@ -87,11 +87,11 @@ export default function SignUp() {
               <UserIcon color="grey" width={22} />
               <input
                 id="username"
-                className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 type="text"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
-                placeholder="Type your username"
+                placeholder="Example01"
                 required
               />
             </div>
@@ -100,7 +100,7 @@ export default function SignUp() {
           <div>
             <label
               htmlFor="email"
-              className="block text-sm font-medium leading-6 text-gray-900"
+              className="block text-sm font-medium leading-6 text-white"
             >
               Email address
             </label>
@@ -111,11 +111,11 @@ export default function SignUp() {
                 name="email"
                 type="email"
                 autoComplete="email"
-                placeholder="Type your email"
+                placeholder="example@gmail.com"
                 required
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -124,7 +124,7 @@ export default function SignUp() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Password
               </label>
@@ -141,7 +141,7 @@ export default function SignUp() {
                 required
                 value={passwordHash}
                 onChange={(e) => setPasswordHash(e.target.value)}
-                className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -150,7 +150,7 @@ export default function SignUp() {
             <div className="flex items-center justify-between">
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Confirm Password
               </label>
@@ -167,7 +167,7 @@ export default function SignUp() {
                 required
                 value={repeatPassword}
                 onChange={(e) => setRepeatPassword(e.target.value)}
-                className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
             </div>
           </div>
@@ -182,11 +182,11 @@ export default function SignUp() {
           </div>
         </form>
 
-        <p className="mt-10 text-center text-sm text-gray-500">
+        <p className="mt-10 text-center text-sm text-gray-400">
           You have an account?{" "}
           <a
             href="/login"
-            className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
+            className="font-semibold leading-6 text-sky-500 hover:text-sky-200"
           >
             Login
           </a>
