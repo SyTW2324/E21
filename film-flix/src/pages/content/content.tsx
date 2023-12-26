@@ -6,6 +6,7 @@ import React from "react";
 
 type Movies = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
@@ -19,6 +20,7 @@ type Movies = {
 
 type Series = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
@@ -150,7 +152,7 @@ export default function Content({ type }: { type: "movies" | "series" }) {
                   <div className="text-white">
                     <img
                       className="h-auto rounded-lg"
-                      src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                      src={cont.image}
                       alt={cont.title}
                     />
                     <p className="font-medium flex justify-center">

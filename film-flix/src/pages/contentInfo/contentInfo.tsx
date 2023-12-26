@@ -6,6 +6,7 @@ import React from "react"
 
 type Movies = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
@@ -19,6 +20,7 @@ type Movies = {
 
 type Series = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
@@ -77,7 +79,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
             <div>
               <img
                 className="h-full rounded-lg"
-                src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
+                src={ content?.image }
                 alt=""
               />
               <div className="flex justify-center items-center">
