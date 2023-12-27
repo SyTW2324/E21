@@ -49,7 +49,7 @@ export default function Login() {
 
   return (
     <>
-      <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="flex flex-col w-full h-screen px-6 py-40">
         {alertShow && <Alert message={error_message} />}
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
@@ -57,7 +57,7 @@ export default function Login() {
             src="/images/Logo.webp"
             alt="FilmFlix Company"
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Login
           </h2>
         </div>
@@ -67,7 +67,7 @@ export default function Login() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-gray-900"
+                className="block text-sm font-medium leading-6 text-white"
               >
                 Email address
               </label>
@@ -82,7 +82,7 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="email@example.com"
-                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-300 placeholder:text-gray-400 bg-gray-900 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -91,14 +91,14 @@ export default function Login() {
               <div className="flex items-center justify-between">
                 <label
                   htmlFor="password"
-                  className="block text-sm font-medium leading-6 text-gray-900"
+                  className="block text-sm font-medium leading-6 text-white"
                 >
                   Password
                 </label>
                 <div className="text-sm">
                   <a
                     href="/register"
-                    className="font-semibold text-sky-800 hover:text-sky-600"
+                    className="font-semibold text-sky-500 hover:text-sky-200"
                   >
                     Forgot password?
                   </a>
@@ -115,7 +115,7 @@ export default function Login() {
                   value={passwordHash}
                   onChange={(e) => setPasswordHash(e.target.value)}
                   placeholder="• • • • • • • •"
-                  className="w-full border-0 text-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
+                  className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -130,11 +130,11 @@ export default function Login() {
             </div>
           </form>
 
-          <p className="mt-10 text-center text-sm text-gray-500">
+          <p className="mt-10 text-center text-sm text-gray-400">
             Not a member?{" "}
             <Link
               to="/register"
-              className="font-semibold leading-6 text-sky-800 hover:text-sky-600"
+              className="font-semibold leading-6 text-sky-500 hover:text-sky-200"
             >
               Sign Up
             </Link>
