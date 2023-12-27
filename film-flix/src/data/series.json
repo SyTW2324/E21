@@ -417,5 +417,165 @@
         "platform": [
             "Netflix"
         ]
+    },
+    {
+        "image": "https://i.imgur.com/1zX2Y3n.jpg",
+        "title": "The Mandalorian",
+        "description": "A lone gunfighter makes his way through the outer reaches of the galaxy, far from the authority of the New Republic.",
+        "director": "Jon Favreau",
+        "yearStart": 2019,
+        "yearEnd": -1,
+        "numEpisodes": 16,
+        "seasons": [
+            {
+                "season": 1,
+                "episodes": [
+                    {
+                        "title": "The Mandalorian",
+                        "description": "A Mandalorian bounty hunter tracks a target for a well-paying client.",
+                        "duration": 39
+                    },
+                    {
+                        "title": "The Child",
+                        "description": "Target in-hand, the Mandalorian must now contend with scavengers.",
+                        "duration": 32
+                    },
+                    {
+                        "title": "The Sin",
+                        "description": "The battered Mandalorian returns to his client for reward.",
+                        "duration": 38
+                    },
+                    {
+                        "title": "Sanctuary",
+                        "description": "The Mandalorian teams up with an ex-soldier to protect a farming village.",
+                        "duration": 41
+                    },
+                    {
+                        "title": "The Gunslinger",
+                        "description": "The Mandalorian helps a rookie bounty hunter who is in over his head.",
+                        "duration": 35
+                    },
+                    {
+                        "title": "The Prisoner",
+                        "description": "The Mandalorian joins a crew of mercenaries on a dangerous mission.",
+                        "duration": 41
+                    },
+                    {
+                        "title": "The Reckoning",
+                        "description": "An old rival extends an invitation for the Mandalorian to make peace.",
+                        "duration": 48
+                    },
+                    {
+                        "title": "Redemption",
+                        "description": "The Mandalorian comes face-to-face with an unexpected enemy.",
+                        "duration": 48
+                    }
+                ]
+            },
+            {
+                "season": 2,
+                "episodes": [
+                    {
+                        "title": "The Marshal",
+                        "description": "The Mandalorian is drawn to the Outer Rim in search of others of his kind.",
+                        "duration": 52
+                    },
+                    {
+                        "title": "The Passenger",
+                        "description": "The Mandalorian must ferry a passenger with precious cargo on a risky journey.",
+                        "duration": 41
+                    },
+                    {
+                        "title": "The Heiress",
+                        "description": "The Mandalorian braves high seas and meets unexpected allies.",
+                        "duration": 35
+                    },
+                    {
+                        "title": "The Siege",
+                        "description": "The Mandalorian rejoins old allies for a new mission.",
+                        "duration": 38
+                    },
+                    {
+                        "title": "The Jedi",
+                        "description": "The Mandalorian journeys to a world ruled by a cruel magistrate who has made a powerful enemy.",
+                        "duration": 47
+                    },
+                    {
+                        "title": "The Tragedy",
+                        "description": "The Mandalorian and Child travel to an ancient site.",
+                        "duration": 35
+                    },
+                    {
+                        "title": "The Believer",
+                        "description": "To move against the Empire, the Mandalorian needs the help of an old enemy.",
+                        "duration": 38
+                    },
+                    {
+                        "title": "The Rescue",
+                        "description": "The Mandalorian and his allies attempt a daring rescue.",
+                        "duration": 47
+                    }
+                ]
+            },
+            {
+                "season": 3,
+                "episodes": [
+                   {
+                    "title": "The Apostate",
+                    "description": "The Mandalorian starts and important voyage",
+                    "duration": 52
+                   },
+                   {
+                    "title": "The Mines of Mandalore",
+                    "description": "The Mandalorian and Grogu explore the ruins of a destroyed planet",
+                    "duration": 38
+                   },
+                   {
+                    "title": "The Convert",
+                    "description": "The Convert",
+                    "duration": 40
+                   },
+                   {
+                    "title": "The Foundling",
+                    "description": "Din Djarin comes back to the secret mandalorian site",
+                    "duration": 35
+                   },
+                   {
+                    "title": "The Pirate",
+                    "description": "Nevarro residents need help fending off a fierce pirate attack",
+                    "duration": 36
+                   },
+                   {
+                    "title": "Guns of Hire",
+                    "description": "The Mandalorian visits an opulent world",
+                    "duration": 32
+                   },
+                   {
+                    "title": "The Spies",
+                    "description": "Survivors come out of hiding",
+                    "duration": 42
+                   },
+                   {
+                    "title": "The Return",
+                    "description": "Din Djarin and his allies face off against the enemy",
+                    "duration": 48
+                   }
+                ]
+            }
+        ],
+        "cast": [
+            "Pedro Pascal",
+            "Gina Carano"
+        ],
+        "genre": [
+            "Action",
+            "Adventure",
+            "Sci-Fi"
+        ],
+        "durationAVG": 0,
+        "rating": 4.9,
+        "platform": [
+            "Disney+"
+        ]
     }    
 ]

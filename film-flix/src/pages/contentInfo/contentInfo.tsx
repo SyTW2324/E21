@@ -4,6 +4,21 @@ import { useParams } from "react-router-dom"
 
 import React from "react"
 
+type Seasons = {
+  _id: string;
+  season: number;
+  episodes: Episode[];
+};
+
+type Episode = {
+  _id: string;
+  title: string;
+  description: string;
+  duration: number;
+  rating: number;
+  numEpisode: number;
+};
+
 type Movies = {
   _id: string;
   image: string;
@@ -27,7 +42,7 @@ type Series = {
   yearStart: number;
   yearEnd: number;
   numEpisodes: number;
-  seasons: number;
+  seasons: Seasons[];
   cast: string[];
   genre: string[];
   durationAVG: number;
@@ -78,7 +93,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
           <div className="max-w-screen-lg gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
             <div>
               <img
-                className="h-full rounded-lg"
+                className="h-full rounded-lg w-8/12 mx-auto"
                 src={ content?.image }
                 alt=""
               />
@@ -126,7 +141,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                         Seasons 
                       </h2>
                       <p className="text-white pt-1 flex justify-center">
-                        { content?.seasons }
+                        { content?.seasons.length }
                       </p>
                     </div>
                   }
@@ -151,7 +166,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series"}) {
                   Release Date
                 </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd}` }
+                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
                 </p>
               </div>
               <div>

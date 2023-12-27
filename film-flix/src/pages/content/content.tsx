@@ -151,11 +151,11 @@ export default function Content({ type }: { type: "movies" | "series" }) {
                 <Link to={`/${type}/${cont._id}`} key={cont._id}>
                   <div className="text-white">
                     <img
-                      className="h-auto rounded-lg"
+                      className="object-cover h-80 w-full rounded-lg"
                       src={cont.image}
                       alt={cont.title}
                     />
-                    <p className="font-medium flex justify-center">
+                    <p className="font-medium flex justify-center mt-4">
                       {cont.title}
                     </p>
                   </div>
