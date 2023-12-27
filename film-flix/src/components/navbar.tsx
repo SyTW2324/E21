@@ -1,18 +1,18 @@
-import { Link } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import DropdownComponent from "./dropdown";
 
 export default function Navbar() {
   const logo = require("../img/FilmflixLogo.png") as string;
   const navigate = useNavigate();
   const location = useLocation();
 
-  const isLoggedIn = () : boolean => {
+  const isLoggedIn = (): boolean => {
     if (localStorage.getItem("token")) {
       return true;
     } else {
       return false;
     }
-  }
+  };
 
   return (
     <nav className="border-gray-200 bg-gray-900">
@@ -25,18 +25,9 @@ export default function Navbar() {
         </a>
         <div className="flex order-2 space-x-1 rtl:space-x-reverse">
           {isLoggedIn() ? (
-            <button
-              type="button"
-              onClick={() => {
-                localStorage.removeItem("token");
-                navigate("/");
-              }}
-              className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
-                                focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600
-                                dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-            >
-              Logout
-            </button>
+            <>
+              <DropdownComponent />
+            </>
           ) : (
             <button
               type="button"
@@ -50,21 +41,10 @@ export default function Navbar() {
               Login
             </button>
           )}
-          {/*<button*/}
-          {/*  type="button"*/}
-          {/*  onClick={() => {*/}
-          {/*    navigate("/login");*/}
-          {/*  }}*/}
-          {/*  className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none */}
-          {/*                      focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 text-center dark:bg-blue-600 */}
-          {/*                      dark:hover:bg-blue-700 dark:focus:ring-blue-800"*/}
-          {/*>*/}
-          {/*  Get started*/}
-          {/*</button>*/}
           <button
             data-collapse-toggle="navbar-cta"
             type="button"
-            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden 
+            className="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden
                                 hover:bg-sky-900 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 
                                 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
             aria-controls="navbar-cta"
@@ -93,7 +73,7 @@ export default function Navbar() {
           id="navbar-cta"
         >
           <ul
-            className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse 
+            className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg md:space-x-8 rtl:space-x-reverse
                                 md:flex-row md:mt-0 md:border-0 md:dark:bg-gray-900 dark:border-gray-700"
           >
             <li>
