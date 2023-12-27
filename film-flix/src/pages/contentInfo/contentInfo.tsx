@@ -52,8 +52,6 @@ type Series = {
 
 async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
   try {
-    console.log(id);
-    console.log(type);
     const response = await fetch(`http://localhost:3001/${type}/${id}`, {
       method: "GET"
     });

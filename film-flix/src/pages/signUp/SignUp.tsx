@@ -68,9 +68,17 @@ export default function SignUp() {
           className="mx-auto h-24 w-auto"
           src={logo}
           alt="FilmFlix Company"
+          onClick={() => {
+            navigate("/");
+          }}
         />
 
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+        <h2
+          className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
+          onClick={() => {
+            navigate("/");
+          }}
+        >
           Sign Up
         </h2>
       </div>

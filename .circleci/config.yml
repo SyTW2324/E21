@@ -30,12 +30,6 @@ jobs:
             cd film-flix
             pnpm test
 
-      - run:
-          name: Build
-          command: |
-            cd film-flix
-            pnpm run build
-
 #      - codecov/upload:
 #          file: ~/film-flix/coverage/lcov.info
 #          flags: codecov/project
