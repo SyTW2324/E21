@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Alert from "../../components/alert";
-import Navbar from "src/components/navbar";
-import Footer from "src/components/footer";
+import Navbar from "../../components/navbar"
+import Footer from "../../components/footer"
 
 type User = {
   _id: string;
