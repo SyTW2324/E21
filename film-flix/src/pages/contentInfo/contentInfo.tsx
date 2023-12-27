@@ -4,8 +4,24 @@ import {useNavigate, useParams} from "react-router-dom"
 
 import React from "react"
 
+type Seasons = {
+  _id: string;
+  season: number;
+  episodes: Episode[];
+};
+
+type Episode = {
+  _id: string;
+  title: string;
+  description: string;
+  duration: number;
+  rating: number;
+  numEpisode: number;
+};
+
 type Movies = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
@@ -19,13 +35,14 @@ type Movies = {
 
 type Series = {
   _id: string;
+  image: string;
   title: string;
   description: string;
   director: string;
   yearStart: number;
   yearEnd: number;
   numEpisodes: number;
-  seasons: number;
+  seasons: Seasons[];
   cast: string[];
   genre: string[];
   durationAVG: number;
@@ -93,6 +110,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     }).then((data) => setContent(data));
   }, [type, id]);
 
+
   React.useEffect(() => {
     getComments().then((data) => getComment(data));
   }, []);
@@ -142,113 +160,113 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     }
   };
 
+  
+
   return (
-      <>
-        <div className="bg-gray-900 ">
-          <Navbar/>
-          <div className="pt-4 pb-20">
-            <div
-                className="max-w-screen-lg gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
-              <div>
-                <img
-                    className="h-full rounded-lg"
-                    src="https://flowbite.s3.amazonaws.com/docs/gallery/square/image.jpg"
-                    alt=""
-                />
-                <div className="flex justify-center items-center">
+    <>
+      <div className="bg-gray-900 ">
+        <Navbar />
+        <div className="pt-4 pb-20">
+          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
+            <div>
+              <img
+                className="h-full rounded-lg w-8/12 mx-auto"
+                src={ content?.image }
+                alt=""
+              />
+              <div className="flex justify-center items-center">
+                <div>
                   <div>
-                    <div>
-                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Rating
-                      </h2>
-                      <p className="text-white pt-1 flex justify-center">
-                        {content?.rating}
-                      </p>
-                    </div>
-                    <div>
-                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Platforms
-                      </h2>
-                      <p className="text-white pt-1 flex justify-center">
-                        {content?.platform.join(" - ")}
-                      </p>
-                    </div>
-                    <div>
-                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Runtime
-                      </h2>
-                      <p className="text-white pt-1 flex justify-center">
-                        {content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min`}
-                      </p>
-                    </div>
-                    {
-                        content && "numEpisodes" in content &&
-                        <div>
-                            <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                                Episodes
-                            </h2>
-                            <p className="text-white pt-1 flex justify-center">
-                              {content?.numEpisodes}
-                            </p>
-                        </div>
-                    }
-                    {
-                        content && "seasons" in content &&
-                        <div>
-                            <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                                Seasons
-                            </h2>
-                            <p className="text-white pt-1 flex justify-center">
-                              {content?.seasons}
-                            </p>
-                        </div>
-                    }
+                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                      Rating
+                    </h2>
+                    <p className="text-white pt-1 flex justify-center">
+                      { content?.rating }
+                    </p>
                   </div>
-                </div>
-              </div>
-              <div>
-                <div>
-                  <h1 className="text-white text-4xl font-bold">Title</h1>
-                  <p className="text-white font-extralight pt-2">
-                    {content?.title}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-white text-2xl font-bold pt-5">Genre</h2>
-                  <p className="text-white font-extralight pt-2">
-                    {content?.genre.join(", ")}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-white text-2xl font-bold pt-5">
-                    Release Date
-                  </h2>
-                  <p className="text-white font-extralight pt-2">
-                    {content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd}`}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-white text-2xl font-bold pt-5">Cast</h2>
-                  <p className="text-white font-extralight pt-2">
-                    {content?.cast.join(", ")}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-white text-2xl font-bold pt-5">Director</h2>
-                  <p className="text-white font-extralight pt-2">
-                    {content?.director}
-                  </p>
-                </div>
-                <div>
-                  <h2 className="text-white text-2xl font-bold pt-5">Plot</h2>
-                  <p className="text-white font-extralight pt-2">
-                    {content?.description}
-                  </p>
+                  <div>
+                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                      Platforms
+                    </h2>
+                    <p className="text-white pt-1 flex justify-center">
+                      { content?.platform.join(" - ") }
+                    </p>
+                  </div>
+                  <div>
+                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                      Runtime
+                    </h2>
+                    <p className="text-white pt-1 flex justify-center">
+                      { content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min` }
+                    </p>
+                  </div>
+                  {
+                    content && "numEpisodes" in content &&
+                    <div>
+                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                        Episodes
+                      </h2>
+                      <p className="text-white pt-1 flex justify-center">
+                        { content?.numEpisodes }
+                      </p>
+                    </div>
+                  }
+                  {
+                    content && "seasons" in content &&
+                    <div>
+                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                        Seasons 
+                      </h2>
+                      <p className="text-white pt-1 flex justify-center">
+                        { content?.seasons.length }
+                      </p>
+                    </div>
+                  }
                 </div>
               </div>
             </div>
+            <div>
+              <div>
+                <h1 className="text-white text-4xl font-bold">Title</h1>
+                <p className="text-white font-extralight pt-2">
+                  { content?.title }
+                </p>
+              </div>
+              <div>
+                <h2 className="text-white text-2xl font-bold pt-5">Genre</h2>
+                <p className="text-white font-extralight pt-2">
+                  { content?.genre.join(", ") }
+                </p>
+              </div>
+              <div>
+                <h2 className="text-white text-2xl font-bold pt-5">
+                  Release Date
+                </h2>
+                <p className="text-white font-extralight pt-2">
+                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
+                </p>
+              </div>
+              <div>
+                <h2 className="text-white text-2xl font-bold pt-5">Cast</h2>
+                <p className="text-white font-extralight pt-2">
+                  { content?.cast.join(", ") }
+                </p>
+              </div>
+              <div>
+                <h2 className="text-white text-2xl font-bold pt-5">Director</h2>
+                <p className="text-white font-extralight pt-2">
+                  { content?.director }
+                </p>
+              </div>
+              <div>
+                <h2 className="text-white text-2xl font-bold pt-5">Plot</h2>
+                <p className="text-white font-extralight pt-2">
+                  { content?.description }
+                </p>
+              </div>
+            </div>
           </div>
-
+        </div>
           <section className="bg-gray-900 py-8 lg:py-16 antialiased">
             <div className="max-w-2xl mx-auto px-4">
               <div className="flex justify-between items-center mb-6">
@@ -290,7 +308,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
             </div>
           </section>
           <Footer/>
-        </div>
+      </div>
       </>
   );
 }
