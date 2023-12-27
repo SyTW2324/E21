@@ -56,8 +56,16 @@ export default function Login() {
             className="mx-auto h-24 w-auto"
             src="/images/Logo.webp"
             alt="FilmFlix Company"
+            onClick={() => {
+              navigate("/");
+            }}
           />
-          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
+          <h2
+            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
             Login
           </h2>
         </div>
