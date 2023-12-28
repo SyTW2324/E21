@@ -164,11 +164,11 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     <>
       <div className="bg-gray-900 ">
         <Navbar />
-        <div className="pt-4 pb-20">
-          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 md:grid md:grid-cols-1 mt-16">
-            <div>
+        <div className="pb-20">
+          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto lg:flex mx-4 mt-16 ">
+            <div className="mb-8">
               <img
-                className="h-full rounded-lg w-8/12 mx-auto"
+                className="h-full rounded-lg w-5/12 mx-auto"
                 src={ content?.image }
                 alt=""
               />
@@ -225,47 +225,47 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
             </div>
             <div>
               <div>
-                <h1 className="text-white text-4xl font-bold">Title</h1>
-                <p className="text-white font-extralight pt-2">
+                <h1 className="text-white text-4xl font-bold flex justify-center">Title</h1>
+                <p className="text-white font-extralight pt-2 flex justify-center">
                   { content?.title }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5">Genre</h2>
-                <p className="text-white font-extralight pt-2">
+                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Genre</h2>
+                <p className="text-white font-extralight pt-2 flex justify-centerflex justify-center">
                   { content?.genre.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5">
+                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">
                   Release Date
                 </h2>
-                <p className="text-white font-extralight pt-2">
+                <p className="text-white font-extralight pt-2 flex justify-center">
                   { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5">Cast</h2>
-                <p className="text-white font-extralight pt-2">
+                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Cast</h2>
+                <p className="text-white font-extralight pt-2 flex justify-center">
                   { content?.cast.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5">Director</h2>
-                <p className="text-white font-extralight pt-2">
+                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Director</h2>
+                <p className="text-white font-extralight pt-2 flex justify-center">
                   { content?.director }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5">Plot</h2>
-                <p className="text-white font-extralight pt-2">
+                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Plot</h2>
+                <p className="text-white font-extralight pt-2 flex justify-center">
                   { content?.description }
                 </p>
               </div>
             </div>
           </div>
         </div>
-          <section className="bg-gray-900 py-8 lg:py-16 antialiased">
+        <section className="bg-gray-900 py-8 lg:py-16 antialiased">
             <div className="max-w-2xl mx-auto px-4">
               <div className="flex justify-between items-center mb-6">
                 <h2 className="text-lg lg:text-2xl font-bold text-white">
@@ -304,9 +304,9 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                   </article>
               ))}
             </div>
-          </section>
-          <Footer/>
+        </section>
+        <Footer/>
       </div>
-      </>
+    </>
   );
 }
