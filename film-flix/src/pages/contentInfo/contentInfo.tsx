@@ -158,7 +158,11 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     }
   };
 
-  
+  const [currentSeason, setCurrentSeason] = React.useState(1);
+
+  const handleSeasonClick = (season: number) => {
+    setCurrentSeason(season);
+  };
 
   return (
     <>
@@ -264,6 +268,53 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
               </div>
             </div>
           </div>
+          {
+            content && "seasons" in content &&
+            <div>
+              {/* Barra de navegación para temporadas */}
+              <div className="flex justify-center space-x-4 pt-4">
+                {content.seasons.map((season: any) => (
+                  <button
+                    key={season.season}
+                    className="text-white hover:text-gray-300 focus:outline-none"
+                    onClick={() => handleSeasonClick(season.season)} // Define esta función según tus necesidades
+                  >
+                    Season {season.season}
+                  </button>
+                ))}
+              </div>
+
+              {/* Contenido de episodios */}
+              <p className="text-white pt-1 flex justify-center">
+                {content.seasons.map((season: any) => (
+                  <div key={season.season}>
+                    {currentSeason === season.season && (
+                      <>
+                        <p className="text-white font-extralight pt-2 flex justify-center">
+                          {season.episodes.map((episode: any) => (
+                            <div key={episode.numEpisode}>
+                              <p className="text-white font-extralight pt-2 flex justify-center">
+                                {episode.title}
+                              </p>
+                              <p className="text-white font-extralight pt-2 flex justify-center">
+                                {episode.description}
+                              </p>
+                              <p className="text-white font-extralight pt-2 flex justify-center">
+                                {episode.duration}
+                              </p>
+                              <p className="text-white font-extralight pt-2 flex justify-center">
+                                {episode.rating}
+                              </p>
+                            </div>
+                          ))}
+                        </p>
+                      </>
+                    )}
+                  </div>
+                ))}
+              </p>
+            </div>
+          }
         </div>
         <section className="bg-gray-900 py-8 lg:py-16 antialiased">
             <div className="max-w-2xl mx-auto px-4">
