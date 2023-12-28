@@ -169,10 +169,10 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
       <div className="bg-gray-900 ">
         <Navbar />
         <div className="pb-20">
-          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto lg:flex mx-4 mt-16 ">
+          <div className="max-w-screen-lg gap-16 lg:mx-auto lg:flex mx-4 mt-16 ">
             <div className="mb-8">
               <img
-                className="h-full rounded-lg w-5/12 mx-auto"
+                className="rounded-lg h-96 mx-auto"
                 src={ content?.image }
                 alt=""
               />
@@ -229,40 +229,37 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
             </div>
             <div>
               <div>
-                <h1 className="text-white text-4xl font-bold flex justify-center">Title</h1>
-                <p className="text-white font-extralight pt-2 flex justify-center">
-                  { content?.title }
-                </p>
+                <h1 className="text-white text-4xl font-bold">{ content?.title }</h1>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Genre</h2>
-                <p className="text-white font-extralight pt-2 flex justify-centerflex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Genre</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.genre.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
                   Release Date
                 </h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <p className="text-white font-extralight pt-2">
                   { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Cast</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Cast</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.cast.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Director</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Director</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.director }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Plot</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Plot</h2>
+                <p className="text-white font-extralight pt-2 flex">
                   { content?.description }
                 </p>
               </div>
