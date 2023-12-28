@@ -270,7 +270,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
           </div>
           {
             content && "seasons" in content &&
-            <div>
+            <div >
               {/* Barra de navegación para temporadas */}
               <div className="flex justify-center space-x-4 pt-4">
                 {content.seasons.map((season: any) => (
@@ -290,7 +290,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                   <div key={season.season}>
                     {currentSeason === season.season && (
                       <>
-                        <p className="text-white font-extralight pt-2 flex justify-center">
+                        <div className="flex justify-center overflow-auto hover:overflow-scroll max-w-lg bg-gray-700">
                           {season.episodes.map((episode: any) => (
                             <div key={episode.numEpisode}>
                               <p className="text-white font-extralight pt-2 flex justify-center">
@@ -307,7 +307,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                               </p>
                             </div>
                           ))}
-                        </p>
+                        </div>
                       </>
                     )}
                   </div>
