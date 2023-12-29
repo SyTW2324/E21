@@ -287,7 +287,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                   <div key={season.season}>
                     {currentSeason === season.season && (
                       <>
-                        <div className="overflow-auto hover:overflow-x-hidden max-w-4xl max-h-96 bg-slate-800">
+                        <div className="overflow-auto hover:overflow-x-hidden w-screen max-w-4xl max-h-96 bg-slate-800">
                           {season.episodes.map((episode: any, index: number) => (
                             <div key={episode.numEpisode} className="px-4 py-4">
                               <h2 className="font-semibold pt-2 text-xl text-sky-400 ">
