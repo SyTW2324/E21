@@ -65,12 +65,8 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
     const data = await response.json() as { movie: Movies } | { serie: Series };
     console.log(data);
     if ("movie" in data) {
-      elementID = data.movie._id;
-      movieOrNot = true;
       return data.movie;
     } else {
-      elementID = data.serie._id;
-      movieOrNot = false;
       return data.serie;
     }
   } catch (error: any) {
@@ -79,8 +75,25 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
   }
 }
 
-async function getComments(): Promise<any[]> {
+async function getComments(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<any[]> {
   try {
+    const responseMovieorNot = await fetch(`http://localhost:3001/${type}/${id}`, {
+      method: "GET"
+    });
+    console.log(responseMovieorNot);
+    if (!responseMovieorNot.ok) {
+      throw new Error(`Error en la solicitud: ${responseMovieorNot.statusText}`);
+    }
+    const dataMovieorNot = await responseMovieorNot.json() as { movie: Movies } | { serie: Series };
+    console.log(dataMovieorNot);
+    if ("movie" in dataMovieorNot) {
+      elementID = dataMovieorNot.movie._id;
+      movieOrNot = true;
+    } else {
+      elementID = dataMovieorNot.serie._id;
+      movieOrNot = false;
+    }
+
     const response = await fetch("http://localhost:3001/comments", {
       method: "GET",
     });
@@ -119,7 +132,8 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   React.useEffect(() => {
     getContentInfo(id, type, (error) => {
     }).then((data) => setContent(data));
-    getComments().then((data) => getComment(data));
+    getComments(id, type, (error) => {
+    }).then((data) => getComment(data));
   }, [type, id]);
 
   const handleSubmit = async (e: any) => {
