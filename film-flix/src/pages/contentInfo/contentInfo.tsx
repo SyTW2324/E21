@@ -50,6 +50,9 @@ type Series = {
   platform: string[];
 };
 
+let elementID: string = "";
+let movieOrNot: boolean = false;
+
 async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
   try {
     const response = await fetch(`http://localhost:3001/${type}/${id}`, {
@@ -62,8 +65,12 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
     const data = await response.json() as { movie: Movies } | { serie: Series };
     console.log(data);
     if ("movie" in data) {
+      elementID = data.movie._id;
+      movieOrNot = true;
       return data.movie;
     } else {
+      elementID = data.serie._id;
+      movieOrNot = false;
       return data.serie;
     }
   } catch (error: any) {
@@ -85,7 +92,13 @@ async function getComments(): Promise<any[]> {
     const data = await response.json();
     console.log(data);
 
-    return data.comments || []; // Asegúrate de ajustar la estructura según la respuesta real
+    // Dependiendo de la petición y que si los identificadores coinciden, se filtra
+    console.log(elementID);
+    if (movieOrNot === true) {
+      return data.comments.filter((comment: any) => comment.moviesID === elementID);
+    } else {
+      return data.comments.filter((comment: any) => comment.seriesID === elementID);
+    }
   } catch (error: any) {
     console.log(error.message);
     return [];
@@ -106,12 +119,8 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   React.useEffect(() => {
     getContentInfo(id, type, (error) => {
     }).then((data) => setContent(data));
-  }, [type, id]);
-
-
-  React.useEffect(() => {
     getComments().then((data) => getComment(data));
-  }, []);
+  }, [type, id]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -138,20 +147,41 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
       const dataUser = await responseUser.json();
       setUserName(dataUser.username);
 
-      const response = await fetch("http://localhost:3001/comments", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text,
-          userName,
-        }),
-      });
+      // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
+      if (movieOrNot === true) {
+        const response = await fetch("http://localhost:3001/comments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text,
+            userName,
+            moviesID: elementID,
+          }),
+        });
 
-      console.log(response);
-      if (response.ok) {
-        navigate("/");
+        console.log(response);
+        if (response.ok) {
+          navigate("/");
+        }
+      } else {
+        const response = await fetch("http://localhost:3001/comments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text,
+            userName,
+            seriesID: elementID,
+          }),
+        });
+
+        console.log(response);
+        if (response.ok) {
+          navigate("/");
+        }
       }
     } catch (error: any) {
       console.log(error.message);
