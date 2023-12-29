@@ -7,10 +7,10 @@ export default function Navbar() {
   const location = useLocation();
 
   const isLoggedIn = (): boolean => {
-    if (localStorage.getItem("token")) {
-      return true;
-    } else {
+    if (!localStorage.getItem("token")) {
       return false;
+    } else {
+      return true;
     }
   };
 

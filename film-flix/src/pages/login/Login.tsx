@@ -147,6 +147,16 @@ export default function Login() {
               Sign Up
             </Link>
           </p>
+
+          <p className="mt- text-center text-sm text-gray-400">
+            Continue without login?{" "}
+            <Link
+              to="/"
+              className="font-semibold leading-6 text-sky-500 hover:text-sky-200"
+            >
+              Home
+            </Link>
+          </p>
         </div>
       </div>
     </>

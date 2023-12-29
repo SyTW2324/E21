@@ -104,4 +104,17 @@ router.get('/', verificarToken, (req, res) => {
     });
 });
 
+// Ruta para obtener todos los usuarios
+router.get("/all", async (req, res) => {
+  try {
+    const users = await UserModel.find({});
+    console.log(users);
+    console.log("Users found!");
+    return res.status(200).json({ users });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 export default router;

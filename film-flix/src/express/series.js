@@ -3,6 +3,7 @@ import SeriesModel from '../models/series.js';
 
 const router = express.Router();
 
+// Ruta para obtener todas las series
 router.get("/", async (req, res) => {
     try {
         const series  = await SeriesModel.find({});
@@ -12,6 +13,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Ruta para obtener una serie por su id
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
@@ -25,4 +27,5 @@ router.get("/:id", async (req, res) => {
         return res.status(400).send("Error while getting a serie");
     }
 });
+
 export default router;

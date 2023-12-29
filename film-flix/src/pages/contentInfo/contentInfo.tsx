@@ -169,10 +169,10 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
       <div className="bg-gray-900 ">
         <Navbar />
         <div className="pb-20">
-          <div className="max-w-screen-lg gap-16 items-center lg:mx-auto lg:flex mx-4 mt-16 ">
+          <div className="max-w-screen-lg gap-16 lg:mx-auto lg:flex mx-4 mt-16 ">
             <div className="mb-8">
               <img
-                className="h-full rounded-lg w-5/12 mx-auto"
+                className="rounded-lg h-96 mx-auto"
                 src={ content?.image }
                 alt=""
               />
@@ -229,40 +229,37 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
             </div>
             <div>
               <div>
-                <h1 className="text-white text-4xl font-bold flex justify-center">Title</h1>
-                <p className="text-white font-extralight pt-2 flex justify-center">
-                  { content?.title }
-                </p>
+                <h1 className="text-white text-4xl font-bold">{ content?.title }</h1>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Genre</h2>
-                <p className="text-white font-extralight pt-2 flex justify-centerflex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Genre</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.genre.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
                   Release Date
                 </h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <p className="text-white font-extralight pt-2">
                   { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Cast</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Cast</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.cast.join(", ") }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Director</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Director</h2>
+                <p className="text-white font-extralight pt-2">
                   { content?.director }
                 </p>
               </div>
               <div>
-                <h2 className="text-white text-2xl font-bold pt-5 flex justify-center">Plot</h2>
-                <p className="text-white font-extralight pt-2 flex justify-center">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Plot</h2>
+                <p className="text-white font-extralight pt-2 flex">
                   { content?.description }
                 </p>
               </div>
@@ -270,13 +267,13 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
           </div>
           {
             content && "seasons" in content &&
-            <div >
+            <div>
               {/* Barra de navegación para temporadas */}
               <div className="flex justify-center space-x-4 pt-4">
                 {content.seasons.map((season: any) => (
                   <button
                     key={season.season}
-                    className="text-white hover:text-gray-300 focus:outline-none"
+                    className="text-white hover:text-slate-300 focus:outline-none"
                     onClick={() => handleSeasonClick(season.season)} // Define esta función según tus necesidades
                   >
                     Season {season.season}
@@ -285,26 +282,23 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
               </div>
 
               {/* Contenido de episodios */}
-              <p className="text-white pt-1 flex justify-center">
+              <div className="flex justify-center mt-6">
                 {content.seasons.map((season: any) => (
                   <div key={season.season}>
                     {currentSeason === season.season && (
                       <>
-                        <div className="flex justify-center overflow-auto hover:overflow-scroll max-w-lg bg-gray-700">
-                          {season.episodes.map((episode: any) => (
-                            <div key={episode.numEpisode}>
-                              <p className="text-white font-extralight pt-2 flex justify-center">
-                                {episode.title}
-                              </p>
-                              <p className="text-white font-extralight pt-2 flex justify-center">
+                        <div className="overflow-auto hover:overflow-x-hidden w-screen max-w-4xl max-h-96 bg-slate-800">
+                          {season.episodes.map((episode: any, index: number) => (
+                            <div key={episode.numEpisode} className="px-4 py-4">
+                              <h2 className="font-semibold pt-2 text-xl text-sky-400 ">
+                                {`${index + 1}. ${episode.title}`}
+                              </h2>
+                              <p className="text-white font-extralight pt-2">
                                 {episode.description}
                               </p>
-                              <p className="text-white font-extralight pt-2 flex justify-center">
-                                {episode.duration}
-                              </p>
-                              <p className="text-white font-extralight pt-2 flex justify-center">
-                                {episode.rating}
-                              </p>
+                              <h3 className="text-gray-400 font-medium pt-2">
+                                {`${episode.duration} MIN`}
+                              </h3>
                             </div>
                           ))}
                         </div>
@@ -312,7 +306,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                     )}
                   </div>
                 ))}
-              </p>
+              </div>
             </div>
           }
         </div>

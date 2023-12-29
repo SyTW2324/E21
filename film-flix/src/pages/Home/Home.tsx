@@ -1,10 +1,90 @@
 import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
+import React from 'react';
 
 export default function Home() {
   const Daredevil = require("../../img/daredevil.jpg") as string;
   const Morbius = require("../../img/morbius.jpeg") as string;
   const girlWithLaptop = require("../../img/GirlUsingLaptop.jpg") as string;
+
+  const [numUsers, setNumUsers] =   React.useState(0);
+  const [numMovies, setNumMovies] = React.useState(0);
+  const [numSeries, setNumSeries] = React.useState(0);
+
+    // obtener el número de usuarios de la plataforma
+    async function getNumUsers() {
+      try {
+        const response = await fetch("http://localhost:3001/user/all", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+
+    getNumUsers().then((data) => {
+      setNumUsers(Object.keys(data.users).length);
+    });
+
+    // Obtener el número de películas de la plataforma
+    async function getNumMovies() {
+      try {
+        const response = await fetch("http://localhost:3001/movies", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+
+    getNumMovies().then((data) => {
+      setNumMovies(Object.keys(data.movies).length);
+    });
+
+    // Obtener el número de series de la plataforma
+    async function getNumSeries() {
+      try {
+        const response = await fetch("http://localhost:3001/series", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+
+        if (!response.ok) {
+          throw new Error(`Error en la solicitud: ${response.statusText}`);
+        }
+
+        const data = await response.json();
+        return data;
+      } catch (error: any) {
+        console.log(error.message);
+      }
+    }
+
+    getNumSeries().then((data) => {
+      setNumSeries(Object.keys(data.series).length);
+    });
 
   return (
     <div className='flex flex-col w-full h-screen'>
@@ -83,19 +163,19 @@ export default function Home() {
             <div className="flex -m-4 text-center">
               <div className="p-4 sm:w-1/3 w-1/2">
                 <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  2.7K
+                  {numUsers}
                 </h2>
                 <p className="leading-relaxed text-white">Users</p>
               </div>
               <div className="p-4 sm:w-1/3 w-1/2">
                 <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  4K
+                  {numMovies}
                 </h2>
                 <p className="leading-relaxed text-white">Movies</p>
               </div>
               <div className="p-4 sm:w-1/3 w-1/2">
                 <h2 className="title-font font-medium sm:text-4xl text-3xl text-white">
-                  4K
+                  {numSeries}
                 </h2>
                 <p className="leading-relaxed text-white">Series</p>
               </div>
