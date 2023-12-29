@@ -3,6 +3,7 @@ import MoviesModel from '../models/film.js';
 
 const router = express.Router();
 
+// Ruta para obtener todas las películas
 router.get("/", async (req, res) => {
     try {
         const movies  = await MoviesModel.find({});
@@ -12,6 +13,7 @@ router.get("/", async (req, res) => {
     }
 });
 
+// Ruta para obtener una película por su id
 router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
