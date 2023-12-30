@@ -140,9 +140,8 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      // LANZAR UN MENSAJE DE ERROR EN ESTE CASO
       if (!token) {
-        navigate("/login");
+        navigate('/login', { state: { error: 'Usuario no autenticado. Debes iniciar sesión.' } });
       }
 
       const responseUser = await fetch("http://localhost:3001/user", {

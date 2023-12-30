@@ -1,7 +1,7 @@
 import "../../index.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "../../components/alert";
 
 let error_message: string = "";
@@ -12,6 +12,15 @@ export default function Login() {
   const [alertShow, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const errorMessage = location.state && location.state.error;
+    if (errorMessage) {
+      error_message = errorMessage;
+      setShowAlert(true);
+    }
+  }, [location.state]);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
