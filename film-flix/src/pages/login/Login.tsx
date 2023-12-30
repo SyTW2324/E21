@@ -61,22 +61,20 @@ export default function Login() {
       {alertShow && <Alert message={error_message} />}
       <div className="flex flex-col w-full h-screen px-6 py-40">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-24 w-auto"
-            src="/images/Logo.webp"
-            alt="FilmFlix Company"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
-          <h2
-            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login
-          </h2>
+          <a href={"/"} className="flex items-center space-x-3">
+            <img
+              className="mx-auto h-24 w-auto"
+              src="/images/Logo.webp"
+              alt="FilmFlix Company"
+            />
+          </a>
+          <a href={"/"}>
+            <h2
+              className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
+            >
+              Login
+            </h2>
+          </a>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
