@@ -64,23 +64,20 @@ export default function SignUp() {
     <div className="flex flex-col w-full h-screen px-6 py-20">
       {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-24 w-auto"
-          src={logo}
-          alt="FilmFlix Company"
-          onClick={() => {
-            navigate("/");
-          }}
-        />
-
-        <h2
-          className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-          onClick={() => {
-            navigate("/");
-          }}
-        >
-          Sign Up
-        </h2>
+        <a href={"/"}>
+          <img
+            className="mx-auto h-24 w-auto"
+            src={logo}
+            alt="FilmFlix Company"
+          />
+        </a>
+        <a href={"/"}>
+          <h2
+            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
+          >
+            Sign Up
+          </h2>
+        </a>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
