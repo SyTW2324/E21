@@ -122,7 +122,6 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   const [content, setContent] = React.useState<Movies | Series>();
   const [comments, getComment] = React.useState<any>([]);
   const [text, setText] = React.useState("");
-  const [userName, setUserName] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -142,6 +141,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
       const token = localStorage.getItem("token");
       if (!token) {
         navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
+        return;
       }
 
       const responseUser = await fetch("http://localhost:3001/user", {
@@ -158,7 +158,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
 
       // Obtención del nombre de usuario a partir del token
       const dataUser = await responseUser.json();
-      setUserName(dataUser.username);
+      const userName = dataUser.username;
 
       // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
       if (movieOrNot === true) {
@@ -169,7 +169,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
           },
           body: JSON.stringify({
             text,
-            userName,
+            userName: userName,
             moviesID: elementID,
           }),
         });
@@ -186,7 +186,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
           },
           body: JSON.stringify({
             text,
-            userName,
+            userName: userName,
             seriesID: elementID,
           }),
         });
