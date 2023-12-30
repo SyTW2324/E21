@@ -58,8 +58,8 @@ export default function Login() {
 
   return (
     <>
+      {alertShow && <Alert message={error_message} />}
       <div className="flex flex-col w-full h-screen px-6 py-40">
-        {alertShow && <Alert message={error_message} />}
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             className="mx-auto h-24 w-auto"

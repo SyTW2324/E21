@@ -141,7 +141,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        navigate('/login', { state: { error: 'Usuario no autenticado. Debes iniciar sesión.' } });
+        navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
       }
 
       const responseUser = await fetch("http://localhost:3001/user", {
@@ -176,7 +176,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
 
         console.log(response);
         if (response.ok) {
-          navigate("/");
+          window.location.reload();
         }
       } else {
         const response = await fetch("http://localhost:3001/comments", {
