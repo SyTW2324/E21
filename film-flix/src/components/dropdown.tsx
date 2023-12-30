@@ -15,9 +15,9 @@ const DropdownComponent = () => {
   async function getUserInfo() {
     try {
       const token = localStorage.getItem("token");
-      // LANZAR UN MENSAJE DE ERROR EN ESTE CASO
       if (!token) {
-        navigate("/login");
+        navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
+        return;
       }
 
       const responseUser = await fetch("http://localhost:3001/user", {
@@ -75,36 +75,39 @@ const DropdownComponent = () => {
       </button>
 
       {isDropdownOpen && (
-        <div
-          id="dropdownInformation"
-          className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-full mt-2"
-        >
-          <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-            <div>{userName}</div>
-            <div className="font-medium truncate">{userEmail}</div>
-          </div>
-          <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
-            <li>
-              <a
-                href="/profile"
-                className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
-              >
-                Profile
-              </a>
-            </li>
-          </ul>
-          <div className="py-2">
-            <div 
-              onClick={() => {
-                localStorage.removeItem("token");
-                navigate("/login");
-              }}
-              className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
-            >
-              Sign out
+          <div
+              id="dropdownInformation"
+              className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-full mt-2"
+          >
+            <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
+              <div>{userName}</div>
+              <div className="font-medium truncate">{userEmail}</div>
             </div>
+            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+              <li>
+                <a
+                    href="/profile"
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Profile
+                </a>
+              </li>
+            </ul>
+            <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
+              <li>
+                <a
+                    onClick={() => {
+                      localStorage.removeItem("token");
+                      navigate("/login");
+                    }}
+                    href=""
+                    className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                >
+                  Sign out
+                </a>
+              </li>
+            </ul>
           </div>
-        </div>
       )}
     </div>
   );
