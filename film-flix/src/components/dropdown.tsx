@@ -29,21 +29,23 @@ const DropdownComponent = () => {
       });
 
       if (!responseUser.ok) {
-        throw new Error(`Error en la solicitud: ${responseUser.statusText}`);
+        console.log(`Error en la solicitud: ${responseUser.statusText}`);
+        navigate("/login");
       }
 
       // Obtención del nombre de usuario a partir del token
-      const dataUser = await responseUser.json();
-      return dataUser;
+      return await responseUser.json();
     } catch (error: any) {
       console.log(error.message);
     }
   }
 
-  getUserInfo().then((dataUser) => {
-    setUserName(dataUser.username);
-    setUserEmail(dataUser.email);
-  });
+  React.useEffect(() => {
+    getUserInfo().then((dataUser) => {
+      setUserName(dataUser.username);
+      setUserEmail(dataUser.email);
+    });
+  }, []);
 
   return (
     <div className="relative">
