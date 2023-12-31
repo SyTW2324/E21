@@ -1,7 +1,7 @@
 import "../../index.css";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Alert from "../../components/alert";
 
 let error_message: string = "";
@@ -12,6 +12,15 @@ export default function Login() {
   const [alertShow, setShowAlert] = useState(false);
 
   const navigate = useNavigate();
+  const location = useLocation();
+
+  useEffect(() => {
+    const errorMessage = location.state && location.state.error;
+    if (errorMessage) {
+      error_message = errorMessage;
+      setShowAlert(true);
+    }
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -49,25 +58,23 @@ export default function Login() {
 
   return (
     <>
+      {alertShow && <Alert message={error_message} />}
       <div className="flex flex-col w-full h-screen px-6 py-40">
-        {alertShow && <Alert message={error_message} />}
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-          <img
-            className="mx-auto h-24 w-auto"
-            src="/images/Logo.webp"
-            alt="FilmFlix Company"
-            onClick={() => {
-              navigate("/");
-            }}
-          />
-          <h2
-            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-            onClick={() => {
-              navigate("/");
-            }}
-          >
-            Login
-          </h2>
+          <a href={"/"} className="flex items-center space-x-3">
+            <img
+              className="mx-auto h-24 w-auto"
+              src="/images/Logo.webp"
+              alt="FilmFlix Company"
+            />
+          </a>
+          <a href={"/"}>
+            <h2
+              className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
+            >
+              Login
+            </h2>
+          </a>
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">

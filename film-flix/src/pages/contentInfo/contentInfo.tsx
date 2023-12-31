@@ -50,6 +50,9 @@ type Series = {
   platform: string[];
 };
 
+let elementID: string = "";
+let movieOrNot: boolean = false;
+
 async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
   try {
     const response = await fetch(`http://localhost:3001/${type}/${id}`, {
@@ -72,8 +75,25 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
   }
 }
 
-async function getComments(): Promise<any[]> {
+async function getComments(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<any[]> {
   try {
+    const responseMovieorNot = await fetch(`http://localhost:3001/${type}/${id}`, {
+      method: "GET"
+    });
+    console.log(responseMovieorNot);
+    if (!responseMovieorNot.ok) {
+      throw new Error(`Error en la solicitud: ${responseMovieorNot.statusText}`);
+    }
+    const dataMovieorNot = await responseMovieorNot.json() as { movie: Movies } | { serie: Series };
+    console.log(dataMovieorNot);
+    if ("movie" in dataMovieorNot) {
+      elementID = dataMovieorNot.movie._id;
+      movieOrNot = true;
+    } else {
+      elementID = dataMovieorNot.serie._id;
+      movieOrNot = false;
+    }
+
     const response = await fetch("http://localhost:3001/comments", {
       method: "GET",
     });
@@ -85,7 +105,13 @@ async function getComments(): Promise<any[]> {
     const data = await response.json();
     console.log(data);
 
-    return data.comments || []; // Asegúrate de ajustar la estructura según la respuesta real
+    // Dependiendo de la petición y que si los identificadores coinciden, se filtra
+    console.log(elementID);
+    if (movieOrNot === true) {
+      return data.comments.filter((comment: any) => comment.moviesID === elementID);
+    } else {
+      return data.comments.filter((comment: any) => comment.seriesID === elementID);
+    }
   } catch (error: any) {
     console.log(error.message);
     return [];
@@ -96,7 +122,6 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   const [content, setContent] = React.useState<Movies | Series>();
   const [comments, getComment] = React.useState<any>([]);
   const [text, setText] = React.useState("");
-  const [userName, setUserName] = React.useState("");
 
   const navigate = useNavigate();
 
@@ -106,20 +131,17 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   React.useEffect(() => {
     getContentInfo(id, type, (error) => {
     }).then((data) => setContent(data));
+    getComments(id, type, (error) => {
+    }).then((data) => getComment(data));
   }, [type, id]);
-
-
-  React.useEffect(() => {
-    getComments().then((data) => getComment(data));
-  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       const token = localStorage.getItem("token");
-      // LANZAR UN MENSAJE DE ERROR EN ESTE CASO
       if (!token) {
-        navigate("/login");
+        navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
+        return;
       }
 
       const responseUser = await fetch("http://localhost:3001/user", {
@@ -136,22 +158,43 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
 
       // Obtención del nombre de usuario a partir del token
       const dataUser = await responseUser.json();
-      setUserName(dataUser.username);
+      const userName = dataUser.username;
 
-      const response = await fetch("http://localhost:3001/comments", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          text,
-          userName,
-        }),
-      });
+      // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
+      if (movieOrNot === true) {
+        const response = await fetch("http://localhost:3001/comments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text,
+            userName: userName,
+            moviesID: elementID,
+          }),
+        });
 
-      console.log(response);
-      if (response.ok) {
-        navigate("/");
+        console.log(response);
+        if (response.ok) {
+          window.location.reload();
+        }
+      } else {
+        const response = await fetch("http://localhost:3001/comments", {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            text,
+            userName: userName,
+            seriesID: elementID,
+          }),
+        });
+
+        console.log(response);
+        if (response.ok) {
+          navigate("/");
+        }
       }
     } catch (error: any) {
       console.log(error.message);

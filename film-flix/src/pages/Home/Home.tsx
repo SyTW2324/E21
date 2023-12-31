@@ -2,6 +2,66 @@ import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import React from 'react';
 
+async function getNumUsers() {
+  try {
+    const response = await fetch("http://localhost:3001/user/all", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+}
+
+async function getNumMovies() {
+  try {
+    const response = await fetch("http://localhost:3001/movies", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+}
+
+async function getNumSeries() {
+  try {
+    const response = await fetch("http://localhost:3001/series", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+    return data;
+  } catch (error: any) {
+    console.log(error.message);
+  }
+}
+
 export default function Home() {
   const Daredevil = require("../../img/daredevil.jpg") as string;
   const Morbius = require("../../img/morbius.jpeg") as string;
@@ -11,80 +71,22 @@ export default function Home() {
   const [numMovies, setNumMovies] = React.useState(0);
   const [numSeries, setNumSeries] = React.useState(0);
 
+  React.useEffect(() => {
     // obtener el número de usuarios de la plataforma
-    async function getNumUsers() {
-      try {
-        const response = await fetch("http://localhost:3001/user/all", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        return data;
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    }
-
     getNumUsers().then((data) => {
       setNumUsers(Object.keys(data.users).length);
     });
 
     // Obtener el número de películas de la plataforma
-    async function getNumMovies() {
-      try {
-        const response = await fetch("http://localhost:3001/movies", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        return data;
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    }
-
     getNumMovies().then((data) => {
       setNumMovies(Object.keys(data.movies).length);
     });
 
     // Obtener el número de series de la plataforma
-    async function getNumSeries() {
-      try {
-        const response = await fetch("http://localhost:3001/series", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`Error en la solicitud: ${response.statusText}`);
-        }
-
-        const data = await response.json();
-        return data;
-      } catch (error: any) {
-        console.log(error.message);
-      }
-    }
-
     getNumSeries().then((data) => {
       setNumSeries(Object.keys(data.series).length);
     });
+  }, []);
 
   return (
     <div className='flex flex-col w-full h-screen'>

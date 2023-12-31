@@ -12,6 +12,16 @@ const commentSchema = new Schema({
         type: String,
         required: true,
         minlength: 3
+    },
+    moviesID: {
+        type: String,
+        required: false,
+        minlength: 3
+    },
+    seriesID: {
+        type: String,
+        required: false,
+        minlength: 3
     }
 });
 

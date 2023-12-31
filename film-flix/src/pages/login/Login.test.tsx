@@ -6,6 +6,7 @@ import Login from "./Login";
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"), // Mantén las implementaciones no mockeadas
   useNavigate: jest.fn(),
+  useLocation: jest.fn(),
 }));
 
 describe("Login Component", () => {
