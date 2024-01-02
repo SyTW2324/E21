@@ -20,6 +20,7 @@ export default function Login() {
       error_message = errorMessage;
       setShowAlert(true);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: any) => {
