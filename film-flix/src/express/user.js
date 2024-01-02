@@ -1,5 +1,7 @@
 import express from "express";
 import UserModel from "../models/user.js";
+import MoviesModel from "../models/film.js";
+import SeriesModel from "../models/series.js";
 import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = 'mysecretkey';
@@ -12,7 +14,7 @@ router.put("/", async (req, res) => {
     const existingUsername = await UserModel.findOne({ username: req.body.username });
     const existingEmail = await UserModel.findOne({ email: req.body.email });
 
-    console.log(req.body)
+    // console.log(req.body)
 
     // Revisar si ya existe un nombre de usuario
     if (existingUsername) {
@@ -34,7 +36,7 @@ router.put("/", async (req, res) => {
     
     return res.status(200).json({ message: "User saved successfully", user });
   } catch (error) {
-    console.error(error.message);
+    // console.error(error.message);
     return res.status(400).json({ error: error.message });
   }
 });
@@ -67,7 +69,7 @@ router.post("/", async (req, res) => {
     // Enviar el token como respuesta al cliente
     res.json({ token });
   } catch (error) {
-    console.error("Error:", error.message);
+    // console.error("Error:", error.message);
 
     // Enviar un mensaje de error como respuesta al cliente
     res.status(500).json({ error: error.message });
@@ -108,7 +110,7 @@ router.get('/', verificarToken, (req, res) => {
 router.get("/all", async (req, res) => {
   try {
     const users = await UserModel.find({});
-    console.log(users);
+    // console.log(users);
     console.log("Users found!");
     return res.status(200).json({ users });
   } catch (error) {
@@ -127,26 +129,27 @@ router.put("/favorites", async (req, res) => {
       throw new Error("User not found");
     }
 
-    if (contentType === "movie") {
+    if (contentType === "movies") {
+      const movie = await MoviesModel.findById(contentId);
       if (action === "add") {
-        user.favoritesMovies.push(contentId);
+        user.favoriteMovies.push(movie);
       } else if (action === "remove") {
-        user.favoritesMovies = user.favoritesMovies.filter(
-          (movie) => movie !== contentId
+        user.favoriteMovies = user.favoriteMovies.filter(
+          (content) => content.id !== movie.id
         );
       }
     } else if (contentType === "series") {
+      const serie = await SeriesModel.findById(contentId);
       if (action === "add") {
-        user.favoritesSeries.push(contentId);
+        user.favoriteSeries.push(serie);
       } else if (action === "remove") {
-        user.favoritesSeries = user.favoritesSeries.filter(
-          (serie) => serie !== contentId
+        user.favoriteSeries = user.favoriteSeries.filter(
+          (content) => content.id !== serie.id
         );
       }
     }
 
     await user.save();
-
     console.log("User updated!");
 
     return res.status(200).json({ message: "User updated successfully", user });

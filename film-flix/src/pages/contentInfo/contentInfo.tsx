@@ -70,14 +70,14 @@ async function getContentInfo(
     const response = await fetch(`http://localhost:3001/${type}/${id}`, {
       method: "GET",
     });
-    console.log(response);
+    // console.log(response);
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
     const data = (await response.json()) as
       | { movie: Movies }
       | { serie: Series };
-    console.log(data);
+    // console.log(data);
     if ("movie" in data) {
       return data.movie;
     } else {
@@ -101,7 +101,7 @@ async function getComments(
         method: "GET",
       }
     );
-    console.log(responseMovieorNot);
+    // console.log(responseMovieorNot);
     if (!responseMovieorNot.ok) {
       throw new Error(
         `Error en la solicitud: ${responseMovieorNot.statusText}`
@@ -110,7 +110,7 @@ async function getComments(
     const dataMovieorNot = (await responseMovieorNot.json()) as
       | { movie: Movies }
       | { serie: Series };
-    console.log(dataMovieorNot);
+    // console.log(dataMovieorNot);
     if ("movie" in dataMovieorNot) {
       elementID = dataMovieorNot.movie._id;
       movieOrNot = true;
@@ -128,10 +128,10 @@ async function getComments(
     }
 
     const data = await response.json();
-    console.log(data);
+    // console.log(data);
 
     // Dependiendo de la petición y que si los identificadores coinciden, se filtra
-    console.log(elementID);
+    // console.log(elementID);
     if (movieOrNot === true) {
       return data.comments.filter(
         (comment: any) => comment.moviesID === elementID
@@ -142,8 +142,39 @@ async function getComments(
       );
     }
   } catch (error: any) {
-    console.log(error.message);
+    // console.log(error.message);
     return [];
+  }
+}
+
+async function putFavContent(
+  userId: string,
+  contentId: string,
+  type: "movies" | "series",
+  action: "add" | "remove",
+  onErr: (err: string) => void
+) : Promise<{message: string, user: User}> {
+  try {
+    const response = await fetch(`http://localhost:3001/user/favorites`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId,
+        contentId,
+        contentType: type,
+        action,
+      }),
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error: any) {
+    onErr(error.message);
+    return {} as {message: string, user: User};
   }
 }
 
@@ -209,7 +240,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
     getComments(id, type, (error) => {}).then((data) => getComment(data));
   }, [type, id]);
 
-  console.log(userData);
+  // console.log(userData);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -252,7 +283,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           }),
         });
 
-        console.log(response);
+        // console.log(response);
         if (response.ok) {
           window.location.reload();
         }
@@ -269,13 +300,13 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           }),
         });
 
-        console.log(response);
+        // console.log(response);
         if (response.ok) {
           navigate("/");
         }
       }
     } catch (error: any) {
-      console.log(error.message);
+      // console.log(error.message);
     }
   };
 
@@ -284,6 +315,10 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   const handleSeasonClick = (season: number) => {
     setCurrentSeason(season);
   };
+
+  if (!content) {
+    return null;
+  }
 
   return (
     <>
@@ -298,29 +333,62 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   src={content?.image}
                   alt=""
                 />
-                {/* Si la peli o serie está en la lista de favoritos del usuario aparece marcado, en caso de que no esté aparece desmarcado */}
-                {
-                  content &&
-                  favContentId.includes(content._id) ? (
-                    <div>
-                      <input type="checkbox" id="checkboxInput" className="bookmark" defaultChecked/>
-                      <label htmlFor="checkboxInput" className="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon">
-                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
-                        </svg>
-                      </label>  
-                    </div>
-                  ) : (
-                    <div>
-                      <input type="checkbox" id="checkboxInput" className="bookmark"/>
-                      <label htmlFor="checkboxInput" className="bookmark">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon">
-                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
-                        </svg>
-                      </label>  
-                    </div>
-                  )
-                }
+                {favContentId.includes(content._id) ? (
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="checkboxInput"
+                      className="bookmark"
+                      defaultChecked
+                      onClick={() => {
+                        putFavContent(
+                          userData._id,
+                          content._id,
+                          type,
+                          "remove",
+                          (error) => {}
+                        ).then((data) => setUserData(data.user));
+                      }}
+                    />
+                    <label htmlFor="checkboxInput" className="bookmark">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        className="svgIcon"
+                      >
+                        <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                      </svg>
+                    </label>
+                  </div>
+                ) : (
+                  <div>
+                    <input
+                      type="checkbox"
+                      id="checkboxInput"
+                      className="bookmark"
+                      onClick={() => {
+                        putFavContent(
+                          userData._id,
+                          content._id,
+                          type,
+                          "add",
+                          (error) => {}
+                        ).then((data) => setUserData(data.user));
+                      }}
+                    />
+                    <label htmlFor="checkboxInput" className="bookmark">
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="1em"
+                        viewBox="0 0 384 512"
+                        className="svgIcon"
+                      >
+                        <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                      </svg>
+                    </label>
+                  </div>
+                )}
               </div>
               <div className="flex justify-center items-center">
                 <div>
