@@ -178,12 +178,9 @@ async function putFavContent(
   }
 }
 
-async function getUser(navigate: any, onErr: (err: string) => void) {
+async function getUser(onErr: (err: string) => void) {
   try {
     const token = localStorage.getItem("token");
-    if (!token) {
-      navigate("/login");
-    }
 
     const response = await fetch("http://localhost:3001/user", {
       method: "GET",
@@ -218,19 +215,21 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   });
 
   React.useEffect(() => {
-    getUser(navigate, (error) => {}).then((data) => setUserData(data));
-  }, [navigate]);
+    getUser((error) => {}).then((data) => setUserData(data));
+  });
 
   const favContentId: string[] = [];
 
-  // Se añaden los identificadores de las pelis y series favoritas del usuario
-  userData.favoriteMovies.forEach((movie: any) => {
-    favContentId.push(movie._id);
-  });
+  if (userData) {
+    // Se añaden los identificadores de las pelis y series favoritas del usuario
+    userData.favoriteMovies.forEach((movie: any) => {
+      favContentId.push(movie._id);
+    });
 
-  userData.favoriteSeries.forEach((serie: any) => {
-    favContentId.push(serie._id);
-  });
+    userData.favoriteSeries.forEach((serie: any) => {
+      favContentId.push(serie._id);
+    });
+  }
 
   // Get the id from the URL
   const { id } = useParams() as { id: string };
@@ -240,7 +239,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
     getComments(id, type, (error) => {}).then((data) => getComment(data));
   }, [type, id]);
 
-  // console.log(userData);
+  console.log(userData);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -356,7 +355,9 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   src={content?.image}
                   alt=""
                 />
-                {favContentId.includes(content._id) ? (
+                {
+                userData && (
+                favContentId.includes(content._id) ? (
                   <div>
                     <input
                       type="checkbox"
@@ -411,7 +412,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                       </svg>
                     </label>
                   </div>
-                )}
+                ))}
               </div>
               <div className="flex justify-center items-center">
                 <div>
