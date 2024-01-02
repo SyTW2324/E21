@@ -1,154 +1,11 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
+import Episodes from '../../components/episodes';
 
-import { Movies } from "src/types/movies";
-import { Series } from "src/types/series";
-import { User } from "src/types/user";
+import { getContentInfo, getComments, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
 
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
-
-
-let elementID: string = "";
-let movieOrNot: boolean = false;
-
-async function getContentInfo(
-  id: string,
-  type: "movies" | "series",
-  onErr: (err: string) => void
-): Promise<Movies | Series> {
-  try {
-    const response = await fetch(`http://localhost:3001/${type}/${id}`, {
-      method: "GET",
-    });
-    // console.log(response);
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.statusText}`);
-    }
-    const data = (await response.json()) as
-      | { movie: Movies }
-      | { serie: Series };
-    // console.log(data);
-    if ("movie" in data) {
-      return data.movie;
-    } else {
-      return data.serie;
-    }
-  } catch (error: any) {
-    onErr(error.message);
-    return {} as Movies | Series;
-  }
-}
-
-async function getComments(
-  id: string,
-  type: "movies" | "series",
-  onErr: (err: string) => void
-): Promise<any[]> {
-  try {
-    const responseMovieorNot = await fetch(
-      `http://localhost:3001/${type}/${id}`,
-      {
-        method: "GET",
-      }
-    );
-    // console.log(responseMovieorNot);
-    if (!responseMovieorNot.ok) {
-      throw new Error(
-        `Error en la solicitud: ${responseMovieorNot.statusText}`
-      );
-    }
-    const dataMovieorNot = (await responseMovieorNot.json()) as
-      | { movie: Movies }
-      | { serie: Series };
-    // console.log(dataMovieorNot);
-    if ("movie" in dataMovieorNot) {
-      elementID = dataMovieorNot.movie._id;
-      movieOrNot = true;
-    } else {
-      elementID = dataMovieorNot.serie._id;
-      movieOrNot = false;
-    }
-
-    const response = await fetch("http://localhost:3001/comments", {
-      method: "GET",
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.statusText}`);
-    }
-
-    const data = await response.json();
-    // console.log(data);
-
-    // Dependiendo de la petición y que si los identificadores coinciden, se filtra
-    // console.log(elementID);
-    if (movieOrNot === true) {
-      return data.comments.filter(
-        (comment: any) => comment.moviesID === elementID
-      );
-    } else {
-      return data.comments.filter(
-        (comment: any) => comment.seriesID === elementID
-      );
-    }
-  } catch (error: any) {
-    // console.log(error.message);
-    return [];
-  }
-}
-
-async function putFavContent(
-  userId: string,
-  contentId: string,
-  type: "movies" | "series",
-  action: "add" | "remove",
-  onErr: (err: string) => void
-) : Promise<{message: string, user: User}> {
-  try {
-    const response = await fetch(`http://localhost:3001/user/favorites`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userId,
-        contentId,
-        contentType: type,
-        action,
-      }),
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error: any) {
-    onErr(error.message);
-    return {} as {message: string, user: User};
-  }
-}
-
-async function getUser(onErr: (err: string) => void) {
-  try {
-    const token = localStorage.getItem("token");
-
-    const response = await fetch("http://localhost:3001/user", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token ?? "",
-      },
-    });
-
-    if (!response.ok) {
-      throw new Error(`Error en la solicitud: ${response.statusText}`);
-    }
-    return await response.json();
-  } catch (error: any) {
-    onErr(error.message);
-  }
-}
 
 export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   const navigate = useNavigate();
@@ -166,8 +23,11 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   });
 
   React.useEffect(() => {
+    if (userData._id !== "") {
+      return;
+    }
     getUser((error) => {}).then((data) => setUserData(data));
-  });
+  }, [userData]);
 
   const favContentId: string[] = [];
 
@@ -258,12 +118,6 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
     } catch (error: any) {
       // console.log(error.message);
     }
-  };
-
-  const [currentSeason, setCurrentSeason] = React.useState(1);
-
-  const handleSeasonClick = (season: number) => {
-    setCurrentSeason(season);
   };
   
   const [averageDuration, setAverageDuration] = React.useState(0);
@@ -466,54 +320,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
               </div>
             </div>
           </div>
-          {content && "seasons" in content && (
-            <div>
-              {/* Barra de navegación para temporadas */}
-              <div className="flex justify-center space-x-4 pt-4">
-                {content.seasons.map((season: any) => (
-                  <button
-                    key={season.season}
-                    className="text-white hover:text-slate-300 focus:outline-none"
-                    onClick={() => handleSeasonClick(season.season)} // Define esta función según tus necesidades
-                  >
-                    Season {season.season}
-                  </button>
-                ))}
-              </div>
-
-              {/* Contenido de episodios */}
-              <div className="flex justify-center mt-6">
-                {content.seasons.map((season: any) => (
-                  <div key={season.season}>
-                    {currentSeason === season.season && (
-                      <>
-                        <div className="overflow-auto hover:overflow-x-hidden w-screen max-w-4xl max-h-96 bg-slate-800">
-                          {season.episodes.map(
-                            (episode: any, index: number) => (
-                              <div
-                                key={episode.numEpisode}
-                                className="px-4 py-4"
-                              >
-                                <h2 className="font-semibold pt-2 text-xl text-sky-400 ">
-                                  {`${index + 1}. ${episode.title}`}
-                                </h2>
-                                <p className="text-white font-extralight pt-2">
-                                  {episode.description}
-                                </p>
-                                <h3 className="text-gray-400 font-medium pt-2">
-                                  {`${episode.duration} MIN`}
-                                </h3>
-                              </div>
-                            )
-                          )}
-                        </div>
-                      </>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
+          <Episodes content={content} />
         </div>
         <section className="bg-gray-900 py-8 lg:py-16 antialiased">
           <div className="max-w-2xl mx-auto px-4">
