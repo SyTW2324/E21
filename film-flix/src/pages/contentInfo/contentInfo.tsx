@@ -1,8 +1,8 @@
-import Footer from "../../components/footer"
-import Navbar from "../../components/navbar"
-import {useNavigate, useParams} from "react-router-dom"
+import Footer from "../../components/footer";
+import Navbar from "../../components/navbar";
+import { useNavigate, useParams } from "react-router-dom";
 
-import React from "react"
+import React from "react";
 
 type Seasons = {
   _id: string;
@@ -53,16 +53,22 @@ type Series = {
 let elementID: string = "";
 let movieOrNot: boolean = false;
 
-async function getContentInfo(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<Movies | Series> {
+async function getContentInfo(
+  id: string,
+  type: "movies" | "series",
+  onErr: (err: string) => void
+): Promise<Movies | Series> {
   try {
     const response = await fetch(`http://localhost:3001/${type}/${id}`, {
-      method: "GET"
+      method: "GET",
     });
     console.log(response);
     if (!response.ok) {
       throw new Error(`Error en la solicitud: ${response.statusText}`);
     }
-    const data = await response.json() as { movie: Movies } | { serie: Series };
+    const data = (await response.json()) as
+      | { movie: Movies }
+      | { serie: Series };
     console.log(data);
     if ("movie" in data) {
       return data.movie;
@@ -75,16 +81,27 @@ async function getContentInfo(id: string, type: "movies" | "series", onErr: (err
   }
 }
 
-async function getComments(id: string, type: "movies" | "series", onErr: (err: string) => void): Promise<any[]> {
+async function getComments(
+  id: string,
+  type: "movies" | "series",
+  onErr: (err: string) => void
+): Promise<any[]> {
   try {
-    const responseMovieorNot = await fetch(`http://localhost:3001/${type}/${id}`, {
-      method: "GET"
-    });
+    const responseMovieorNot = await fetch(
+      `http://localhost:3001/${type}/${id}`,
+      {
+        method: "GET",
+      }
+    );
     console.log(responseMovieorNot);
     if (!responseMovieorNot.ok) {
-      throw new Error(`Error en la solicitud: ${responseMovieorNot.statusText}`);
+      throw new Error(
+        `Error en la solicitud: ${responseMovieorNot.statusText}`
+      );
     }
-    const dataMovieorNot = await responseMovieorNot.json() as { movie: Movies } | { serie: Series };
+    const dataMovieorNot = (await responseMovieorNot.json()) as
+      | { movie: Movies }
+      | { serie: Series };
     console.log(dataMovieorNot);
     if ("movie" in dataMovieorNot) {
       elementID = dataMovieorNot.movie._id;
@@ -108,9 +125,13 @@ async function getComments(id: string, type: "movies" | "series", onErr: (err: s
     // Dependiendo de la petición y que si los identificadores coinciden, se filtra
     console.log(elementID);
     if (movieOrNot === true) {
-      return data.comments.filter((comment: any) => comment.moviesID === elementID);
+      return data.comments.filter(
+        (comment: any) => comment.moviesID === elementID
+      );
     } else {
-      return data.comments.filter((comment: any) => comment.seriesID === elementID);
+      return data.comments.filter(
+        (comment: any) => comment.seriesID === elementID
+      );
     }
   } catch (error: any) {
     console.log(error.message);
@@ -118,7 +139,7 @@ async function getComments(id: string, type: "movies" | "series", onErr: (err: s
   }
 }
 
-export default function ContentInfo({type}: { type: "movies" | "series" }) {
+export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   const [content, setContent] = React.useState<Movies | Series>();
   const [comments, getComment] = React.useState<any>([]);
   const [text, setText] = React.useState("");
@@ -126,13 +147,11 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
   const navigate = useNavigate();
 
   // Extraer el id de la url
-  const {id} = useParams() as { id: string };
+  const { id } = useParams() as { id: string };
 
   React.useEffect(() => {
-    getContentInfo(id, type, (error) => {
-    }).then((data) => setContent(data));
-    getComments(id, type, (error) => {
-    }).then((data) => getComment(data));
+    getContentInfo(id, type, (error) => {}).then((data) => setContent(data));
+    getComments(id, type, (error) => {}).then((data) => getComment(data));
   }, [type, id]);
 
   const handleSubmit = async (e: any) => {
@@ -140,7 +159,9 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     try {
       const token = localStorage.getItem("token");
       if (!token) {
-        navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
+        navigate("/login", {
+          state: { error: "User not authenticated. You must be logged in." },
+        });
         return;
       }
 
@@ -214,11 +235,17 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
         <div className="pb-20">
           <div className="max-w-screen-lg gap-16 lg:mx-auto lg:flex mx-4 mt-16 ">
             <div className="mb-8">
-              <img
-                className="rounded-lg h-96 mx-auto"
-                src={ content?.image }
-                alt=""
-              />
+              <div className="producto">
+                <img
+                  className="rounded-lg h-96 mx-auto"
+                  src={content?.image}
+                  alt=""
+                />
+                <input type="checkbox" id="checkboxInput"/>
+                <label htmlFor="checkboxInput" className="bookmark">
+                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path></svg>
+                </label>            
+              </div>
               <div className="flex justify-center items-center">
                 <div>
                   <div>
@@ -226,7 +253,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                       Rating
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content?.rating }
+                      {content?.rating}
                     </p>
                   </div>
                   <div>
@@ -234,7 +261,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                       Platforms
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content?.platform.join(" - ") }
+                      {content?.platform.join(" - ")}
                     </p>
                   </div>
                   <div>
@@ -242,42 +269,46 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                       Runtime
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min` }
+                      {content && "duration" in content
+                        ? `${content.duration} min`
+                        : `${content?.durationAVG} min`}
                     </p>
                   </div>
-                  {
-                    content && "numEpisodes" in content &&
+                  {content && "numEpisodes" in content && (
                     <div>
                       <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                         Episodes
                       </h2>
                       <p className="text-white pt-1 flex justify-center">
-                        { content?.numEpisodes }
+                        {content?.numEpisodes}
                       </p>
                     </div>
-                  }
-                  {
-                    content && "seasons" in content &&
+                  )}
+                  {content && "seasons" in content && (
                     <div>
                       <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Seasons 
+                        Seasons
                       </h2>
                       <p className="text-white pt-1 flex justify-center">
-                        { content?.seasons.length }
+                        {content?.seasons.length}
                       </p>
                     </div>
-                  }
+                  )}
                 </div>
               </div>
             </div>
             <div>
               <div>
-                <h1 className="text-white text-4xl font-bold">{ content?.title }</h1>
+                <h1 className="text-white text-4xl font-bold">
+                  {content?.title}
+                </h1>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Genre</h2>
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                  Genre
+                </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.genre.join(", ") }
+                  {content?.genre.join(", ")}
                 </p>
               </div>
               <div>
@@ -285,31 +316,40 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                   Release Date
                 </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content && "year" in content ? content.year : `${content?.yearStart} - ${content?.yearEnd === -1 ? "Present" : content?.yearEnd} ` }
+                  {content && "year" in content
+                    ? content.year
+                    : `${content?.yearStart} - ${
+                        content?.yearEnd === -1 ? "Present" : content?.yearEnd
+                      } `}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Cast</h2>
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                  Cast
+                </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.cast.join(", ") }
+                  {content?.cast.join(", ")}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Director</h2>
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                  Director
+                </h2>
                 <p className="text-white font-extralight pt-2">
-                  { content?.director }
+                  {content?.director}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">Plot</h2>
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                  Plot
+                </h2>
                 <p className="text-white font-extralight pt-2 flex">
-                  { content?.description }
+                  {content?.description}
                 </p>
               </div>
             </div>
           </div>
-          {
-            content && "seasons" in content &&
+          {content && "seasons" in content && (
             <div>
               {/* Barra de navegación para temporadas */}
               <div className="flex justify-center space-x-4 pt-4">
@@ -331,19 +371,24 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                     {currentSeason === season.season && (
                       <>
                         <div className="overflow-auto hover:overflow-x-hidden w-screen max-w-4xl max-h-96 bg-slate-800">
-                          {season.episodes.map((episode: any, index: number) => (
-                            <div key={episode.numEpisode} className="px-4 py-4">
-                              <h2 className="font-semibold pt-2 text-xl text-sky-400 ">
-                                {`${index + 1}. ${episode.title}`}
-                              </h2>
-                              <p className="text-white font-extralight pt-2">
-                                {episode.description}
-                              </p>
-                              <h3 className="text-gray-400 font-medium pt-2">
-                                {`${episode.duration} MIN`}
-                              </h3>
-                            </div>
-                          ))}
+                          {season.episodes.map(
+                            (episode: any, index: number) => (
+                              <div
+                                key={episode.numEpisode}
+                                className="px-4 py-4"
+                              >
+                                <h2 className="font-semibold pt-2 text-xl text-sky-400 ">
+                                  {`${index + 1}. ${episode.title}`}
+                                </h2>
+                                <p className="text-white font-extralight pt-2">
+                                  {episode.description}
+                                </p>
+                                <h3 className="text-gray-400 font-medium pt-2">
+                                  {`${episode.duration} MIN`}
+                                </h3>
+                              </div>
+                            )
+                          )}
                         </div>
                       </>
                     )}
@@ -351,49 +396,52 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                 ))}
               </div>
             </div>
-          }
+          )}
         </div>
         <section className="bg-gray-900 py-8 lg:py-16 antialiased">
-            <div className="max-w-2xl mx-auto px-4">
-              <div className="flex justify-between items-center mb-6">
-                <h2 className="text-lg lg:text-2xl font-bold text-white">
-                  Discussion
-                </h2>
-              </div>
-              <form className="mb-6" onSubmit={handleSubmit}>
-                <div className="py-2 px-4 mb-4 rounded-lg rounded-t-lg borde bg-gray-800 border-gray-700">
-                  <label className="sr-only">Your comment</label>
-                  <textarea
-                      id="comment"
-                      className="px-0 w-full text-sm text-white border-0 focus:ring-0 focus:outline-none placeholder-gray-400 bg-gray-800"
-                      placeholder="Write a comment..."
-                      onChange={(e) => setText(e.target.value)}
-                      required
-                  ></textarea>
-                </div>
-                <button
-                    type="submit"
-                    className="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-primary-800"
-                >
-                  Post comment
-                </button>
-              </form>
-              {comments.map((comment: any, index: any) => (
-                  <article key={index} className="p-6 text-base rounded-lg bg-gray-900">
-                    <footer className="flex justify-between items-center mb-2">
-                      <div className="flex items-center">
-                        <p className="inline-flex items-center mr-3 text-sm text-white font-semibold">
-                          {comment.userName}
-                        </p>
-                      </div>
-                    </footer>
-                    <p className="text-gray-400">{comment.text}</p>
-                    <div className="flex items-center mt-4 space-x-4"></div>
-                  </article>
-              ))}
+          <div className="max-w-2xl mx-auto px-4">
+            <div className="flex justify-between items-center mb-6">
+              <h2 className="text-lg lg:text-2xl font-bold text-white">
+                Discussion
+              </h2>
             </div>
+            <form className="mb-6" onSubmit={handleSubmit}>
+              <div className="py-2 px-4 mb-4 rounded-lg rounded-t-lg borde bg-gray-800 border-gray-700">
+                <label className="sr-only">Your comment</label>
+                <textarea
+                  id="comment"
+                  className="px-0 w-full text-sm text-white border-0 focus:ring-0 focus:outline-none placeholder-gray-400 bg-gray-800"
+                  placeholder="Write a comment..."
+                  onChange={(e) => setText(e.target.value)}
+                  required
+                ></textarea>
+              </div>
+              <button
+                type="submit"
+                className="inline-flex items-center py-2.5 px-4 text-md font-medium text-center text-white bg-primary-700 rounded-lg focus:ring-4 focus:ring-primary-200 focus:ring-primary-900 hover:bg-primary-800"
+              >
+                Post comment
+              </button>
+            </form>
+            {comments.map((comment: any, index: any) => (
+              <article
+                key={index}
+                className="p-6 text-base rounded-lg bg-gray-900"
+              >
+                <footer className="flex justify-between items-center mb-2">
+                  <div className="flex items-center">
+                    <p className="inline-flex items-center mr-3 text-sm text-white font-semibold">
+                      {comment.userName}
+                    </p>
+                  </div>
+                </footer>
+                <p className="text-gray-400">{comment.text}</p>
+                <div className="flex items-center mt-4 space-x-4"></div>
+              </article>
+            ))}
+          </div>
         </section>
-        <Footer/>
+        <Footer />
       </div>
     </>
   );
