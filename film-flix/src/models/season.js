@@ -4,10 +4,6 @@ import episodeSchema from "./episode.js";
 const Schema = mongoose.Schema;
 
 const seasonSchema = new Schema({
-    num: {
-        type: Number,
-        required: true
-    },
     episodes: {
         type: [episodeSchema.schema],
         required: true

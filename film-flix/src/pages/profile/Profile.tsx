@@ -5,14 +5,8 @@ import { Link } from "react-router-dom";
 import Alert from "../../components/alert";
 import Navbar from "../../components/navbar"
 import Footer from "../../components/footer"
+import { User } from "../../types/user";
 
-type User = {
-  _id: string;
-  username: string;
-  email: string;
-  favoriteMovies: any;
-  favoriteSeries: any;
-};
 
 async function getUser(navigate: any, onErr: (err: string) => void) {
   try {

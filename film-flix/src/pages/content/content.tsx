@@ -1,39 +1,10 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
+import { Series } from "../../types/series";
+import { Movies } from "../../types/movies";
 import { Link } from "react-router-dom";
 
 import React from "react";
-
-type Movies = {
-  _id: string;
-  image: string;
-  title: string;
-  description: string;
-  director: string;
-  year: number;
-  duration: number;
-  cast: string[];
-  genre: string[];
-  rating: number;
-  platform: string;
-};
-
-type Series = {
-  _id: string;
-  image: string;
-  title: string;
-  description: string;
-  director: string;
-  yearStart: number;
-  yearEnd: number;
-  numEpisodes: number;
-  seasons: number;
-  cast: string[];
-  genre: string[];
-  durationAVG: number;
-  rating: number;
-  platform: string;
-};
 
 async function getContent(
   type: "movies" | "series",

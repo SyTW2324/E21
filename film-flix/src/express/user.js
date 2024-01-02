@@ -141,6 +141,7 @@ router.put("/favorites", async (req, res) => {
     } else if (contentType === "series") {
       const serie = await SeriesModel.findById(contentId);
       if (action === "add") {
+        
         user.favoriteSeries.push(serie);
       } else if (action === "remove") {
         user.favoriteSeries = user.favoriteSeries.filter(
@@ -149,7 +150,9 @@ router.put("/favorites", async (req, res) => {
       }
     }
 
+    console.log(user);
     await user.save();
+
     console.log("User updated!");
 
     return res.status(200).json({ message: "User updated successfully", user });
