@@ -117,4 +117,48 @@ router.get("/all", async (req, res) => {
   }
 });
 
+// Ruta para añadir y eliminar contenido (verificando si es una película o una serie) a la lista de favoritesMovies o favoritesSeries de un usuario
+router.put("/favorites", async (req, res) => {
+  try {
+    const { userId, contentId, contentType, action } = req.body;
+    const user = await UserModel.findById(userId);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    if (contentType === "movie") {
+      if (action === "add") {
+        user.favoritesMovies.push(contentId);
+      } else if (action === "remove") {
+        user.favoritesMovies = user.favoritesMovies.filter(
+          (movie) => movie !== contentId
+        );
+      }
+    } else if (contentType === "series") {
+      if (action === "add") {
+        user.favoritesSeries.push(contentId);
+      } else if (action === "remove") {
+        user.favoritesSeries = user.favoritesSeries.filter(
+          (serie) => serie !== contentId
+        );
+      }
+    }
+
+    await user.save();
+
+    console.log("User updated!");
+
+    return res.status(200).json({ message: "User updated successfully", user });
+  } catch (error) {
+    console.error(error.message);
+    return res.status(400).json({ error: error.message });
+  }
+});
+
+
+
+
+
+
 export default router;
