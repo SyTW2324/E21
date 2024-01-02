@@ -4,6 +4,14 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import React from "react";
 
+type User = {
+  _id: string;
+  username: string;
+  email: string;
+  favoriteMovies: any;
+  favoriteSeries: any;
+};
+
 type Seasons = {
   _id: string;
   season: number;
@@ -139,20 +147,69 @@ async function getComments(
   }
 }
 
+async function getUser(navigate: any, onErr: (err: string) => void) {
+  try {
+    const token = localStorage.getItem("token");
+    if (!token) {
+      navigate("/login");
+    }
+
+    const response = await fetch("http://localhost:3001/user", {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: token ?? "",
+      },
+    });
+
+    if (!response.ok) {
+      throw new Error(`Error en la solicitud: ${response.statusText}`);
+    }
+    return await response.json();
+  } catch (error: any) {
+    onErr(error.message);
+  }
+}
+
 export default function ContentInfo({ type }: { type: "movies" | "series" }) {
+  const navigate = useNavigate();
+
   const [content, setContent] = React.useState<Movies | Series>();
   const [comments, getComment] = React.useState<any>([]);
   const [text, setText] = React.useState("");
 
-  const navigate = useNavigate();
+  const [userData, setUserData] = React.useState<User>({
+    _id: "",
+    username: "",
+    email: "",
+    favoriteMovies: [],
+    favoriteSeries: [],
+  });
 
-  // Extraer el id de la url
+  React.useEffect(() => {
+    getUser(navigate, (error) => {}).then((data) => setUserData(data));
+  }, [navigate]);
+
+  const favContentId: string[] = [];
+
+  // Se añaden los identificadores de las pelis y series favoritas del usuario
+  userData.favoriteMovies.forEach((movie: any) => {
+    favContentId.push(movie._id);
+  });
+
+  userData.favoriteSeries.forEach((serie: any) => {
+    favContentId.push(serie._id);
+  });
+
+  // Get the id from the URL
   const { id } = useParams() as { id: string };
 
   React.useEffect(() => {
     getContentInfo(id, type, (error) => {}).then((data) => setContent(data));
     getComments(id, type, (error) => {}).then((data) => getComment(data));
   }, [type, id]);
+
+  console.log(userData);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -241,10 +298,29 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   src={content?.image}
                   alt=""
                 />
-                <input type="checkbox" id="checkboxInput"/>
-                <label htmlFor="checkboxInput" className="bookmark">
-                  <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon"><path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path></svg>
-                </label>            
+                {/* Si la peli o serie está en la lista de favoritos del usuario aparece marcado, en caso de que no esté aparece desmarcado */}
+                {
+                  content &&
+                  favContentId.includes(content._id) ? (
+                    <div>
+                      <input type="checkbox" id="checkboxInput" className="bookmark" defaultChecked/>
+                      <label htmlFor="checkboxInput" className="bookmark">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon">
+                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                        </svg>
+                      </label>  
+                    </div>
+                  ) : (
+                    <div>
+                      <input type="checkbox" id="checkboxInput" className="bookmark"/>
+                      <label htmlFor="checkboxInput" className="bookmark">
+                        <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 384 512" className="svgIcon">
+                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                        </svg>
+                      </label>  
+                    </div>
+                  )
+                }
               </div>
               <div className="flex justify-center items-center">
                 <div>
