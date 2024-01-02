@@ -5,14 +5,8 @@ import { Link } from "react-router-dom";
 import Alert from "../../components/alert";
 import Navbar from "../../components/navbar"
 import Footer from "../../components/footer"
+import { User } from "../../types/user";
 
-type User = {
-  _id: string;
-  username: string;
-  email: string;
-  favoriteMovies: any;
-  favoriteSeries: any;
-};
 
 async function getUser(navigate: any, onErr: (err: string) => void) {
   try {
@@ -104,7 +98,7 @@ export default function Profile() {
               {
               data.favoriteMovies.map((movie: any, index: any) => (
                 <Link to={`/movies/${movie._id}`} key={movie._id}>
-                  <div className="pt-2" key={index}>{index + 1}. {movie.title}</div>
+                  <div className="pt-2 pb-2" key={index}>{index + 1}. {movie.title}</div>
                 </Link>
               ))
               }
@@ -120,7 +114,7 @@ export default function Profile() {
             <div className="shadow-sm bg-gray-700 border border-gray-300 text-gray-200 text-sm rounded-lg w-full p-2.5">
               {data.favoriteSeries.map((serie: any, index: any) => (
                 <Link to={`/series/${serie._id}`} key={serie._id}>
-                  <div className="pt-2" key={index}>{index + 1}. {serie.title}</div>
+                  <div className="pt-2 pb-2" key={index}>{index + 1}. {serie.title}</div>
                 </Link>
               ))}
             </div>
