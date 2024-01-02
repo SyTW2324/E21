@@ -1,62 +1,13 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
-import { useNavigate, useParams } from "react-router-dom";
 
+import { Movies } from "src/types/movies";
+import { Series } from "src/types/series";
+import { User } from "src/types/user";
+
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 
-type User = {
-  _id: string;
-  username: string;
-  email: string;
-  favoriteMovies: any;
-  favoriteSeries: any;
-};
-
-type Seasons = {
-  _id: string;
-  season: number;
-  episodes: Episode[];
-};
-
-type Episode = {
-  _id: string;
-  title: string;
-  description: string;
-  duration: number;
-  rating: number;
-  numEpisode: number;
-};
-
-type Movies = {
-  _id: string;
-  image: string;
-  title: string;
-  description: string;
-  director: string;
-  year: number;
-  duration: number;
-  cast: string[];
-  genre: string[];
-  rating: number;
-  platform: string[];
-};
-
-type Series = {
-  _id: string;
-  image: string;
-  title: string;
-  description: string;
-  director: string;
-  yearStart: number;
-  yearEnd: number;
-  numEpisodes: number;
-  seasons: Seasons[];
-  cast: string[];
-  genre: string[];
-  durationAVG: number;
-  rating: number;
-  platform: string[];
-};
 
 let elementID: string = "";
 let movieOrNot: boolean = false;
