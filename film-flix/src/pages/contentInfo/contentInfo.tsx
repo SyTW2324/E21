@@ -207,6 +207,29 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
     setCurrentSeason(season);
   };
 
+  const [averageDuration, setAverageDuration] = React.useState(0);
+
+  // Función para calcular la media de las duraciones
+  const calculateAverageDuration = (allEpisodes: any) => {
+    if (allEpisodes.length === 0) {
+      return 0;
+    }
+
+    const totalDuration = allEpisodes.reduce((acc: any, episode: any) => acc + episode.duration, 0);
+    return totalDuration / allEpisodes.length;
+  };
+
+  React.useEffect(() => {
+    // Obtener todos los episodios de todas las temporadas
+    if (content && "seasons" in content) {
+      const allEpisodes = content.seasons.flatMap(season => season.episodes);
+
+      // Calcular la duración promedio
+      const average = calculateAverageDuration(allEpisodes);
+      setAverageDuration(average);
+    }
+  }, [content]);
+
   return (
     <>
       <div className="bg-gray-900 ">
@@ -242,7 +265,7 @@ export default function ContentInfo({type}: { type: "movies" | "series" }) {
                       Runtime
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
-                      { content && "duration" in content ? `${content.duration} min` : `${content?.durationAVG} min` }
+                      { content && "duration" in content ? `${content.duration} min` : `${averageDuration.toFixed(0)} min` }
                     </p>
                   </div>
                   {
