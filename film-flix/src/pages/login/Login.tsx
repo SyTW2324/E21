@@ -20,7 +20,7 @@ export default function Login() {
       error_message = errorMessage;
       setShowAlert(true);
     }
-  }, [location.state]);
+  }, []);
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
