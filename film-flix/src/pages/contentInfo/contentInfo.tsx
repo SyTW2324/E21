@@ -1,7 +1,7 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import Episodes from '../../components/episodes';
-import Comments from "src/components/comments";
+import Comments from "../../components/comments";
 
 import {getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
 
