@@ -224,9 +224,6 @@ router.put("/forgot-password", async (req, res) => {
 router.put("/reset-password", async (req, res) => {
   const { passwordHash, resetToken } = req.body;
 
-  console.log(resetToken)
-  console.log(passwordHash)
-
   if (!resetToken) {
     return res.status(400).json({ message: "resetToken required" });
   }
@@ -260,6 +257,31 @@ router.put("/reset-password", async (req, res) => {
   await user.save();
 
   return res.json({ message: "Password changed successfully" });
+});
+
+// Ruta para cambiar contraseña
+router.put("/reset-password/check-token", async (req, res) => {
+  const { resetToken } = req.body;
+
+  if (!resetToken) {
+    return res.status(417).json({ valid: false});
+  }
+
+  const user = await UserModel.findOne({ resetToken });
+  if (!user) {
+    return res.status(417).json({ valid: false });
+  }
+ 
+  try {
+    const token = jwt.verify(resetToken, JWT_SECRET);
+    if (!token) {
+      return res.status(417).json({ valid: false });
+    }
+  } catch (error) { 
+    return res.status(417).json({ valid: false });
+  }
+
+  return res.json({ valid: true });
 });
 
 

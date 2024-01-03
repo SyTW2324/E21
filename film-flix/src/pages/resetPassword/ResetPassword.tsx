@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import "../../index.css";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useParams } from "react-router-dom";
@@ -14,6 +14,34 @@ export default function ResetPassword() {
   const navigate = useNavigate();
 
   const { resetToken } = useParams() as { resetToken: string };
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const response = await fetch(`http://localhost:3001/user/reset-password/check-token`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resetToken,
+        }),
+      });
+
+      if (!response.ok) {
+        navigate("/login")
+      }
+
+      const responseJSON = await response.json();
+
+      if (!responseJSON.valid) {
+        navigate("/login")
+      }
+    };
+
+    checkToken();
+  }, [resetToken, navigate]);
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -33,8 +61,7 @@ export default function ResetPassword() {
           resetToken,
         }),
       });
-      console.log(passwordHash);
-      console.log(resetToken);
+
       console.log(response);
       navigate("/login");
     } catch (error: any) {
