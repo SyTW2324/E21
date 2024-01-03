@@ -168,6 +168,7 @@ router.put("/favorites", async (req, res) => {
 // Ruta para recuperar contraseña
 router.put("/forgot-password", async (req, res) => {
   const { username } = req.body;
+  console.log(username)
   if (!username) {
     return res.status(400).json({ message: "Username is required" });
   }
