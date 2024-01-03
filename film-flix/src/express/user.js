@@ -162,9 +162,87 @@ router.put("/favorites", async (req, res) => {
   }
 });
 
+// Ruta para recuperar contraseña
+router.put("/forgot-password", async (req, res) => {
+  const { username } = req.body;
+  if (!username) {
+    return res.status(400).json({ message: "Username is required" });
+  }
 
+  const message = "An email has been sent to your email address";
+  let verificationLink;
+  let emailStatus = "OK";
 
+  let user;
 
+  try {
+    user = await UserModel.findOne({ username });
+    const token = jwt.sign({ _id: user._id, username: user.username,  }, JWT_SECRET, {
+      expiresIn: "20m",
+    });
+    verificationLink = `http://localhost:3000/reset-password/${token}`;
+    user.resetToken = token;
+  } catch (error) {
+    return res.status(400).json({ message: "Username not found" });
+  }
+
+  // Enviar el correo electrónico
+  try {
+
+  } catch (error) {
+    emailStatus = error;
+    return res.status(400).json({ message: "Error sending email" });
+  }
+
+  try {
+    await user.save();
+  } catch (error) {
+    emailStatus = error;
+    return res.status(400).json({ message: "Error saving user" });
+  }
+
+  return res.json({ message, info: emailStatus, test: verificationLink });
+
+});
+
+// Ruta para cambiar contraseña
+router.put("/reset-password", async (req, res) => {
+  const { newPassword } = req.body;
+  const resetToken = req.headers.authorization;
+  if (!resetToken) {
+    return res.status(400).json({ message: "resetToken required" });
+  }
+  if (!newPassword) {
+    return res.status(400).json({ message: "newPassword required" });
+  }
+
+  const user = await UserModel.findOne({ resetToken });
+  if (!user) {
+    return res.status(400).json({ message: "" });
+  }
+ 
+  try {
+    const token = jwt.verify(resetToken, JWT_SECRET);
+    if (!token) {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+  } catch (error) { 
+    return res.status(400).json(error);
+  }
+
+  user.passwordHash = newPassword;
+
+  const validationOps = { validationError: { target: false, value: false } };
+  const errors = await user.validate(validationOps);
+  if (errors) {
+    return res.status(400).json({ message: errors });
+  }
+
+  user.resetToken = "";
+  await user.save();
+
+  return res.json({ message: "Password changed successfully" });
+});
 
 
 export default router;
