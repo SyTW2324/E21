@@ -1,7 +1,10 @@
-import express from "express";
+import { transporter } from "../config/mailer.js";
+
 import UserModel from "../models/user.js";
 import MoviesModel from "../models/film.js";
 import SeriesModel from "../models/series.js";
+
+import express from "express";
 import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = 'mysecretkey';
@@ -186,12 +189,23 @@ router.put("/forgot-password", async (req, res) => {
     return res.status(400).json({ message: "Username not found" });
   }
 
+  console.log(user.email)
+
   // Enviar el correo electrónico
   try {
+    await transporter.sendMail({
+      from: '"FilmFlix - Forgot Password" <sytw021@gmail.com>', // sender address
+      to: user.email, // list of receivers
+      subject: "Forgot Password", // Subject line
+      html: `
+        <h2>Click on the link below to reset your password</h2>
+        <a href="${verificationLink}">${verificationLink}</a>
+      ` // html body
+    });
 
-  } catch (error) {
+  } catch (error) { 
     emailStatus = error;
-    return res.status(400).json({ message: "Error sending email" });
+    return res.status(400).json(error);
   }
 
   try {
@@ -201,7 +215,7 @@ router.put("/forgot-password", async (req, res) => {
     return res.status(400).json({ message: "Error saving user" });
   }
 
-  return res.json({ message, info: emailStatus, test: verificationLink });
+  return res.json({ message, info: emailStatus});
 
 });
 
