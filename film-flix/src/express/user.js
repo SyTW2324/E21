@@ -222,13 +222,16 @@ router.put("/forgot-password", async (req, res) => {
 
 // Ruta para cambiar contraseña
 router.put("/reset-password", async (req, res) => {
-  const { newPassword } = req.body;
-  const resetToken = req.headers.authorization;
+  const { passwordHash, resetToken } = req.body;
+
+  console.log(resetToken)
+  console.log(passwordHash)
+
   if (!resetToken) {
     return res.status(400).json({ message: "resetToken required" });
   }
-  if (!newPassword) {
-    return res.status(400).json({ message: "newPassword required" });
+  if (!passwordHash) {
+    return res.status(400).json({ message: "passwordHash required" });
   }
 
   const user = await UserModel.findOne({ resetToken });
@@ -245,7 +248,7 @@ router.put("/reset-password", async (req, res) => {
     return res.status(400).json(error);
   }
 
-  user.passwordHash = newPassword;
+  user.passwordHash = passwordHash;
 
   const validationOps = { validationError: { target: false, value: false } };
   const errors = await user.validate(validationOps);

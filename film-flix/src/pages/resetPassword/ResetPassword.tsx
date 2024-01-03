@@ -13,29 +13,28 @@ export default function ResetPassword() {
   const [alertShow, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
-  const { token } = useParams() as { token: string };
+  const { resetToken } = useParams() as { resetToken: string };
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    // Implementación de una función que permita el control de errores para las situaciones
-    // en las que el usuarios ya existe
     try {
       // Comprobación de que las contraseñas coinciden
       if (passwordHash !== repeatPassword) {
         setShowAlert(true);
         throw new Error("Passwords do not match");
       }
-      const response = await fetch(`http://localhost:3001/user/reset-password/${token}`, {
+      const response = await fetch(`http://localhost:3001/user/reset-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
-          token,
         },
         body: JSON.stringify({
           passwordHash,
+          resetToken,
         }),
       });
-
+      console.log(passwordHash);
+      console.log(resetToken);
       console.log(response);
       navigate("/login");
     } catch (error: any) {
