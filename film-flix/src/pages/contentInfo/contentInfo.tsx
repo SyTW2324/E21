@@ -25,7 +25,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   });
 
   React.useEffect(() => {
-    if (userData._id !== "") {
+    if (userData?._id !== "") {
       return;
     }
     getUser((error) => {}).then((data) => setUserData(data));
