@@ -2,6 +2,8 @@ import { Movies } from "src/types/movies";
 import { Series } from "src/types/series";
 import { User } from "src/types/user";
 
+import { HOST } from "src/const";
+
 let elementID: string = "";
 let movieOrNot: boolean = false;
 
@@ -11,7 +13,7 @@ async function getContentInfo(
   onErr: (err: string) => void
 ): Promise<Movies | Series> {
   try {
-    const response = await fetch(`/api/${type}/${id}`, {
+    const response = await fetch(`${HOST}/api/${type}/${id}`, {
       method: "GET",
     });
     // console.log(response);
@@ -40,7 +42,7 @@ async function getComments(
 ): Promise<any[]> {
   try {
     const responseMovieorNot = await fetch(
-      `/api/${type}/${id}`,
+      `${HOST}/api/${type}/${id}`,
       {
         method: "GET",
       }
@@ -63,7 +65,7 @@ async function getComments(
       movieOrNot = false;
     }
 
-    const response = await fetch("/api/comments", {
+    const response = await fetch(`${HOST}/api/comments`, {
       method: "GET",
     });
 
@@ -99,7 +101,7 @@ async function putFavContent(
   onErr: (err: string) => void
 ) : Promise<{message: string, user: User}> {
   try {
-    const response = await fetch(`/api/user/favorites`, {
+    const response = await fetch(`${HOST}/api/user/favorites`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +128,7 @@ async function getUser(onErr: (err: string) => void) {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("/api/user", {
+    const response = await fetch(`${HOST}/api/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

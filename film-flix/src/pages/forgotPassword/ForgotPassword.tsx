@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { HOST } from "src/const";
+
 import Alert from "../../components/alert";
 import "../../index.css";
 
@@ -16,7 +18,7 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`/api/user/forgot-password`, {
+      const response = await fetch(`${HOST}/api/user/forgot-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

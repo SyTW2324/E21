@@ -4,6 +4,8 @@ import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import Alert from "../../components/alert";
 
+import { HOST } from "src/const";
+
 let error_message: string = "";
 
 export default function Login() {
@@ -27,7 +29,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const token = await fetch(`/api/user`, {
+      const token = await fetch(`${HOST}/api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

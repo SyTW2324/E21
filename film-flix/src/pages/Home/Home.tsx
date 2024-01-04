@@ -2,9 +2,11 @@ import Navbar from '../../components/navbar';
 import Footer from '../../components/footer';
 import React from 'react';
 
+import { HOST } from "src/const";
+
 async function getNumUsers() {
   try {
-    const response = await fetch("/api/user/all", {
+    const response = await fetch(`${HOST}/api/user/all`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +26,7 @@ async function getNumUsers() {
 
 async function getNumMovies() {
   try {
-    const response = await fetch("/api/movies", {
+    const response = await fetch(`${HOST}/api/movies`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +46,7 @@ async function getNumMovies() {
 
 async function getNumSeries() {
   try {
-    const response = await fetch("/api/series", {
+    const response = await fetch(`${HOST}/api/series`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

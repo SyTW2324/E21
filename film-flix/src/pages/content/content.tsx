@@ -4,6 +4,8 @@ import { Series } from "../../types/series";
 import { Movies } from "../../types/movies";
 import { Link } from "react-router-dom";
 
+import { HOST } from "../../const"
+
 import React from "react";
 
 async function getContent(
@@ -11,7 +13,7 @@ async function getContent(
   onErr: (err: string) => void
 ): Promise<Movies[] | Series[]> {
   try {
-    const response = await fetch(`/api/${type}`, {
+    const response = await fetch(`${HOST}/api/${type}`, {
       method: "GET",
     });
     if (!response.ok) {
