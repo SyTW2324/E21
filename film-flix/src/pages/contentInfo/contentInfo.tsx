@@ -5,8 +5,7 @@ import Comments from "../../components/comments";
 
 import {getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
 
-import { useNavigate } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 
 export default function ContentInfo({ type }: { type: "movies" | "series" }) {
