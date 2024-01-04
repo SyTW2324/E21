@@ -60,7 +60,7 @@ export default function Login() {
   return (
     <>
       {alertShow && <Alert message={error_message} />}
-      <div className="flex flex-col w-full h-screen px-6 py-40">
+      <div className="flex flex-col w-full h-screen justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href={"/"} className="flex items-center space-x-3">
             <img
