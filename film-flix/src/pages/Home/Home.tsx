@@ -4,7 +4,7 @@ import React from 'react';
 
 async function getNumUsers() {
   try {
-    const response = await fetch("http://localhost:3001/user/all", {
+    const response = await fetch("/api/user/all", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +24,7 @@ async function getNumUsers() {
 
 async function getNumMovies() {
   try {
-    const response = await fetch("http://localhost:3001/movies", {
+    const response = await fetch("/api/movies", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -44,7 +44,7 @@ async function getNumMovies() {
 
 async function getNumSeries() {
   try {
-    const response = await fetch("http://localhost:3001/series", {
+    const response = await fetch("/api/series", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

@@ -17,7 +17,7 @@ export default function ResetPassword() {
 
   useEffect(() => {
     const checkToken = async () => {
-      const response = await fetch(`http://localhost:3001/user/reset-password/check-token`, {
+      const response = await fetch(`/api/user/reset-password/check-token`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +51,7 @@ export default function ResetPassword() {
         setShowAlert(true);
         throw new Error("Passwords do not match");
       }
-      const response = await fetch(`http://localhost:3001/user/reset-password`, {
+      const response = await fetch(`/api/user/reset-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

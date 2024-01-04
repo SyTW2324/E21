@@ -15,7 +15,7 @@ async function getUser(navigate: any, onErr: (err: string) => void) {
       navigate("/login");
     }
 
-    const response = await fetch("http://localhost:3001/user", {
+    const response = await fetch("/api/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
