@@ -1,5 +1,6 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import ContentInfo from "./contentInfo";
+import { useNavigate } from 'react-router-dom';
 
 jest.mock('../../components/footer', () => ({
   __esModule: true,
@@ -43,6 +44,7 @@ describe('ContentInfo Component (movies)', () => {
     expect(wrapper.find('img').length).toBe(0);
     expect(wrapper.find('h1').length).toBe(0);
     expect(wrapper.find('ul').length).toBe(0);
+    expect(wrapper.find('input').length).toBe(0);
   });
 
   it('renders buttons', () => {
@@ -78,6 +80,7 @@ describe('ContentInfo Component (series)', () => {
     expect(wrapper.find('img').length).toBe(0);
     expect(wrapper.find('h1').length).toBe(0);
     expect(wrapper.find('ul').length).toBe(0);
+    expect(wrapper.find('input').length).toBe(0);
   });
 
   it('renders buttons', () => {
