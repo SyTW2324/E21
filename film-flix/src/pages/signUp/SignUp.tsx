@@ -8,6 +8,8 @@ import {
 import { useNavigate } from "react-router-dom";
 import Alert from "../../components/alert";
 
+import { HOST } from "src/const";
+
 let error_message: string = "";
 
 export default function SignUp() {
@@ -35,7 +37,7 @@ export default function SignUp() {
         throw new Error("Passwords do not match");
       }
 
-      const response = await fetch("/api/user", {
+      const response = await fetch(`${HOST}/api/user`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

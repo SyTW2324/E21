@@ -4,6 +4,8 @@ import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../../components/alert";
 
+import { HOST } from "src/const";
+
 let error_message: string = "";
 
 export default function ResetPassword() {
@@ -17,7 +19,7 @@ export default function ResetPassword() {
 
   useEffect(() => {
     const checkToken = async () => {
-      const response = await fetch(`/api/user/reset-password/check-token`, {
+      const response = await fetch(`${HOST}/api/user/reset-password/check-token`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
@@ -51,7 +53,7 @@ export default function ResetPassword() {
         setShowAlert(true);
         throw new Error("Passwords do not match");
       }
-      const response = await fetch(`/api/user/reset-password`, {
+      const response = await fetch(`${HOST}/api/user/reset-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

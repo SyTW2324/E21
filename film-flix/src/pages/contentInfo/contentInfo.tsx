@@ -3,7 +3,8 @@ import Navbar from "../../components/navbar";
 import Episodes from '../../components/episodes';
 import Comments from "../../components/comments";
 
-import {getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
+import { getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
+import { HOST } from "../../const";
 
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
@@ -54,7 +55,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
         return;
       }
 
-      const responseUser = await fetch("/api/user", {
+      const responseUser = await fetch(`${HOST}/api/user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +73,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
 
       // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
       if (movieOrNot === true) {
-        const response = await fetch("/api/comments", {
+        const response = await fetch(`${HOST}/api/comments`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +90,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           window.location.reload();
         }
       } else {
-        const response = await fetch("/api/comments", {
+        const response = await fetch(`${HOST}/api/comments`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
