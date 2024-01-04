@@ -8,7 +8,7 @@ let error_message: string = "";
 
 export default function ForgotPassword() {
   const logo = require("../../img/FilmflixLogo.png") as string;
-  const [username, setUserName] = useState("");
+  const [email, setUserEmail] = useState("");
   const [alertShow, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
@@ -22,11 +22,11 @@ export default function ForgotPassword() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
+          email,
         }),
       });
 
-      console.log(username);
+      console.log(email);
       console.log(response);
       navigate("/login");
     } catch (error: any) {
@@ -36,7 +36,7 @@ export default function ForgotPassword() {
   };
 
   return (
-    <div className="flex flex-col w-full h-screen px-6 py-20">
+    <div className="flex flex-col w-full h-screen justify-center">
       {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <a href={"/"}>
@@ -59,23 +59,23 @@ export default function ForgotPassword() {
           <div>
             <div className="flex items-center justify-between">
               <label
-                htmlFor="username"
+                htmlFor="email"
                 className="block text-sm font-medium leading-6 text-white"
               >
-                User Name
+                Email
               </label>
               <div className="text-sm"></div>
             </div>
             <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
               <input
-                id="username"
-                name="username"
-                type="username"
-                autoComplete="current-username"
-                placeholder="Type your username"
+                id="email"
+                name="email"
+                type="email"
+                autoComplete="current-email"
+                placeholder="Type your email"
                 required
-                value={username}
-                onChange={(e) => setUserName(e.target.value)}
+                value={email}
+                onChange={(e) => setUserEmail(e.target.value)}
                 className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
             </div>

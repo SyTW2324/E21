@@ -167,9 +167,9 @@ router.put("/favorites", async (req, res) => {
 
 // Ruta para recuperar contraseña
 router.put("/forgot-password", async (req, res) => {
-  const { username } = req.body;
-  console.log(username)
-  if (!username) {
+  const { email } = req.body;
+  console.log(email)
+  if (!email) {
     return res.status(400).json({ message: "Username is required" });
   }
 
@@ -180,7 +180,7 @@ router.put("/forgot-password", async (req, res) => {
   let user;
 
   try {
-    user = await UserModel.findOne({ username });
+    user = await UserModel.findOne({ email });
     const token = jwt.sign({ _id: user._id, username: user.username,  }, JWT_SECRET, {
       expiresIn: "20m",
     });

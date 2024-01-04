@@ -61,7 +61,7 @@ export default function SignUp() {
 
   const logo = require("../../img/FilmflixLogo.png") as string;
   return (
-    <div className="flex flex-col w-full h-screen px-6 py-20">
+    <div className="flex flex-col w-full h-screen justify-center">
       {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <a href={"/"}>
