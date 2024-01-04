@@ -54,7 +54,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
         return;
       }
 
-      const responseUser = await fetch("/user", {
+      const responseUser = await fetch("/api/user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
 
       // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
       if (movieOrNot === true) {
-        const response = await fetch("/comments", {
+        const response = await fetch("/api/comments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           window.location.reload();
         }
       } else {
-        const response = await fetch("/comments", {
+        const response = await fetch("/api/comments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

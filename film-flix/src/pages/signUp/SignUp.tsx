@@ -35,7 +35,7 @@ export default function SignUp() {
         throw new Error("Passwords do not match");
       }
 
-      const response = await fetch("/user", {
+      const response = await fetch("/api/user", {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

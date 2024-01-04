@@ -18,10 +18,10 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/user', userRouter); 
-app.use('/movies', moviesRouter);
-app.use('/series', seriesRouter);
-app.use('/comments', commentsRouter);
+app.use('/api/user', userRouter); 
+app.use('/api/movies', moviesRouter);
+app.use('/api/series', seriesRouter);
+app.use('/api/comments', commentsRouter);
 
 app.use(express.static('build'));
 
