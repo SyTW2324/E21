@@ -35,6 +35,8 @@
     "start:client": "react-scripts start",
     "start:server": "nodemon ./src/express/app.js",
     "build": "react-scripts build",
+    "serve": "npm-run-all -p start:server serve:front",
+    "serve:front": "serve -s build",
     "test": "jest --config=jest.config.js",
     "test:watch": "jest --config=jest.config.js --watchAll",
     "eject": "react-scripts eject",
