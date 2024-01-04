@@ -27,7 +27,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const token = await fetch(`http://localhost:3001/user`, {
+      const token = await fetch(`/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

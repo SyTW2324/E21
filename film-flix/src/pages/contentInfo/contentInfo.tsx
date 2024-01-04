@@ -54,7 +54,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
         return;
       }
 
-      const responseUser = await fetch("http://localhost:3001/user", {
+      const responseUser = await fetch("/user", {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
 
       // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
       if (movieOrNot === true) {
-        const response = await fetch("http://localhost:3001/comments", {
+        const response = await fetch("/comments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
@@ -89,7 +89,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           window.location.reload();
         }
       } else {
-        const response = await fetch("http://localhost:3001/comments", {
+        const response = await fetch("/comments", {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",

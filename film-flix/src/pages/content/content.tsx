@@ -11,7 +11,7 @@ async function getContent(
   onErr: (err: string) => void
 ): Promise<Movies[] | Series[]> {
   try {
-    const response = await fetch(`http://localhost:3001/${type}`, {
+    const response = await fetch(`/${type}`, {
       method: "GET",
     });
     if (!response.ok) {

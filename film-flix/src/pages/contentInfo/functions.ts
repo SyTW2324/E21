@@ -11,7 +11,7 @@ async function getContentInfo(
   onErr: (err: string) => void
 ): Promise<Movies | Series> {
   try {
-    const response = await fetch(`http://localhost:3001/${type}/${id}`, {
+    const response = await fetch(`/${type}/${id}`, {
       method: "GET",
     });
     // console.log(response);
@@ -40,7 +40,7 @@ async function getComments(
 ): Promise<any[]> {
   try {
     const responseMovieorNot = await fetch(
-      `http://localhost:3001/${type}/${id}`,
+      `/${type}/${id}`,
       {
         method: "GET",
       }
@@ -63,7 +63,7 @@ async function getComments(
       movieOrNot = false;
     }
 
-    const response = await fetch("http://localhost:3001/comments", {
+    const response = await fetch("/comments", {
       method: "GET",
     });
 
@@ -99,7 +99,7 @@ async function putFavContent(
   onErr: (err: string) => void
 ) : Promise<{message: string, user: User}> {
   try {
-    const response = await fetch(`http://localhost:3001/user/favorites`, {
+    const response = await fetch(`/user/favorites`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -126,7 +126,7 @@ async function getUser(onErr: (err: string) => void) {
   try {
     const token = localStorage.getItem("token");
 
-    const response = await fetch("http://localhost:3001/user", {
+    const response = await fetch("/user", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

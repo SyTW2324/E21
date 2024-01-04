@@ -16,7 +16,7 @@ export default function ForgotPassword() {
     e.preventDefault();
 
     try {
-      const response = await fetch(`http://localhost:3001/user/forgot-password`, {
+      const response = await fetch(`/user/forgot-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",

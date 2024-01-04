@@ -11,7 +11,7 @@ const app = express()
 const port = 3001
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: 'http://localhost:3001',
   optionsSuccessStatus: 200
 }
 
@@ -22,6 +22,12 @@ app.use('/user', userRouter);
 app.use('/movies', moviesRouter);
 app.use('/series', seriesRouter);
 app.use('/comments', commentsRouter);
+
+app.use(express.static('build'));
+
+app.get('*', (req, res) => { 
+  res.sendFile('build/index.html', { root: '.' });
+});
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
