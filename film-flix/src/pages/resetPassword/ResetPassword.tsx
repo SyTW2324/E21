@@ -130,7 +130,7 @@ export default function ResetPassword() {
             <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
               <LockClosedIcon color="grey" width={22} />
               <input
-                id="password repeat"
+                id="password_repeat"
                 name="password repeat"
                 type="password"
                 autoComplete="repeat-password"

@@ -1,4 +1,5 @@
 // jest.config.js
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     setupFilesAfterEnv: ['./src/setupTests.ts'],
     testEnvironment: 'node',
@@ -22,10 +23,10 @@ export default {
     ],
     "coverageThreshold": {
         "global": {
-          "branches": 1,
-          "functions": 1,
-          "lines": 1,
-          "statements": 1
+          "branches": 5,
+          "functions": 15,
+          "lines": 25,
+          "statements": 30
         }
       },
 };
