@@ -33,6 +33,11 @@ describe('Content Movies Component', () => {
     expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h2').length).toBe(0);
     expect(wrapper.find('p').length).toBe(0);
+    expect(wrapper.find('img').length).toBe(0);
+    expect(wrapper.find('h1').length).toBe(0);
+    expect(wrapper.find('ul').length).toBe(0);
+    expect(wrapper.find('input').length).toBe(0);
+    expect(wrapper.find('Link').length).toBe(0);
   });
 
   it('renders buttons', () => {
@@ -43,6 +48,10 @@ describe('Content Movies Component', () => {
     wrapper.setProps({ type: "movies" });
 
     expect(wrapper.exists()).toBe(true);
+  });
+
+  it('renders the correct number of buttons', () => {
+    expect(wrapper.find('button')).toHaveLength(0);
   });
 
   afterEach(() => {
@@ -70,6 +79,11 @@ describe('Content Series Component', () => {
     expect(wrapper.find('div').length).toBe(5);
     expect(wrapper.find('h2').length).toBe(0);
     expect(wrapper.find('p').length).toBe(0);
+    expect(wrapper.find('img').length).toBe(0);
+    expect(wrapper.find('h1').length).toBe(0);
+    expect(wrapper.find('ul').length).toBe(0);
+    expect(wrapper.find('input').length).toBe(0);
+    expect(wrapper.find('Link').length).toBe(0);
   });
 
   it('renders buttons', () => {

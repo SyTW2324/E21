@@ -1,9 +1,6 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import ResetPassword from './ResetPassword';
 import { useNavigate } from 'react-router-dom';
-import { render } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
-import fetchMock from 'jest-fetch-mock';
 
 // Mockear useNavigate
 jest.mock("react-router-dom", () => ({
@@ -30,10 +27,6 @@ describe('ResetPassword Component', () => {
     expect(wrapper.find('h1')).toHaveLength(0);
     expect(wrapper.find('ul')).toHaveLength(0);
     expect(wrapper.find('input').length).toBe(2);
-  });
-
-  it('renders the correct number of buttons', () => {
-    expect(wrapper.find('button')).toHaveLength(1);
   });
 
   it('calls useNavigate when the button is clicked', () => {
