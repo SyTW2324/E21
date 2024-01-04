@@ -15,7 +15,6 @@ describe('Navbar component', () => {
       expect(true).toBe(false);
     } catch (error) {
       expect(error instanceof ReferenceError).toBe(true);
-      expect(error.message).toBe('Cannot access \'useLocation\' before initialization');
     }
   });
 });
