@@ -4,6 +4,8 @@ import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
 import Alert from "../../components/alert";
 
+import { HOST } from "src/const";
+
 let error_message: string = "";
 
 export default function Login() {
@@ -27,7 +29,7 @@ export default function Login() {
     e.preventDefault();
 
     try {
-      const token = await fetch(`http://localhost:3001/user`, {
+      const token = await fetch(`${HOST}/api/user`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -60,7 +62,7 @@ export default function Login() {
   return (
     <>
       {alertShow && <Alert message={error_message} />}
-      <div className="flex flex-col w-full h-screen px-6 py-40">
+      <div className="flex flex-col w-full h-screen justify-center">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <a href={"/"} className="flex items-center space-x-3">
             <img
@@ -113,7 +115,7 @@ export default function Login() {
                 </label>
                 <div className="text-sm">
                   <a
-                    href="/register"
+                    href="/forgot-password"
                     className="font-semibold text-sky-500 hover:text-sky-200"
                   >
                     Forgot password?

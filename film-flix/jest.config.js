@@ -1,4 +1,5 @@
 // jest.config.js
+// eslint-disable-next-line import/no-anonymous-default-export
 export default {
     setupFilesAfterEnv: ['./src/setupTests.ts'],
     testEnvironment: 'node',
@@ -12,7 +13,8 @@ export default {
     testRetry: 3,
     "moduleNameMapper": {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-        '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy'
+        '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy',
+        "^src/(.*)$": "<rootDir>/src/$1"
     },
     "collectCoverage": true,
     "coverageReporters": ["lcov"],
@@ -22,10 +24,10 @@ export default {
     ],
     "coverageThreshold": {
         "global": {
-          "branches": 1,
-          "functions": 1,
-          "lines": 1,
-          "statements": 1
+          "branches": 5,
+          "functions": 15,
+          "lines": 25,
+          "statements": 30
         }
       },
 };

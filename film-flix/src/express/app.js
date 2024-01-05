@@ -8,21 +8,34 @@ import seriesRouter from './series.js';
 import commentsRouter from './comments.js';
 
 const app = express()
-const port = 3001
+const PORT_WEB = 3001
+let port = 3000
+
+if (process.env.NODE_ENV === 'production') {
+  port = PORT_WEB
+}
 
 const corsOptions = {
-  origin: 'http://localhost:3000',
+  origin: `http://localhost:${port}`,
   optionsSuccessStatus: 200
 }
 
 app.use(cors(corsOptions));
 app.use(express.json());
 
-app.use('/user', userRouter); 
-app.use('/movies', moviesRouter);
-app.use('/series', seriesRouter);
-app.use('/comments', commentsRouter);
+app.use('/api/user', userRouter); 
+app.use('/api/movies', moviesRouter);
+app.use('/api/series', seriesRouter);
+app.use('/api/comments', commentsRouter);
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('build'));
+
+  app.get('*', (req, res) => {
+    res.sendFile('build/index.html', { root: '.' });
+  });
+}
+
+app.listen(PORT_WEB, () => {
+  console.log(`Example app listening on port ${PORT_WEB}`)
 })

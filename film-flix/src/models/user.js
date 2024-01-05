@@ -37,7 +37,11 @@ const userSchema = new Schema({
     favoriteSeries: {
         type: [Series.schema],
         minlength: 3
-    }
+    },
+    resetToken: {
+        type: String,
+        required: false
+    },
 });
 
 const User = mongoose.model("User", userSchema);

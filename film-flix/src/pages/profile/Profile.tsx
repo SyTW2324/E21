@@ -7,6 +7,8 @@ import Navbar from "../../components/navbar"
 import Footer from "../../components/footer"
 import { User } from "../../types/user";
 
+import { HOST } from "src/const";
+
 
 async function getUser(navigate: any, onErr: (err: string) => void) {
   try {
@@ -15,7 +17,7 @@ async function getUser(navigate: any, onErr: (err: string) => void) {
       navigate("/login");
     }
 
-    const response = await fetch("http://localhost:3001/user", {
+    const response = await fetch(`${HOST}/api/user`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

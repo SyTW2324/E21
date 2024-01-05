@@ -1,55 +1,66 @@
-import { useState } from "react";
+import { useState, useEffect } from 'react';
 import "../../index.css";
-import {
-  AtSymbolIcon,
-  LockClosedIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
-import { useNavigate } from "react-router-dom";
+import { LockClosedIcon } from "@heroicons/react/24/outline";
+import { useNavigate, useParams } from "react-router-dom";
 import Alert from "../../components/alert";
 
 import { HOST } from "src/const";
 
 let error_message: string = "";
 
-export default function SignUp() {
-  const [username, setUsername] = useState("");
+export default function ResetPassword() {
+  const logo = require("../../img/FilmflixLogo.png") as string;
   const [passwordHash, setPasswordHash] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
-  const [email, setEmail] = useState("");
   const [alertShow, setShowAlert] = useState(false);
   const navigate = useNavigate();
 
+  const { resetToken } = useParams() as { resetToken: string };
+
+  useEffect(() => {
+    const checkToken = async () => {
+      const response = await fetch(`${HOST}/api/user/reset-password/check-token`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          resetToken,
+        }),
+      });
+
+      if (!response.ok) {
+        navigate("/login")
+      }
+
+      const responseJSON = await response.json();
+
+      if (!responseJSON.valid) {
+        navigate("/login")
+      }
+    };
+
+    checkToken();
+  }, [resetToken, navigate]);
+
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // Declaración de parámetros que son necesarios para el funcionamiento de GraphQL
-    const name: string = "name";
-    const gender: string = "gender";
-    const favoriteMovies: any = [];
-    const favoriteSeries: any = [];
 
-    // Implementación de una función que permita el control de errores para las situaciones
-    // en las que el usuarios ya existe
     try {
       // Comprobación de que las contraseñas coinciden
       if (passwordHash !== repeatPassword) {
         setShowAlert(true);
         throw new Error("Passwords do not match");
       }
-
-      const response = await fetch(`${HOST}/api/user`, {
+      const response = await fetch(`${HOST}/api/user/reset-password`, {
         method: "PUT",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          username,
-          name,
           passwordHash,
-          email,
-          gender,
-          favoriteMovies,
-          favoriteSeries,
+          resetToken,
         }),
       });
 
@@ -61,7 +72,6 @@ export default function SignUp() {
     }
   };
 
-  const logo = require("../../img/FilmflixLogo.png") as string;
   return (
     <div className="flex flex-col w-full h-screen justify-center">
       {alertShow && <Alert message={error_message} />}
@@ -77,56 +87,12 @@ export default function SignUp() {
           <h2
             className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
           >
-            Sign Up
+            Reset Password
           </h2>
         </a>
       </div>
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
-          <div>
-            <label
-              htmlFor="username"
-              className="block text-sm font-medium leading-6 text-white"
-            >
-              Username
-            </label>
-            <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
-              <UserIcon color="grey" width={22} />
-              <input
-                id="username"
-                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
-                type="text"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                placeholder="Example01"
-                required
-              />
-            </div>
-          </div>
-
-          <div>
-            <label
-              htmlFor="email"
-              className="block text-sm font-medium leading-6 text-white"
-            >
-              Email address
-            </label>
-            <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
-              <AtSymbolIcon color="grey" width={22} />
-              <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="example@gmail.com"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
           <div>
             <div className="flex items-center justify-between">
               <label
@@ -166,7 +132,7 @@ export default function SignUp() {
             <div className="mt-2 px-3 flex w-full rounded-md border-0 py-1.5 text-gray-900 shadow-md ring-1 ring-inset ring-gray-300">
               <LockClosedIcon color="grey" width={22} />
               <input
-                id="password repeat"
+                id="password_repeat"
                 name="password repeat"
                 type="password"
                 autoComplete="repeat-password"
@@ -182,22 +148,14 @@ export default function SignUp() {
           <div>
             <button
               type="submit"
-              className="lex w-full justify-center rounded-md bg-sky-800 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="lex w-full justify-center rounded-md bg-sky-800 px-3 py-1.5 text-sm font-semibold leading-6 
+                       text-white shadow-sm hover:bg-sky-600 focus-visible:outline focus-visible:outline-2 
+                         focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
-              SIGN UP
+              CONFIRM
             </button>
           </div>
         </form>
-
-        <p className="mt-10 text-center text-sm text-gray-400">
-          You have an account?{" "}
-          <a
-            href="/login"
-            className="font-semibold leading-6 text-sky-500 hover:text-sky-200"
-          >
-            Login
-          </a>
-        </p>
       </div>
     </div>
   );

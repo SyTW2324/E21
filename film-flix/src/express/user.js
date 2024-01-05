@@ -1,7 +1,10 @@
-import express from "express";
+import { transporter } from "../config/mailer.js";
+
 import UserModel from "../models/user.js";
 import MoviesModel from "../models/film.js";
 import SeriesModel from "../models/series.js";
+
+import express from "express";
 import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = 'mysecretkey';
@@ -162,9 +165,124 @@ router.put("/favorites", async (req, res) => {
   }
 });
 
+// Ruta para recuperar contraseña
+router.put("/forgot-password", async (req, res) => {
+  const { email } = req.body;
+  console.log(email)
+  if (!email) {
+    return res.status(400).json({ message: "Username is required" });
+  }
 
+  const message = "An email has been sent to your email address";
+  let verificationLink;
+  let emailStatus = "OK";
 
+  let user;
 
+  try {
+    user = await UserModel.findOne({ email });
+    const token = jwt.sign({ _id: user._id, username: user.username,  }, JWT_SECRET, {
+      expiresIn: "20m",
+    });
+    verificationLink = `http://localhost:3000/reset-password/${token}`;
+    user.resetToken = token;
+  } catch (error) {
+    return res.status(400).json({ message: "Username not found" });
+  }
+
+  console.log(user.email)
+
+  // Enviar el correo electrónico
+  try {
+    await transporter.sendMail({
+      from: '"FilmFlix - Forgot Password" <sytw021@gmail.com>', // sender address
+      to: user.email, // list of receivers
+      subject: "Forgot Password", // Subject line
+      html: `
+        <h2>Click on the link below to reset your password</h2>
+        <a href="${verificationLink}">${verificationLink}</a>
+      ` // html body
+    });
+
+  } catch (error) { 
+    emailStatus = error;
+    return res.status(400).json(error);
+  }
+
+  try {
+    await user.save();
+  } catch (error) {
+    emailStatus = error;
+    return res.status(400).json({ message: "Error saving user" });
+  }
+
+  return res.json({ message, info: emailStatus});
+
+});
+
+// Ruta para cambiar contraseña
+router.put("/reset-password", async (req, res) => {
+  const { passwordHash, resetToken } = req.body;
+
+  if (!resetToken) {
+    return res.status(400).json({ message: "resetToken required" });
+  }
+  if (!passwordHash) {
+    return res.status(400).json({ message: "passwordHash required" });
+  }
+
+  const user = await UserModel.findOne({ resetToken });
+  if (!user) {
+    return res.status(400).json({ message: "" });
+  }
+ 
+  try {
+    const token = jwt.verify(resetToken, JWT_SECRET);
+    if (!token) {
+      return res.status(400).json({ message: "Invalid token" });
+    }
+  } catch (error) { 
+    return res.status(400).json(error);
+  }
+
+  user.passwordHash = passwordHash;
+
+  const validationOps = { validationError: { target: false, value: false } };
+  const errors = await user.validate(validationOps);
+  if (errors) {
+    return res.status(400).json({ message: errors });
+  }
+
+  user.resetToken = "";
+  await user.save();
+
+  return res.json({ message: "Password changed successfully" });
+});
+
+// Ruta para cambiar contraseña
+router.put("/reset-password/check-token", async (req, res) => {
+  const { resetToken } = req.body;
+
+  if (!resetToken) {
+    return res.status(417).json({ valid: false});
+  }
+
+  const user = await UserModel.findOne({ resetToken });
+  if (!user) {
+    return res.status(417).json({ valid: false });
+  }
+ 
+  try {
+    const token = jwt.verify(resetToken, JWT_SECRET);
+    if (!token) {
+      return res.status(417).json({ valid: false });
+    }
+  } catch (error) { 
+    return res.status(417).json({ valid: false });
+  }
+
+  return res.json({ valid: true });
+});
 
 
 export default router;
