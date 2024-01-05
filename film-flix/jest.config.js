@@ -13,7 +13,8 @@ export default {
     testRetry: 3,
     "moduleNameMapper": {
         "\\.(css|less|scss|sass)$": "identity-obj-proxy",
-        '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy'
+        '\\.(jpg|jpeg|png|gif|svg|ico)$': 'identity-obj-proxy',
+        "^src/(.*)$": "<rootDir>/src/$1"
     },
     "collectCoverage": true,
     "coverageReporters": ["lcov"],
