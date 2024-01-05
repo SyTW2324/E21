@@ -3,7 +3,7 @@ import Season from "./season.js";
 
 const Schema = mongoose.Schema;
 
-const allowedPlatforms = ['DisneyPlus', 'Netflix', 'AmazonPrime', 'HBO'];
+const allowedPlatforms = ['Netflix', 'DisneyPlus', 'Amazon Prime Video', 'HBO Max', 'Hulu'];
 
 const seriesSchema = new Schema({
     image: {

@@ -1,6 +1,6 @@
 import {Schema, model} from 'mongoose';
 
-const allowedPlatforms = ['Netflix', 'DisneyPlus', 'Amazon Prime Video', 'HBO Max', 'Hulu',];
+const allowedPlatforms = ['Netflix', 'DisneyPlus', 'Amazon Prime Video', 'HBO Max', 'Hulu'];
 
 const filmSchema = new Schema({
     image: {
