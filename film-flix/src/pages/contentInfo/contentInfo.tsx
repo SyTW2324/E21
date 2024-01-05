@@ -2,6 +2,7 @@ import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
 import Episodes from '../../components/episodes';
 import Comments from "../../components/comments";
+import PlatformLogos from "src/streamingPlatformIcons/platformLogos";
 
 import { getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
 import { HOST } from "../../const";
@@ -218,8 +219,8 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   </div>
                 ))}
               </div>
-              <div className="flex justify-center items-center">
-                <div>
+              <div>
+                <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
                   <div>
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Rating
@@ -232,9 +233,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Platforms
                     </h2>
-                    <p className="text-white pt-1 flex justify-center">
-                      {content?.platform.join(" - ")}
-                    </p>
+                    <PlatformLogos className={"sm:flex sm:justify-center sm:space-x-5"} platforms={content?.platform} />
                   </div>
                   <div>
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
