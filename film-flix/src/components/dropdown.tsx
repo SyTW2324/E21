@@ -43,7 +43,9 @@ const DropdownComponent = () => {
   React.useEffect(() => {
     getUserInfo().then((dataUser) => {
       setUserName(dataUser.username);
+      console.log(dataUser.username);
       setUserEmail(dataUser.email);
+      console.log(dataUser.email);
     });
   }, []);
 
