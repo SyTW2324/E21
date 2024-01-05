@@ -1,6 +1,6 @@
 export default function Hulu() {
     return (
-        <svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 48 48">
+        <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 48 48">
         <path 
         fill="#8BC34A" 
         d="M29,15h4v18h-4V15z M43,33h-4c-2.2,0-4-1.8-4-4v-9h4v8c0,0.6,0.5,1,1,1h2c0.6,0,1-0.5,1-1v-8h4v9C47,31.2,45.2,33,43,

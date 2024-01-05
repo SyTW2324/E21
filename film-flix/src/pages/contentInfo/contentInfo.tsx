@@ -219,8 +219,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   </div>
                 ))}
               </div>
-              <div>
-                <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
+              <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
                   <div>
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Rating
@@ -231,60 +230,66 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   </div>
                   <div>
                     <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                      Platforms
-                    </h2>
-                    <PlatformLogos className={"sm:flex sm:justify-center sm:space-x-5"} platforms={content?.platform} />
-                  </div>
-                  <div>
-                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                       Runtime
                     </h2>
                     <p className="text-white pt-1 flex justify-center">
                       { content && "duration" in content ? `${content.duration} min` : `${averageDuration.toFixed(0)} min` }
                     </p>
                   </div>
-                  {content && "numEpisodes" in content && (
-                    <div>
-                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Episodes
-                      </h2>
-                      <p className="text-white pt-1 flex justify-center">
-                        {content?.numEpisodes}
-                      </p>
-                    </div>
-                  )}
-                  {content && "seasons" in content && (
-                    <div>
-                      <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                        Seasons
-                      </h2>
+              </div>
+              <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
+                {content && "numEpisodes" in content && (
+                  <div>
+                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                      Episodes
+                    </h2>
+                    <p className="text-white pt-1 flex justify-center">
+                      {content?.numEpisodes}
+                    </p>
+                  </div>
+                )}
+                {content && "seasons" in content && (
+                  <div>
+                  <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                    Seasons
+                    </h2>
                       <p className="text-white pt-1 flex justify-center">
                         {content?.seasons.length}
                       </p>
                     </div>
-                  )}
+                )}
+              </div>
+              <div className="flex justify-center space-x-5 sm:space-x-0">
+                <div>
+                  <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                    Platforms
+                  </h2>
+                  <PlatformLogos 
+                    className={"sm:flex sm:justify-center sm:space-x-5"} 
+                    platforms={content?.platform} 
+                  />
                 </div>
               </div>
             </div>
-            <div>
+            <div className="mx-5">
               <div>
-                <h1 className="text-white text-4xl font-bold">
+                <h1 className="text-white text-4xl font-bold flex justify-center sm:justify-start">
                   {content?.title}
                 </h1>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5 flex justify-center sm:justify-start">
                   Genre
                 </h2>
-                <p className="text-white font-extralight pt-2">
+                <p className="text-white font-extralight pt-2 flex justify-center sm:justify-start">
                   {content?.genre.join(", ")}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5 flex justify-center sm:justify-start">
                   Release Date
                 </h2>
-                <p className="text-white font-extralight pt-2">
+                <p className="text-white font-extralight pt-2 flex justify-center sm:justify-start">
                   {content && "year" in content
                     ? content.year
                     : `${content?.yearStart} - ${
@@ -293,26 +298,26 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5 flex justify-center sm:justify-start">
                   Cast
                 </h2>
-                <p className="text-white font-extralight pt-2">
+                <p className="text-white font-extralight pt-2 flex justify-center sm:justify-start">
                   {content?.cast.join(", ")}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5 flex justify-center sm:justify-start">
                   Director
                 </h2>
-                <p className="text-white font-extralight pt-2">
+                <p className="text-white font-extralight pt-2 flex justify-center sm:justify-start">
                   {content?.director}
                 </p>
               </div>
               <div>
-                <h2 className="text-slate-400 text-2xl font-semibold pt-5">
+                <h2 className="text-slate-400 text-2xl font-semibold pt-5 flex justify-center sm:justify-start">
                   Plot
                 </h2>
-                <p className="text-white font-extralight pt-2 flex">
+                <p className="text-white font-extralight pt-2 flex justify-center sm:justify-start">
                   {content?.description}
                 </p>
               </div>

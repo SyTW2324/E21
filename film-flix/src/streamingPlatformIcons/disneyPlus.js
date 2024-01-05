@@ -2,8 +2,8 @@ export default function DisneyPlus() {
     return (
         <svg 
             xmlns="http://www.w3.org/2000/svg" 
-            width="128" 
-            height="128" 
+            width="84" 
+            height="84" 
             viewBox="0,0,256,256"
         >
             <defs>
