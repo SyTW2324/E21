@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { HOST } from "src/const";
+
 const DropdownComponent = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState("");
@@ -19,8 +21,8 @@ const DropdownComponent = () => {
         navigate('/login', { state: { error: 'User not authenticated. You must be logged in.' } });
         return;
       }
-
-      const responseUser = await fetch("http://localhost:3001/user", {
+      
+      const responseUser = await fetch(`${HOST}/api/user`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
