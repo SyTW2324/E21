@@ -17,8 +17,6 @@ router.put("/", async (req, res) => {
     const existingUsername = await UserModel.findOne({ username: req.body.username });
     const existingEmail = await UserModel.findOne({ email: req.body.email });
 
-    // console.log(req.body)
-
     // Revisar si ya existe un nombre de usuario
     if (existingUsername) {
       throw new Error("Username already exists");
@@ -34,8 +32,6 @@ router.put("/", async (req, res) => {
     
     // Guardar el usuario en la base de datos
     await user.save();
-    
-    console.log("User saved!");
     
     return res.status(200).json({ message: "User saved successfully", user });
   } catch (error) {
@@ -55,8 +51,6 @@ router.post("/", async (req, res) => {
       throw new Error("User not found");
     }
   
-    console.log("User found!");
-  
     const userForToken = {
       username: user.username,
       email: user.email,
@@ -66,15 +60,8 @@ router.post("/", async (req, res) => {
     const token = jwt.sign(userForToken, JWT_SECRET, {
       expiresIn: "2h",
     });
-  
-    console.log("Token created!");
-
-    // Enviar el token como respuesta al cliente
     res.json({ token });
   } catch (error) {
-    // console.error("Error:", error.message);
-
-    // Enviar un mensaje de error como respuesta al cliente
     res.status(500).json({ error: error.message });
   }
 });
@@ -113,8 +100,6 @@ router.get('/', verificarToken, (req, res) => {
 router.get("/all", async (req, res) => {
   try {
     const users = await UserModel.find({});
-    // console.log(users);
-    console.log("Users found!");
     return res.status(200).json({ users });
   } catch (error) {
     console.error(error.message);
@@ -153,10 +138,7 @@ router.put("/favorites", async (req, res) => {
       }
     }
 
-    console.log(user);
     await user.save();
-
-    console.log("User updated!");
 
     return res.status(200).json({ message: "User updated successfully", user });
   } catch (error) {
@@ -168,7 +150,7 @@ router.put("/favorites", async (req, res) => {
 // Ruta para recuperar contraseña
 router.put("/forgot-password", async (req, res) => {
   const { email } = req.body;
-  console.log(email)
+
   if (!email) {
     return res.status(400).json({ message: "Username is required" });
   }
@@ -190,9 +172,6 @@ router.put("/forgot-password", async (req, res) => {
     return res.status(400).json({ message: "Username not found" });
   }
 
-  console.log(user.email)
-
-  // Enviar el correo electrónico
   try {
     await transporter.sendMail({
       from: '"FilmFlix - Forgot Password" <sytw021@gmail.com>', // sender address

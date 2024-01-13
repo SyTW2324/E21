@@ -18,7 +18,6 @@ router.get("/:id", async (req, res) => {
     try {
         const { id } = req.params;
         const serie = await SeriesModel.findById(id);
-        console.log(serie);
         if (serie) {
             return res.status(200).json({ serie });
         }
