@@ -8,7 +8,6 @@ router.put("/", async (req, res) => {
   try {
     const comment = new CommentModel({ ...req.body });
     await comment.save();
-    console.log("Comment saved!");
     return res.status(200).json({ message: "Comment saved successfully", comment });
   } catch (error) {
     console.error(error.message);
@@ -20,7 +19,6 @@ router.put("/", async (req, res) => {
 router.get("/", async (req, res) => {
   try {
     const comments = await CommentModel.find({});
-    console.log("Comments found!");
     return res.status(200).json({ comments });
   } catch (error) {
     console.error(error.message);

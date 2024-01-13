@@ -85,13 +85,11 @@ export default function Content({ type }: { type: "movies" | "series" }) {
   const [content, setContent] = React.useState<Movies[] | Series[]>([]);
   const [copyContent, setCopyContent] = React.useState<Movies[] | Series[]>([]);
   const [selected, setSelected] = React.useState("All genres");
-  console.log(content);
 
   React.useEffect(() => {
     getContent(type, (error) => {
       console.log(error);
     }).then((data) => {
-      console.log(data);
       setContent(data);
       setCopyContent(data);
     });

@@ -64,7 +64,6 @@ export default function ResetPassword() {
         }),
       });
 
-      console.log(response);
       navigate("/login");
     } catch (error: any) {
       error_message = error.message;

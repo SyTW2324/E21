@@ -28,9 +28,10 @@ export default function ForgotPassword() {
         }),
       });
 
-      console.log(email);
-      console.log(response);
-      navigate("/login");
+      if (response.ok) {
+        navigate("/login");
+      }
+      
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);

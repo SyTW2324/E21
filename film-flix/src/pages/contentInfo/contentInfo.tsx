@@ -85,8 +85,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
             moviesID: elementID,
           }),
         });
-
-        // console.log(response);
+        
         if (response.ok) {
           window.location.reload();
         }
@@ -102,14 +101,12 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
             seriesID: elementID,
           }),
         });
-
-        // console.log(response);
         if (response.ok) {
           navigate("/");
         }
       }
     } catch (error: any) {
-      // console.log(error.message);
+      console.log(error.message);
     }
   };
 
