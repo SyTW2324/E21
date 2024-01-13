@@ -65,9 +65,9 @@ async function getNumSeries() {
 }
 
 export default function Home() {
-  const Daredevil = require("../../img/daredevil.jpg") as string;
-  const Morbius = require("../../img/morbius.jpeg") as string;
-  const girlWithLaptop = require("../../img/GirlUsingLaptop.jpg") as string;
+  const Daredevil = require("../../img/daredevil.webp") as string;
+  const Morbius = require("../../img/morbius.webp") as string;
+  const girlWithLaptop = require("../../img/GirlUsingLaptop.webp") as string;
 
   const [numUsers, setNumUsers] =   React.useState(0);
   const [numMovies, setNumMovies] = React.useState(0);
