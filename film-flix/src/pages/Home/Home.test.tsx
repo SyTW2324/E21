@@ -1,6 +1,6 @@
-import React from 'react';
 import { shallow, ShallowWrapper } from 'enzyme';
 import Home from './Home';
+
 
 jest.mock('../../components/footer', () => ({
   __esModule: true,
@@ -12,6 +12,21 @@ jest.mock('../../components/navbar', () => ({
   __esModule: true,
   ...jest.requireActual('../../components/navbar'),
   footer: jest.fn()
+}));
+
+jest.mock("../../img/daredevil.webp", () => ({
+  __esModule: true, // this property makes it work
+  default: "test-file-stub",
+}));
+
+jest.mock("../../img/morbius.webp", () => ({
+  __esModule: true, // this property makes it work
+  default: "test-file-stub",
+}));
+
+jest.mock("../../img/GirlUsingLaptop.webp", () => ({
+  __esModule: true, // this property makes it work
+  default: "test-file-stub",
 }));
 
 describe ('Home Component', () => {
@@ -38,9 +53,5 @@ describe ('Home Component', () => {
 
   it('renders buttons', () => {
     expect(wrapper.find('button').length).toBe(0);
-  });
-
-  afterEach(() => {
-    wrapper.unmount();
   });
 });
