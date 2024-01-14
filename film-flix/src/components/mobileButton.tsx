@@ -1,10 +1,14 @@
 import React, { useState } from "react";
 
-const MobileMenuButton = () => {
-  const [isOpen, setIsOpen] = useState(false);
+const MobileMenuButton = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: () => void }) => {
+  // const [isOpen, setIsOpen] = useState(false);
+
+  // const toggleMenu = () => {
+  //   setIsOpen(!isOpen);
+  // };
 
   const toggleMenu = () => {
-    setIsOpen(!isOpen);
+    onToggle();
   };
 
   return (

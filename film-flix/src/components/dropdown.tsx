@@ -3,16 +3,20 @@ import { useNavigate } from "react-router-dom";
 
 import { HOST } from "src/const";
 
-const DropdownComponent = () => {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+const DropdownComponent = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: () => void }) => {
+  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
   const navigate = useNavigate();
 
   const toggleDropdown = () => {
-    setIsDropdownOpen((prevState) => !prevState);
+    onToggle();
   };
+
+  // const toggleDropdown = () => {
+  //   setIsDropdownOpen((prevState) => !prevState);
+  // };
 
   async function getUserInfo() {
     try {
@@ -60,7 +64,7 @@ const DropdownComponent = () => {
       >
         User options
         <svg
-          className={`w-2.5 h-2.5 ms-3 ${isDropdownOpen ? "rotate-180" : ""}`}
+          className={`w-2.5 h-2.5 ms-3 ${isOpen ? "rotate-180" : ""}`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -76,7 +80,7 @@ const DropdownComponent = () => {
         </svg>
       </button>
 
-      {isDropdownOpen && (
+      {isOpen && (
           <div
               id="dropdownInformation"
               className="z-10 bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600 absolute top-full mt-2"

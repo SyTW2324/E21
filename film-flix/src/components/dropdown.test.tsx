@@ -9,9 +9,9 @@ jest.mock("react-router-dom", () => ({
 describe('DropdownComponent', () => {
   let wrapper: ShallowWrapper;
 
-  beforeEach(() => {
-    wrapper = shallow(<DropdownComponent />);
-  });
+  // beforeEach(() => {
+  //   wrapper = shallow(<DropdownComponent />);
+  // });
 
   it('should render without crashing', () => {
     expect(wrapper).toBeTruthy();

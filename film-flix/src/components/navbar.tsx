@@ -6,6 +6,9 @@ import { useState } from "react";
 export default function Navbar() {
   const logo = require("../img/FilmflixLogo.png") as string;
 
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -29,7 +32,13 @@ export default function Navbar() {
         <div className="flex order-2 space-x-1 rtl:space-x-reverse">
           {isLoggedIn() ? (
             <>
-              <DropdownComponent />
+              <DropdownComponent
+                isOpen={isDropdownOpen}
+                onToggle={() => {
+                  setIsDropdownOpen(!isDropdownOpen);
+                  if (isMobileMenuOpen) setIsMobileMenuOpen(false);
+                }}
+              />
             </>
           ) : (
             <button
@@ -44,7 +53,13 @@ export default function Navbar() {
               Login
             </button>
           )}
-          <MobileMenuButton />
+          <MobileMenuButton
+            isOpen={isMobileMenuOpen}
+            onToggle={() => {
+              setIsMobileMenuOpen(!isMobileMenuOpen);
+              if (isDropdownOpen) setIsDropdownOpen(false);
+            }}
+          />
         </div>
         <div
           className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1"
