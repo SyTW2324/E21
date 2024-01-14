@@ -1,5 +1,9 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import DropdownComponent from './dropdown';
+import { useState } from "react";
+
+const isOpen: boolean = false;
+const onToggle = jest.fn();
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
@@ -9,9 +13,9 @@ jest.mock("react-router-dom", () => ({
 describe('DropdownComponent', () => {
   let wrapper: ShallowWrapper;
 
-  // beforeEach(() => {
-  //   wrapper = shallow(<DropdownComponent />);
-  // });
+  beforeEach(() => {
+    wrapper = shallow(<DropdownComponent isOpen={isOpen} onToggle={onToggle}/>);
+  });
 
   it('should render without crashing', () => {
     expect(wrapper).toBeTruthy();
