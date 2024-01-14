@@ -41,7 +41,7 @@ export default function Login() {
       });
 
       if (!token.ok) {
-        throw new Error(`Error en la solicitud: ${token.statusText}`);
+        throw new Error("401");
       }
 
       const tokenJSON = await token.json();
@@ -54,7 +54,13 @@ export default function Login() {
 
       navigate("/profile");
     } catch (error: any) {
-      error_message = error.message;
+      if (error.message === "401") {
+        error_message = "Email or password incorrect";
+      } else if (error.message === "500") {
+        error_message = "Internal server error";
+      } else {
+        error_message = error.message;
+      }
       setShowAlert(true);
     }
   };
