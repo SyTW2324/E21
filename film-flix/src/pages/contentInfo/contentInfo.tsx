@@ -1,22 +1,30 @@
 import Footer from "../../components/footer";
 import Navbar from "../../components/navbar";
-import Episodes from '../../components/episodes';
+import Episodes from "../../components/episodes";
 import Comments from "../../components/comments";
 import PlatformLogos from "src/streamingPlatformIcons/platformLogos";
 
-import { getContentInfo, putFavContent, getUser, Movies, Series, User, elementID, movieOrNot } from "./functions";
+import {
+  getContentInfo,
+  putFavContent,
+  getUser,
+  Movies,
+  Series,
+  User,
+  elementID,
+  movieOrNot,
+} from "./functions";
 import { HOST } from "../../const";
 
 import { useNavigate, useParams } from "react-router-dom";
 import React from "react";
 
 export default function ContentInfo({ type }: { type: "movies" | "series" }) {
-  
   const navigate = useNavigate();
 
   const [content, setContent] = React.useState<Movies | Series>();
   const [text, setText] = React.useState("");
-  
+
   const [userData, setUserData] = React.useState<User>({
     _id: "",
     username: "",
@@ -35,7 +43,6 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   const favContentId: string[] = [];
 
   if (userData) {
-    // Se añaden los identificadores de las pelis y series favoritas del usuario
     userData.favoriteMovies.forEach((movie: any) => {
       favContentId.push(movie._id);
     });
@@ -68,11 +75,9 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
         throw new Error(`Error en la solicitud: ${responseUser.statusText}`);
       }
 
-      // Obtención del nombre de usuario a partir del token
       const dataUser = await responseUser.json();
       const userName = dataUser.username;
 
-      // Dependiendo de si se trata de una peli o de una serie, se hace una petición u otra
       if (movieOrNot === true) {
         const response = await fetch(`${HOST}/api/comments`, {
           method: "PUT",
@@ -85,7 +90,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
             moviesID: elementID,
           }),
         });
-        
+
         if (response.ok) {
           window.location.reload();
         }
@@ -112,17 +117,18 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
 
   const [averageDuration, setAverageDuration] = React.useState(0);
 
-  // Función para calcular la media de las duraciones
   const calculateAverageDuration = (allEpisodes: any) => {
     if (allEpisodes.length === 0) {
       return 0;
     }
 
-    const totalDuration = allEpisodes.reduce((acc: any, episode: any) => acc + episode.duration, 0);
+    const totalDuration = allEpisodes.reduce(
+      (acc: any, episode: any) => acc + episode.duration,
+      0
+    );
     return totalDuration / allEpisodes.length;
   };
-  
-  // Get the id from the URL
+
   const { id } = useParams() as { id: string };
 
   React.useEffect(() => {
@@ -130,11 +136,9 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
   }, [type, id, setContent]);
 
   React.useEffect(() => {
-    // Obtener todos los episodios de todas las temporadas
     if (content && "seasons" in content) {
-      const allEpisodes = content.seasons.flatMap(season => season.episodes);
+      const allEpisodes = content.seasons.flatMap((season) => season.episodes);
 
-      // Calcular la duración promedio
       const average = calculateAverageDuration(allEpisodes);
       setAverageDuration(average);
     }
@@ -157,82 +161,83 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   src={content?.image}
                   alt=""
                 />
-                {
-                userData && (
-                favContentId.includes(content._id) ? (
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkboxInput"
-                      className="bookmark"
-                      defaultChecked
-                      onClick={() => {
-                        putFavContent(
-                          userData._id,
-                          content._id,
-                          type,
-                          "remove",
-                          (error) => {}
-                        ).then((data) => setUserData(data.user));
-                      }}
-                    />
-                    <label htmlFor="checkboxInput" className="bookmark">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="1em"
-                        viewBox="0 0 384 512"
-                        className="svgIcon"
-                      >
-                        <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
-                      </svg>
-                    </label>
-                  </div>
-                ) : (
-                  <div>
-                    <input
-                      type="checkbox"
-                      id="checkboxInput"
-                      className="bookmark"
-                      onClick={() => {
-                        putFavContent(
-                          userData._id,
-                          content._id,
-                          type,
-                          "add",
-                          (error) => {}
-                        ).then((data) => setUserData(data.user));
-                      }}
-                    />
-                    <label htmlFor="checkboxInput" className="bookmark">
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        height="1em"
-                        viewBox="0 0 384 512"
-                        className="svgIcon"
-                      >
-                        <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
-                      </svg>
-                    </label>
-                  </div>
-                ))}
+                {userData &&
+                  (favContentId.includes(content._id) ? (
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="checkboxInput"
+                        className="bookmark"
+                        defaultChecked
+                        onClick={() => {
+                          putFavContent(
+                            userData._id,
+                            content._id,
+                            type,
+                            "remove",
+                            (error) => {}
+                          ).then((data) => setUserData(data.user));
+                        }}
+                      />
+                      <label htmlFor="checkboxInput" className="bookmark">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 384 512"
+                          className="svgIcon"
+                        >
+                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                        </svg>
+                      </label>
+                    </div>
+                  ) : (
+                    <div>
+                      <input
+                        type="checkbox"
+                        id="checkboxInput"
+                        className="bookmark"
+                        onClick={() => {
+                          putFavContent(
+                            userData._id,
+                            content._id,
+                            type,
+                            "add",
+                            (error) => {}
+                          ).then((data) => setUserData(data.user));
+                        }}
+                      />
+                      <label htmlFor="checkboxInput" className="bookmark">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          height="1em"
+                          viewBox="0 0 384 512"
+                          className="svgIcon"
+                        >
+                          <path d="M0 48V487.7C0 501.1 10.9 512 24.3 512c5 0 9.9-1.5 14-4.4L192 400 345.7 507.6c4.1 2.9 9 4.4 14 4.4c13.4 0 24.3-10.9 24.3-24.3V48c0-26.5-21.5-48-48-48H48C21.5 0 0 21.5 0 48z"></path>
+                        </svg>
+                      </label>
+                    </div>
+                  ))}
               </div>
               <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
-                  <div>
-                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                      Rating
-                    </h2>
-                    <p className="text-white pt-1 flex justify-center">
-                      {content?.rating}
-                    </p>
-                  </div>
-                  <div>
-                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                      Runtime
-                    </h2>
-                    <p className="text-white pt-1 flex justify-center">
-                      { content && "duration" in content ? `${content.duration} min` : `${averageDuration.toFixed(0)} min` }
-                    </p>
-                  </div>
+                <div>
+                  <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                    Rating
+                  </h2>
+                  <p className="text-white pt-1 flex justify-center">
+                    {content?.rating}
+                  </p>
+                </div>
+                <div>
+                  <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                    Runtime
+                  </h2>
+                  <p className="text-white pt-1 flex justify-center">
+                    {content && "duration" in content
+                      ? `${content.duration} min`
+                      : `${averageDuration.toFixed(0)} min`}
+                  </p>
+                </div>
               </div>
               <div className="flex justify-center space-x-5 sm:flex-col sm:space-x-0">
                 {content && "numEpisodes" in content && (
@@ -247,13 +252,13 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                 )}
                 {content && "seasons" in content && (
                   <div>
-                  <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
-                    Seasons
+                    <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
+                      Seasons
                     </h2>
-                      <p className="text-white pt-1 flex justify-center">
-                        {content?.seasons.length}
-                      </p>
-                    </div>
+                    <p className="text-white pt-1 flex justify-center">
+                      {content?.seasons.length}
+                    </p>
+                  </div>
                 )}
               </div>
               <div className="flex justify-center space-x-5 sm:space-x-0">
@@ -261,9 +266,9 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
                   <h2 className="text-gray-500 text-lg font-bold pt-3 flex justify-center">
                     Platforms
                   </h2>
-                  <PlatformLogos 
-                    className={"sm:flex sm:justify-center sm:space-x-5"} 
-                    platforms={content?.platform} 
+                  <PlatformLogos
+                    className={"sm:flex sm:justify-center sm:space-x-5"}
+                    platforms={content?.platform}
                   />
                 </div>
               </div>
@@ -327,7 +332,7 @@ export default function ContentInfo({ type }: { type: "movies" | "series" }) {
           setText={setText}
           setContent={setContent}
           type={type}
-        />              
+        />
         <Footer />
       </div>
     </>

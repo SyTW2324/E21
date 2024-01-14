@@ -22,16 +22,12 @@ export default function SignUp() {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    // Declaración de parámetros que son necesarios para el funcionamiento de GraphQL
     const name: string = "name";
     const gender: string = "gender";
     const favoriteMovies: any = [];
     const favoriteSeries: any = [];
 
-    // Implementación de una función que permita el control de errores para las situaciones
-    // en las que el usuarios ya existe
     try {
-      // Comprobación de que las contraseñas coinciden
       if (passwordHash !== repeatPassword) {
         setShowAlert(true);
         throw new Error("Passwords do not match");
@@ -73,9 +69,7 @@ export default function SignUp() {
           />
         </a>
         <a href={"/"}>
-          <h2
-            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-          >
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Sign Up
           </h2>
         </a>

@@ -15,17 +15,17 @@ jest.mock('../../components/navbar', () => ({
 }));
 
 jest.mock("../../img/daredevil.webp", () => ({
-  __esModule: true, // this property makes it work
+  __esModule: true,
   default: "test-file-stub",
 }));
 
 jest.mock("../../img/morbius.webp", () => ({
-  __esModule: true, // this property makes it work
+  __esModule: true,
   default: "test-file-stub",
 }));
 
 jest.mock("../../img/GirlUsingLaptop.webp", () => ({
-  __esModule: true, // this property makes it work
+  __esModule: true,
   default: "test-file-stub",
 }));
 

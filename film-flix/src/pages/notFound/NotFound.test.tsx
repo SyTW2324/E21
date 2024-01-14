@@ -5,12 +5,10 @@ describe("NotFound Component", () => {
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
-    // Configurar el componente antes de cada prueba
     wrapper = shallow(<NotFound />);
   });
 
   it("renders without crashing", () => {
-    // Verificar que el componente se renderiza correctamente
     expect(wrapper.exists()).toBe(true);
   });
 
@@ -19,9 +17,4 @@ describe("NotFound Component", () => {
     expect(wrapper.find("p").length).toBe(2);
     expect(wrapper.find("a").length).toBe(1);
   });
-
-  // Después de cada prueba, limpia el componente
-  // afterEach(() => {
-  //     wrapper.unmount();
-  // });
 });

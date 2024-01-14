@@ -2,9 +2,8 @@ import { shallow, ShallowWrapper } from 'enzyme';
 import ForgotPassword from "./ForgotPassword";
 import { useNavigate } from 'react-router-dom';
 
-// Mockear useNavigate
 jest.mock("react-router-dom", () => ({
-  ...jest.requireActual("react-router-dom"), // Mantén las implementaciones no mockeadas
+  ...jest.requireActual("react-router-dom"), 
   useNavigate: jest.fn(),
 }));
 
