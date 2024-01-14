@@ -17,13 +17,13 @@ export default function Episodes({ content }: { content: Series | Movies}) {
     content && "seasons" in content && (
       <div>
         <div className="flex justify-center space-x-4 pt-8">
-          {content.seasons.map((season: any) => (
+          {content.seasons.map((season: any, index: number) => (
             <button
               key={season.season}
-              className="text-white hover:text-slate-300 focus:outline-none"
-              onClick={() => handleSeasonClick(season.season)} // Define esta función según tus necesidades
+              className={`text-white text-xl ${currentSeason === index + 1 ? "text-blue-400" : "hover:text-blue-400"} focus:outline-none`}
+              onClick={() => handleSeasonClick(index + 1)}
             >
-              Season {season.season}
+              Season {index + 1}
             </button>
           ))}
         </div>
