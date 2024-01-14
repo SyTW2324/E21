@@ -22,7 +22,7 @@ export default function Login() {
       error_message = errorMessage;
       setShowAlert(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -41,7 +41,7 @@ export default function Login() {
       });
 
       if (!token.ok) {
-        throw new Error(`Error en la solicitud: ${token.statusText}`);
+        throw new Error("401");
       }
 
       const tokenJSON = await token.json();
@@ -54,7 +54,13 @@ export default function Login() {
 
       navigate("/profile");
     } catch (error: any) {
-      error_message = error.message;
+      if (error.message === "401") {
+        error_message = "Email or password incorrect";
+      } else if (error.message === "500") {
+        error_message = "Internal server error";
+      } else {
+        error_message = error.message;
+      }
       setShowAlert(true);
     }
   };
@@ -72,9 +78,7 @@ export default function Login() {
             />
           </a>
           <a href={"/"}>
-            <h2
-              className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-            >
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
               Login
             </h2>
           </a>

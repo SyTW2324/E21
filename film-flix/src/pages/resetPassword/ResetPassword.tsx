@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 import "../../index.css";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useParams } from "react-router-dom";
@@ -19,36 +19,37 @@ export default function ResetPassword() {
 
   useEffect(() => {
     const checkToken = async () => {
-      const response = await fetch(`${HOST}/api/user/reset-password/check-token`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          resetToken,
-        }),
-      });
+      const response = await fetch(
+        `${HOST}/api/user/reset-password/check-token`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            resetToken,
+          }),
+        }
+      );
 
       if (!response.ok) {
-        navigate("/login")
+        navigate("/login");
       }
 
       const responseJSON = await response.json();
 
       if (!responseJSON.valid) {
-        navigate("/login")
+        navigate("/login");
       }
     };
 
     checkToken();
   }, [resetToken, navigate]);
 
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
     try {
-      // Comprobación de que las contraseñas coinciden
       if (passwordHash !== repeatPassword) {
         setShowAlert(true);
         throw new Error("Passwords do not match");
@@ -83,9 +84,7 @@ export default function ResetPassword() {
           />
         </a>
         <a href={"/"}>
-          <h2
-            className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-          >
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
             Reset Password
           </h2>
         </a>

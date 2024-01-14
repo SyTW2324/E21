@@ -22,12 +22,10 @@ describe("Profile Component", () => {
   let wrapper: ShallowWrapper;
 
   beforeEach(() => {
-    // Configurar el componente antes de cada prueba
     wrapper = shallow(<Profile />);
   });
 
   it("renders without crashing", () => {
-    // Verificar que el componente se renderiza correctamente
     expect(wrapper.exists()).toBe(true);
   });
 
@@ -39,7 +37,6 @@ describe("Profile Component", () => {
     expect(wrapper.find("label").length).toBe(4);
   });
 
-  // Después de cada prueba, limpia el componente
   afterEach(() => {
       wrapper.unmount();
   });
