@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { HOST } from "src/const";
 
 const DropdownComponent = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: () => void }) => {
-  // const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userName, setUserName] = useState("");
   const [userEmail, setUserEmail] = useState("");
 
@@ -13,10 +12,6 @@ const DropdownComponent = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: ()
   const toggleDropdown = () => {
     onToggle();
   };
-
-  // const toggleDropdown = () => {
-  //   setIsDropdownOpen((prevState) => !prevState);
-  // };
 
   async function getUserInfo() {
     try {
@@ -35,11 +30,9 @@ const DropdownComponent = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: ()
       });
 
       if (!responseUser.ok) {
-        console.log(`Error en la solicitud: ${responseUser.statusText}`);
         navigate("/login");
       }
 
-      // Obtención del nombre de usuario a partir del token
       return await responseUser.json();
     } catch (error: any) {
       console.log(error.message);
@@ -51,7 +44,7 @@ const DropdownComponent = ({ isOpen, onToggle }: { isOpen: boolean, onToggle: ()
       setUserName(dataUser.username);
       setUserEmail(dataUser.email);
     });
-  }, []);
+  });
 
   return (
     <div className="relative">

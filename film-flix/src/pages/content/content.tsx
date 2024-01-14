@@ -4,7 +4,7 @@ import { Series } from "../../types/series";
 import { Movies } from "../../types/movies";
 import { Link } from "react-router-dom";
 
-import { HOST } from "../../const"
+import { HOST } from "../../const";
 
 import React from "react";
 
@@ -59,7 +59,6 @@ function FilterButton({
       className=" rounded-full text-sm font-medium px-3 py-1.5 text-center me-2 mb-2
                   border border-gray-900 bg-gray-900 hover:border-gray-700 
                   text-white focus:ring-gray-800"
-      // Reset content and Show only action content
       onClick={() => {
         onClick(filtered);
       }}

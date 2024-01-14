@@ -1,6 +1,5 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import DropdownComponent from './dropdown';
-import { useState } from "react";
 
 const isOpen: boolean = false;
 const onToggle = jest.fn();

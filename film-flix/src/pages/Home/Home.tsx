@@ -1,6 +1,6 @@
-import Navbar from '../../components/navbar';
-import Footer from '../../components/footer';
-import React from 'react';
+import Navbar from "../../components/navbar";
+import Footer from "../../components/footer";
+import React from "react";
 
 import { HOST } from "src/const";
 
@@ -69,49 +69,48 @@ export default function Home() {
   const Morbius = require("../../img/morbius.webp") as string;
   const girlWithLaptop = require("../../img/GirlUsingLaptop.webp") as string;
 
-  const [numUsers, setNumUsers] =   React.useState(0);
+  const [numUsers, setNumUsers] = React.useState(0);
   const [numMovies, setNumMovies] = React.useState(0);
   const [numSeries, setNumSeries] = React.useState(0);
 
   React.useEffect(() => {
-    // obtener el número de usuarios de la plataforma
     getNumUsers().then((data) => {
       setNumUsers(Object.keys(data.users).length);
     });
 
-    // Obtener el número de películas de la plataforma
     getNumMovies().then((data) => {
       setNumMovies(Object.keys(data.movies).length);
     });
 
-    // Obtener el número de series de la plataforma
     getNumSeries().then((data) => {
       setNumSeries(Object.keys(data.series).length);
     });
   }, []);
 
   return (
-    <div className='flex flex-col w-full h-screen'>
+    <div className="flex flex-col w-full h-screen">
       <Navbar />
-      <div className='flex-grow'>
+      <div className="flex-grow">
         <section className="bg-gray-900 pt-4 pb-28">
-          <div className="max-w-screen-xl gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 
-                          md:grid md:grid-cols-1 mt-16">
+          <div
+            className="max-w-screen-xl gap-16 items-center lg:mx-auto mx-4 lg:grid lg:grid-cols-2 
+                          md:grid md:grid-cols-1 mt-16"
+          >
             <div className="font-light sm:text-lg text-gray-400">
               <h2 className="mb-4 text-3xl tracking-tight font-extrabold text-white">
                 Find your next favorite movie or TV show.
               </h2>
               <p className="mb-4">
                 We are Filmflix and we are here to help you find your next
-                favorite movie or TV show. On our website you can check data about
-                movies and TV shows, such as their ratings, release date, cast,
-                crew, and more. You can also save your favorite movies and TV
-                shows to your profile.
+                favorite movie or TV show. On our website you can check data
+                about movies and TV shows, such as their ratings, release date,
+                cast, crew, and more. You can also save your favorite movies and
+                TV shows to your profile.
               </p>
               <p>
                 We have a wide variety of movies and TV shows for you search
-                through. We have movies and TV shows from all genres and from all
-                over the world.
+                through. We have movies and TV shows from all genres and from
+                all over the world.
               </p>
             </div>
             <div className="mt-8">

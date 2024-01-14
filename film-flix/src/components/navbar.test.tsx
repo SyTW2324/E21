@@ -1,4 +1,4 @@
-import { shallow, ShallowWrapper } from 'enzyme';
+import { shallow } from 'enzyme';
 import Navbar from './navbar';
 
 jest.mock("react-router-dom", () => ({

@@ -22,7 +22,7 @@ export default function Login() {
       error_message = errorMessage;
       setShowAlert(true);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSubmit = async (e: any) => {
@@ -78,9 +78,7 @@ export default function Login() {
             />
           </a>
           <a href={"/"}>
-            <h2
-              className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white"
-            >
+            <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
               Login
             </h2>
           </a>
