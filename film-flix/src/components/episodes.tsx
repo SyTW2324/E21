@@ -14,7 +14,7 @@ export default function Episodes({ content }: { content: Series | Movies }) {
     // eslint-disable-next-line no-mixed-operators
     (content && "seasons" in content && (
       <div>
-        <div className="flex justify-center space-x-4 pt-8">
+        <div className="flex justify-center space-x-4 mx-3 pt-8">
           {content.seasons.map((season: any, index: number) => (
             <button
               key={season.season}
