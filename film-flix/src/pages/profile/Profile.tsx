@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Alert from "../../components/alert";
-import Navbar from "../../components/navbar"
-import Footer from "../../components/footer"
+import Alert from "../../components/alert/alert";
+import Navbar from "../../components/navbar/navbar"
+import Footer from "../../components/footer/footer"
 import { User } from "../../types/user";
 
 import { HOST } from "src/const";
@@ -63,7 +63,7 @@ export default function Profile() {
           {data.username}
         </h2>
         <p className="mb-8 lg:mb-16 font-light text-center text-sky-200 sm:text-xl">
-          "Welcome to your personal profile! Here you can take a look at your data and modify it if you wish."
+          "Welcome to your personal profile! Here you can take a look at your data and your favorite movies and series."
         </p>
         <div className="space-y-8">
           <div>

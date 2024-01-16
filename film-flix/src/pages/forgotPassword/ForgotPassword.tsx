@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { HOST } from "src/const";
 
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 import "../../index.css";
 
 let error_message: string = "";
@@ -27,9 +27,12 @@ export default function ForgotPassword() {
           email,
         }),
       });
+      console.log(response);
 
       if (response.ok) {
         navigate("/login");
+      } else {
+        throw new Error(`Introduced email is not registered. Try again with a valid email.`);
       }
     } catch (error: any) {
       error_message = error.message;
@@ -39,8 +42,8 @@ export default function ForgotPassword() {
 
   return (
     <div className="flex flex-col w-full h-screen justify-center">
-      {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        {alertShow && <Alert message={error_message} />}
         <a href={"/"}>
           <img
             className="mx-auto h-24 w-auto"
@@ -54,7 +57,7 @@ export default function ForgotPassword() {
           </h2>
         </a>
       </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 mx-3 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <div className="flex items-center justify-between">

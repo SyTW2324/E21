@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../index.css";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useParams } from "react-router-dom";
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 
 import { HOST } from "src/const";
 
@@ -89,7 +89,7 @@ export default function ResetPassword() {
           </h2>
         </a>
       </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 mx-3 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <div className="flex items-center justify-between">

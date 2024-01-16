@@ -6,7 +6,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 
 import { HOST } from "src/const";
 
@@ -49,7 +49,11 @@ export default function SignUp() {
         }),
       });
 
-      navigate("/login");
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        throw new Error(`Error: ${response.statusText}`);
+      }
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);
@@ -59,8 +63,8 @@ export default function SignUp() {
   const logo = require("../../img/FilmflixLogo.png") as string;
   return (
     <div className="flex flex-col w-full h-screen justify-center">
-      {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        {alertShow && <Alert message={error_message} />}
         <a href={"/"}>
           <img
             className="mx-auto h-24 w-auto"
@@ -74,7 +78,7 @@ export default function SignUp() {
           </h2>
         </a>
       </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 mx-4 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <label
@@ -140,6 +144,7 @@ export default function SignUp() {
                 placeholder="Type your password"
                 required
                 value={passwordHash}
+                minLength={8}
                 onChange={(e) => setPasswordHash(e.target.value)}
                 className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />

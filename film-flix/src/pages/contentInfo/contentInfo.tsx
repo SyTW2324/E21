@@ -1,7 +1,7 @@
-import Footer from "../../components/footer";
-import Navbar from "../../components/navbar";
-import Episodes from "../../components/episodes";
-import Comments from "../../components/comments";
+import Footer from "../../components/footer/footer";
+import Navbar from "../../components/navbar/navbar";
+import Episodes from "../../components/episodes/episodes";
+import Comments from "../../components/comments/comments";
 import PlatformLogos from "src/streamingPlatformIcons/platformLogos";
 
 import {
