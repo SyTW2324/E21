@@ -18,11 +18,11 @@ export default function Episodes({ content }: { content: Series | Movies }) {
           {content.seasons.map((season: any, index: number) => (
             <button
               key={season.season}
-              className={`text-white text-xl ${
-                currentSeason === index + 1
-                  ? "text-blue-400"
-                  : "hover:text-blue-400"
-              } focus:outline-none`}
+              className={
+                `text-xl 
+                ${ currentSeason === index + 1 ? "text-blue-400" : "text-white hover:text-blue-400"} 
+                focus:outline-none`
+              }
               onClick={() => handleSeasonClick(index + 1)}
             >
               Season {index + 1}
