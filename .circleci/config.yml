@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   slack: circleci/slack@4.9.3
-#  codecov: codecov/codecov@3.3.0
 
 jobs:
   build:
@@ -29,12 +28,6 @@ jobs:
           command: |
             cd film-flix
             pnpm test
-
-#      - codecov/upload:
-#          file: ~/film-flix/coverage/lcov.info
-#          flags: codecov/project
-#          name: codecov-coverage-upload
-#          token: $CODECOV_TOKEN
 
   notify:
     docker:

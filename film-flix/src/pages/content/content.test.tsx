@@ -1,15 +1,15 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import Content from './content';
 
-jest.mock('../../components/footer', () => ({
+jest.mock('../../components/footer/footer', () => ({
   __esModule: true,
-  ...jest.requireActual('../../components/footer'),
+  ...jest.requireActual('../../components/footer/footer'),
   footer: jest.fn()
 }));
 
-jest.mock('../../components/navbar', () => ({
+jest.mock('../../components/navbar/navbar', () => ({
   __esModule: true,
-  ...jest.requireActual('../../components/navbar'),
+  ...jest.requireActual('../../components/navbar/navbar'),
   footer: jest.fn()
 }));
 
