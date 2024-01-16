@@ -1,6 +1,6 @@
 import { shallow, ShallowWrapper } from 'enzyme';
 import Episodes from './episodes';
-import { Movies } from "../types/movies";
+import { Movies } from "../../types/movies";
 
 
 describe('Episodes component', () => {

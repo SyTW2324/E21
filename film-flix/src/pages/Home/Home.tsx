@@ -1,5 +1,5 @@
-import Navbar from "../../components/navbar";
-import Footer from "../../components/footer";
+import Navbar from "../../components/navbar/navbar";
+import Footer from "../../components/footer/footer";
 import React from "react";
 
 import { HOST } from "src/const";

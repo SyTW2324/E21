@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Alert from "../../components/alert";
-import Navbar from "../../components/navbar"
-import Footer from "../../components/footer"
+import Alert from "../../components/alert/alert";
+import Navbar from "../../components/navbar/navbar"
+import Footer from "../../components/footer/footer"
 import { User } from "../../types/user";
 
 import { HOST } from "src/const";

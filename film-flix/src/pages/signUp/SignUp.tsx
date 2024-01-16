@@ -6,7 +6,7 @@ import {
   UserIcon,
 } from "@heroicons/react/24/outline";
 import { useNavigate } from "react-router-dom";
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 
 import { HOST } from "src/const";
 

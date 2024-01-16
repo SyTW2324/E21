@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { HOST } from "src/const";
 
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 import "../../index.css";
 
 let error_message: string = "";

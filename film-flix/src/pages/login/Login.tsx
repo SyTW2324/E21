@@ -2,7 +2,7 @@ import "../../index.css";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import { LockClosedIcon, UserIcon } from "@heroicons/react/24/outline";
 import { useState, useEffect } from "react";
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 
 import { HOST } from "src/const";
 

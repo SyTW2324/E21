@@ -1,5 +1,5 @@
-import { Series } from "../types/series";
-import { Movies } from "../types/movies";
+import { Series } from "../../types/series";
+import { Movies } from "../../types/movies";
 
 import React from "react";
 
