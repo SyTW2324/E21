@@ -64,7 +64,7 @@ export default function SignUp() {
   return (
     <div className="flex flex-col w-full h-screen justify-center">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-      {alertShow && <Alert message={error_message} />}
+        {alertShow && <Alert message={error_message} />}
         <a href={"/"}>
           <img
             className="mx-auto h-24 w-auto"
