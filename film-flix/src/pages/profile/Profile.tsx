@@ -63,7 +63,7 @@ export default function Profile() {
           {data.username}
         </h2>
         <p className="mb-8 lg:mb-16 font-light text-center text-sky-200 sm:text-xl">
-          "Welcome to your personal profile! Here you can take a look at your data and modify it if you wish."
+          "Welcome to your personal profile! Here you can take a look at your data and your favorite movies and series."
         </p>
         <div className="space-y-8">
           <div>
