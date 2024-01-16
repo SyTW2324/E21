@@ -27,9 +27,12 @@ export default function ForgotPassword() {
           email,
         }),
       });
+      console.log(response);
 
       if (response.ok) {
         navigate("/login");
+      } else {
+        throw new Error(`Introduced email is not registered. Try again with a valid email.`);
       }
     } catch (error: any) {
       error_message = error.message;
@@ -39,8 +42,8 @@ export default function ForgotPassword() {
 
   return (
     <div className="flex flex-col w-full h-screen justify-center">
-      {alertShow && <Alert message={error_message} />}
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        {alertShow && <Alert message={error_message} />}
         <a href={"/"}>
           <img
             className="mx-auto h-24 w-auto"
