@@ -171,6 +171,7 @@ export default function SignUp() {
                 placeholder="Repeat your password"
                 required
                 value={repeatPassword}
+                minLength={8}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
