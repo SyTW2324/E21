@@ -12,7 +12,7 @@ export const JWT_SECRET = 'mysecretkey';
 let HOST = 'http://localhost:3000';
 
 if (process.env.NODE_ENV === 'production') {
-  HOST = '';
+  HOST = 'https://film-flix-8xkr.onrender.com';
 }
 
 const router = express.Router();
