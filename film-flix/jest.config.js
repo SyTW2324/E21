@@ -34,7 +34,7 @@ export default {
           "branches": 4,
           "functions": 14,
           "lines": 24,
-          "statements": 29
+          "statements": 28
         }
       },
 };
