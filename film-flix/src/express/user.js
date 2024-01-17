@@ -9,6 +9,12 @@ import jwt from "jsonwebtoken";
 
 export const JWT_SECRET = 'mysecretkey';
 
+let HOST = 'http://localhost:3000';
+
+if (process.env.NODE_ENV === 'production') {
+  HOST = '';
+}
+
 const router = express.Router();
 
 // Ruta para crear un nuevo usuario (REGISTER)
@@ -166,7 +172,7 @@ router.put("/forgot-password", async (req, res) => {
     const token = jwt.sign({ _id: user._id, username: user.username,  }, JWT_SECRET, {
       expiresIn: "20m",
     });
-    verificationLink = `http://localhost:3000/reset-password/${token}`;
+    verificationLink = `${HOST}/reset-password/${token}`;
     user.resetToken = token;
   } catch (error) {
     return res.status(400).json({ message: "Username not found" });
