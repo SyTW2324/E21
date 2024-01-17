@@ -1,10 +1,10 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import DropdownComponent from "./dropdown";
-import MobileMenuButton from "./mobileButton";
+import DropdownComponent from "../dropdown/dropdown";
+import MobileMenuButton from "../mobileButton/mobileButton";
 import { useState } from "react";
 
 export default function Navbar() {
-  const logo = require("../img/FilmflixLogo.png") as string;
+  const logo = require("../../img/FilmflixLogo.png") as string;
 
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);

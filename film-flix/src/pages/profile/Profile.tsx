@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 
-import Alert from "../../components/alert";
-import Navbar from "../../components/navbar"
-import Footer from "../../components/footer"
+import Alert from "../../components/alert/alert";
+import Navbar from "../../components/navbar/navbar"
+import Footer from "../../components/footer/footer"
 import { User } from "../../types/user";
 
 import { HOST } from "src/const";
@@ -63,8 +63,7 @@ export default function Profile() {
           {data.username}
         </h2>
         <p className="mb-8 lg:mb-16 font-light text-center text-sky-200 sm:text-xl">
-          ¡Bienvenido/a a tu perfil personal! Aquí podrás echar un vistazo a tus
-          datos y modificarlos si lo deseas
+          "Welcome to your personal profile! Here you can take a look at your data and your favorite movies and series."
         </p>
         <div className="space-y-8">
           <div>
@@ -98,8 +97,8 @@ export default function Profile() {
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
               {
-              data.favoriteMovies.map((movie: any, index: any) => (
-                <Link to={`/series/${movie._id}`} key={movie._id}>
+              data.favoriteMovies.map((movie: any) => (
+                <Link to={`/movies/${movie._id}`} key={movie._id}>
                   <div className="text-white">
                     <img
                       className="object-cover h-80 rounded-lg"
@@ -123,7 +122,7 @@ export default function Profile() {
               Favorite Series
             </label>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
-              {data.favoriteSeries.map((serie: any, index: any) => (
+              {data.favoriteSeries.map((serie: any) => (
                 <Link to={`/series/${serie._id}`} key={serie._id}>
                   <div className="text-white">
                     <img

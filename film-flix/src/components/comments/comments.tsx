@@ -1,6 +1,6 @@
 import React from "react";
 import { useParams } from "react-router-dom";
-import { getComments } from "../pages/contentInfo/functions";
+import { getComments } from "../../pages/contentInfo/functions";
 
 export default function Comments({
   type,

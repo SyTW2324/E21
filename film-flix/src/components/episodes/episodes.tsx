@@ -1,5 +1,5 @@
-import { Series } from "../types/series";
-import { Movies } from "../types/movies";
+import { Series } from "../../types/series";
+import { Movies } from "../../types/movies";
 
 import React from "react";
 
@@ -14,15 +14,15 @@ export default function Episodes({ content }: { content: Series | Movies }) {
     // eslint-disable-next-line no-mixed-operators
     (content && "seasons" in content && (
       <div>
-        <div className="flex justify-center space-x-4 pt-8">
+        <div className="flex justify-center space-x-4 mx-3 pt-8">
           {content.seasons.map((season: any, index: number) => (
             <button
               key={season.season}
-              className={`text-white text-xl ${
-                currentSeason === index + 1
-                  ? "text-blue-400"
-                  : "hover:text-blue-400"
-              } focus:outline-none`}
+              className={
+                `text-xl 
+                ${ currentSeason === index + 1 ? "text-blue-400" : "text-white hover:text-blue-400"} 
+                focus:outline-none`
+              }
               onClick={() => handleSeasonClick(index + 1)}
             >
               Season {index + 1}

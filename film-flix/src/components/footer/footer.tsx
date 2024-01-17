@@ -1,5 +1,5 @@
 export default function Footer() {
-  const logo = require("../img/FilmflixLogo.png") as string;
+  const logo = require("../../img/FilmflixLogo.png") as string;
   return (
     <div className="bg-gray-900">
       <footer className="text-gray-600 body-font bg-gray-900 mx-4">

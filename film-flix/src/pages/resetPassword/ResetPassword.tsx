@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import "../../index.css";
 import { LockClosedIcon } from "@heroicons/react/24/outline";
 import { useNavigate, useParams } from "react-router-dom";
-import Alert from "../../components/alert";
+import Alert from "../../components/alert/alert";
 
 import { HOST } from "src/const";
 
@@ -65,7 +65,12 @@ export default function ResetPassword() {
         }),
       });
 
-      navigate("/login");
+      if (!response.ok) {
+        throw new Error("Something went wrong");
+      } else {
+        navigate("/login");
+      }
+      
     } catch (error: any) {
       error_message = error.message;
       setShowAlert(true);
@@ -89,7 +94,7 @@ export default function ResetPassword() {
           </h2>
         </a>
       </div>
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+      <div className="mt-10 mx-3 sm:mx-auto sm:w-full sm:max-w-sm">
         <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
             <div className="flex items-center justify-between">
@@ -111,6 +116,7 @@ export default function ResetPassword() {
                 placeholder="Type your password"
                 required
                 value={passwordHash}
+                minLength={8}
                 onChange={(e) => setPasswordHash(e.target.value)}
                 className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
@@ -137,6 +143,7 @@ export default function ResetPassword() {
                 placeholder="Repeat your password"
                 required
                 value={repeatPassword}
+                minLength={8}
                 onChange={(e) => setRepeatPassword(e.target.value)}
                 className="w-full border-0 text-gray-300 bg-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-transparent sm:text-sm sm:leading-6"
               />
